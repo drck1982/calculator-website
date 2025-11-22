@@ -146,3 +146,84 @@ export const toolsByCategory: Record<string, CategoryData> = {
 export const getAllTools = (): ToolSummary[] => {
     return Object.values(toolsByCategory).flatMap(category => category.tools);
 };
+
+export interface ToolConfig {
+    id: string;
+    title: string;
+    description: string;
+    category: string;
+    categoryLink: string;
+    formTitle: string;
+    resultTitle: string;
+    content: {
+        what: string;
+        how: string;
+        formula: string;
+    };
+    faq: { question: string; answer: string }[];
+}
+
+export const toolConfigs: Record<string, ToolConfig> = {
+    'ny-salary-tax-calculator': {
+        id: 'ny-salary-tax-calculator',
+        title: 'New York Salary Tax Calculator',
+        description: 'Calculate your net pay in New York.',
+        category: 'Finance',
+        categoryLink: '/category/finance',
+        formTitle: 'Enter Your Salary',
+        resultTitle: 'Your Net Pay',
+        content: {
+            what: 'This calculator helps you estimate your take-home pay.',
+            how: 'Enter your gross salary and select your filing status.',
+            formula: 'Net Pay = Gross Pay - Taxes'
+        },
+        faq: [
+            { question: 'How accurate is this?', answer: 'It provides an estimate based on current tax brackets.' }
+        ]
+    },
+    'currency-converter': {
+        id: 'currency-converter',
+        title: 'Currency Converter',
+        description: 'Convert between major world currencies with real-time exchange rates.',
+        category: 'Finance',
+        categoryLink: '/category/finance',
+        formTitle: 'Convert Currency',
+        resultTitle: 'Conversion Result',
+        content: {
+            what: 'Convert amounts between different currencies.',
+            how: 'Select source and target currencies and enter the amount.',
+            formula: 'Amount * Exchange Rate'
+        },
+        faq: []
+    },
+    'length-converter': {
+        id: 'length-converter',
+        title: 'Length Converter',
+        description: 'Convert between different units of length.',
+        category: 'Conversion',
+        categoryLink: '/category/conversion',
+        formTitle: 'Convert Length',
+        resultTitle: 'Conversion Result',
+        content: {
+            what: 'Convert length measurements.',
+            how: 'Select units and enter value.',
+            formula: 'Unit conversion factors'
+        },
+        faq: []
+    },
+    'default': {
+        id: 'default',
+        title: 'Calculator',
+        description: 'A useful online calculator.',
+        category: 'General',
+        categoryLink: '/all-tools',
+        formTitle: 'Calculator',
+        resultTitle: 'Results',
+        content: {
+            what: 'This is a general purpose calculator.',
+            how: 'Enter your values.',
+            formula: 'N/A'
+        },
+        faq: []
+    }
+};

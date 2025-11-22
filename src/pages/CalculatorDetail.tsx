@@ -7,77 +7,16 @@ import { ContentSection } from '../components/calculator/ContentSection';
 import { FAQSection } from '../components/calculator/FAQSection';
 import { AdSlot } from '../components/common/AdSlot';
 import { RelatedCategories } from '../components/category/RelatedCategories';
-import { Printer, Calculator as CalcIcon, Calendar, Baby } from 'lucide-react';
-
-// Tool Configuration Types
-interface ToolConfig {
-    title: string;
-    description: string;
-    category: string;
-    categoryLink: string;
-    formTitle: string;
-    resultTitle: string;
-    content: {
-        what: React.ReactNode;
-        how: React.ReactNode;
-        formula: React.ReactNode;
-    };
-    faq: { question: string; answer: string }[];
-}
-
-const US_STATES = [
-    { code: 'AL', name: 'Alabama', taxRate: 0.04 },
-    { code: 'AK', name: 'Alaska', taxRate: 0.00 },
-    { code: 'AZ', name: 'Arizona', taxRate: 0.025 },
-    { code: 'AR', name: 'Arkansas', taxRate: 0.049 },
-    { code: 'CA', name: 'California', taxRate: 0.093 },
-    { code: 'CO', name: 'Colorado', taxRate: 0.044 },
-    { code: 'CT', name: 'Connecticut', taxRate: 0.0699 },
-    { code: 'DE', name: 'Delaware', taxRate: 0.066 },
-    { code: 'DC', name: 'District of Columbia', taxRate: 0.085 },
-    { code: 'FL', name: 'Florida', taxRate: 0.00 },
-    { code: 'GA', name: 'Georgia', taxRate: 0.0575 },
-    { code: 'HI', name: 'Hawaii', taxRate: 0.11 },
-    { code: 'ID', name: 'Idaho', taxRate: 0.058 },
-    { code: 'IL', name: 'Illinois', taxRate: 0.0495 },
-    { code: 'IN', name: 'Indiana', taxRate: 0.0323 },
-    { code: 'IA', name: 'Iowa', taxRate: 0.06 },
-    { code: 'KS', name: 'Kansas', taxRate: 0.057 },
-    { code: 'KY', name: 'Kentucky', taxRate: 0.045 },
-    { code: 'LA', name: 'Louisiana', taxRate: 0.0425 },
-    { code: 'ME', name: 'Maine', taxRate: 0.0715 },
-    { code: 'MD', name: 'Maryland', taxRate: 0.0575 },
-    { code: 'MA', name: 'Massachusetts', taxRate: 0.05 },
-    { code: 'MI', name: 'Michigan', taxRate: 0.0425 },
-    { code: 'MN', name: 'Minnesota', taxRate: 0.0985 },
-    { code: 'MS', name: 'Mississippi', taxRate: 0.05 },
-    { code: 'MO', name: 'Missouri', taxRate: 0.054 },
-    { code: 'MT', name: 'Montana', taxRate: 0.0675 },
-    { code: 'NE', name: 'Nebraska', taxRate: 0.0684 },
-    { code: 'NV', name: 'Nevada', taxRate: 0.00 },
-    { code: 'NH', name: 'New Hampshire', taxRate: 0.00 },
-    { code: 'NJ', name: 'New Jersey', taxRate: 0.1075 },
-    { code: 'NM', name: 'New Mexico', taxRate: 0.059 },
-    { code: 'NY', name: 'New York', taxRate: 0.0882 },
-    { code: 'NC', name: 'North Carolina', taxRate: 0.0475 },
-    { code: 'ND', name: 'North Dakota', taxRate: 0.029 },
-    { code: 'OH', name: 'Ohio', taxRate: 0.0399 },
-    { code: 'OK', name: 'Oklahoma', taxRate: 0.0475 },
-    { code: 'OR', name: 'Oregon', taxRate: 0.099 },
-    { code: 'PA', name: 'Pennsylvania', taxRate: 0.0307 },
-    { code: 'RI', name: 'Rhode Island', taxRate: 0.0599 },
-    { code: 'SC', name: 'South Carolina', taxRate: 0.07 },
-    { code: 'SD', name: 'South Dakota', taxRate: 0.00 },
-    { code: 'TN', name: 'Tennessee', taxRate: 0.00 },
-    { code: 'TX', name: 'Texas', taxRate: 0.00 },
-    { code: 'UT', name: 'Utah', taxRate: 0.0485 },
-    { code: 'VT', name: 'Vermont', taxRate: 0.0875 },
-    { code: 'VA', name: 'Virginia', taxRate: 0.0575 },
-    { code: 'WA', name: 'Washington', taxRate: 0.00 },
-    { code: 'WV', name: 'West Virginia', taxRate: 0.065 },
-    { code: 'WI', name: 'Wisconsin', taxRate: 0.0765 },
-    { code: 'WY', name: 'Wyoming', taxRate: 0.00 }
-];
+import {
+    Calculator as CalcIcon,
+    Baby,
+    Calendar,
+    Printer
+} from 'lucide-react';
+import { toolConfigs } from '../data/tools';
+import { US_STATES } from '../data/us_states';
+import { SEO } from '../components/common/SEO';
+import { Helmet } from 'react-helmet-async';
 
 const CURRENCIES = [
     { code: 'USD', name: 'US Dollar' },
@@ -96,313 +35,37 @@ const CURRENCIES = [
     { code: 'MXN', name: 'Mexican Peso' },
     { code: 'BRL', name: 'Brazilian Real' },
     { code: 'RUB', name: 'Russian Ruble' },
-    { code: 'ZAR', name: 'South African Rand' },
+    { code: 'ZAR', name: 'South African Rand' }
 ];
 
 const LENGTH_UNITS = [
     { name: 'Meters', factor: 1 },
-    { name: 'Kilometers', factor: 1000 },
-    { name: 'Centimeters', factor: 0.01 },
-    { name: 'Millimeters', factor: 0.001 },
-    { name: 'Miles', factor: 1609.344 },
-    { name: 'Yards', factor: 0.9144 },
     { name: 'Feet', factor: 0.3048 },
     { name: 'Inches', factor: 0.0254 },
+    { name: 'Centimeters', factor: 0.01 },
+    { name: 'Kilometers', factor: 1000 },
+    { name: 'Miles', factor: 1609.34 },
+    { name: 'Yards', factor: 0.9144 }
 ];
-
-// Mock Data Configuration
-const toolConfigs: Record<string, ToolConfig> = {
-    'us-salary-tax-calculator': {
-        title: 'US Salary Tax Calculator 2025',
-        description: 'Estimate your 2025 take-home pay after federal, state, and local taxes.',
-        category: 'Salary & Tax',
-        categoryLink: '/category/salary-tax',
-        formTitle: 'Enter your salary details',
-        resultTitle: 'Your estimated take-home pay',
-        content: {
-            what: <p>This Salary Tax Calculator helps you estimate your actual take-home pay. It calculates how much of your gross income will go towards federal, state, and local taxes.</p>,
-            how: <ol><li>Enter your Gross Pay</li><li>Select Pay Frequency</li><li>Choose Filing Status</li><li>Select State</li></ol>,
-            formula: <p>Net Pay = Gross Pay - Federal Tax - State Tax - Local Tax - FICA Tax</p>
-        },
-        faq: [
-            { question: "Does this include 401(k)?", answer: "Not yet, coming soon." },
-            { question: "Are rates current?", answer: "Yes, updated for 2025." }
-        ]
-    },
-    'ny-salary-tax-calculator': {
-        title: 'US New York Salary Tax Calculator 2025',
-        description: 'Estimate your 2025 take-home pay in New York after federal, state, and city taxes.',
-        category: 'Salary & Tax',
-        categoryLink: '/category/salary-tax',
-        formTitle: 'Enter your salary details',
-        resultTitle: 'Your estimated take-home pay',
-        content: {
-            what: <p>This New York Salary Tax Calculator helps you estimate your actual take-home pay. It calculates how much of your gross income will go towards federal, state, and local taxes.</p>,
-            how: <ol><li>Enter your Gross Pay</li><li>Select Pay Frequency</li><li>Choose Filing Status</li><li>Select State</li></ol>,
-            formula: <p>Net Pay = Gross Pay - Federal Tax - State Tax - Local Tax - FICA Tax</p>
-        },
-        faq: [
-            { question: "Does this include 401(k)?", answer: "Not yet, coming soon." },
-            { question: "Are rates current?", answer: "Yes, updated for 2025." }
-        ]
-    },
-    'hourly-to-salary': {
-        title: 'Hourly to Salary Converter',
-        description: 'Convert your hourly wage to an equivalent annual salary.',
-        category: 'Salary & Tax',
-        categoryLink: '/category/salary-tax',
-        formTitle: 'Enter wage details',
-        resultTitle: 'Annual Salary Equivalent',
-        content: {
-            what: <p>Easily convert hourly wages to yearly salary, monthly pay, and weekly checks.</p>,
-            how: <ol><li>Enter Hourly Wage</li><li>Enter Hours per Week</li><li>Click Calculate</li></ol>,
-            formula: <p>Annual = Hourly Rate * Hours/Week * 52</p>
-        },
-        faq: []
-    },
-    'mortgage-calculator': {
-        title: 'Mortgage Payment Calculator',
-        description: 'Calculate your monthly mortgage payments including principal, interest, taxes, and insurance.',
-        category: 'Loans & Debt',
-        categoryLink: '/category/loans-debt',
-        formTitle: 'Enter loan details',
-        resultTitle: 'Monthly Payment Breakdown',
-        content: {
-            what: <p>Use this calculator to estimate your monthly mortgage payment. It factors in the loan amount, interest rate, and loan term to give you a clear picture of your housing costs.</p>,
-            how: <ol><li>Enter Home Price</li><li>Enter Down Payment</li><li>Set Interest Rate</li><li>Choose Loan Term</li></ol>,
-            formula: <p>M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1 ]</p>
-        },
-        faq: [
-            { question: "What is PMI?", answer: "Private Mortgage Insurance, usually required if down payment is less than 20%." },
-            { question: "Does this include property tax?", answer: "Yes, if you enter the estimated tax rate." }
-        ]
-    },
-    'auto-loan-calculator': {
-        title: 'Auto Loan Calculator',
-        description: 'Estimate your monthly car loan payments and total interest cost.',
-        category: 'Loans & Debt',
-        categoryLink: '/category/loans-debt',
-        formTitle: 'Enter car loan details',
-        resultTitle: 'Monthly Car Payment',
-        content: {
-            what: <p>Find out how much that new car will really cost you per month. This tool helps you compare loan offers and terms.</p>,
-            how: <ol><li>Enter Car Price</li><li>Enter Down Payment / Trade-in</li><li>Set Interest Rate</li><li>Choose Loan Term (months)</li></ol>,
-            formula: <p>Standard amortization formula applied to monthly periods.</p>
-        },
-        faq: [
-            { question: "Should I take a longer loan term?", answer: "Longer terms lower monthly payments but increase total interest paid." }
-        ]
-    },
-    'compound-interest-calculator': {
-        title: 'Compound Interest Calculator',
-        description: 'See how your investments grow over time with the power of compound interest.',
-        category: 'Investment',
-        categoryLink: '/category/investment',
-        formTitle: 'Enter investment details',
-        resultTitle: 'Future Value Projection',
-        content: {
-            what: <p>Compound interest is interest calculated on the initial principal, which also includes all of the accumulated interest. This calculator shows how money grows over time.</p>,
-            how: <ol><li>Enter Initial Investment</li><li>Enter Monthly Contribution</li><li>Set Interest Rate</li><li>Choose Time Period</li></ol>,
-            formula: <p>A = P(1 + r/n)^(nt)</p>
-        },
-        faq: [
-            { question: "What is a good interest rate?", answer: "The S&P 500 historically returns about 7-10% annually adjusted for inflation." }
-        ]
-    },
-    'bmi-calculator': {
-        title: 'BMI Calculator',
-        description: 'Calculate your Body Mass Index (BMI) to check if you are at a healthy weight.',
-        category: 'Health',
-        categoryLink: '/category/life-health',
-        formTitle: 'Enter your height and weight',
-        resultTitle: 'Your BMI Score',
-        content: {
-            what: <p>Body Mass Index (BMI) is a simple index of weight-for-height that is commonly used to classify underweight, overweight and obesity in adults.</p>,
-            how: <ol><li>Enter Height (ft/in or cm)</li><li>Enter Weight (lbs or kg)</li><li>Click Calculate</li></ol>,
-            formula: <p>BMI = kg/m²</p>
-        },
-        faq: [
-            { question: "Is BMI accurate for athletes?", answer: "BMI may overestimate body fat in athletes and others who have a muscular build." }
-        ]
-    },
-    'calorie-calculator': {
-        title: 'Calorie Calculator',
-        description: 'Estimate the number of calories you need to eat daily to maintain, lose, or gain weight.',
-        category: 'Health',
-        categoryLink: '/category/health',
-        formTitle: 'Enter your details',
-        resultTitle: 'Daily Calorie Needs',
-        content: {
-            what: <p>This calculator uses the Mifflin-St Jeor equation to estimate your Basal Metabolic Rate (BMR) and daily calorie needs based on your activity level.</p>,
-            how: <ol><li>Enter Age, Gender, Height, Weight</li><li>Select Activity Level</li><li>Click Calculate</li></ol>,
-            formula: <p>BMR = 10W + 6.25H - 5A + 5 (Men) / -161 (Women)</p>
-        },
-        faq: []
-    },
-    'pregnancy-calculator': {
-        title: 'Pregnancy Calculator',
-        description: 'Estimate your due date based on your last menstrual period.',
-        category: 'Health',
-        categoryLink: '/category/health',
-        formTitle: 'Enter dates',
-        resultTitle: 'Estimated Due Date',
-        content: {
-            what: <p>This calculator estimates your due date based on the date of your last menstrual period (LMP) and the average length of your cycle.</p>,
-            how: <ol><li>Select First Day of Last Period</li><li>Enter Cycle Length (days)</li><li>Click Calculate</li></ol>,
-            formula: <p>Naegele's Rule: LMP + 7 days - 3 months + 1 year</p>
-        },
-        faq: []
-    },
-    'inflation-calculator': {
-        title: 'Inflation Calculator',
-        description: 'Calculate the changing value of money over time due to inflation.',
-        category: 'Finance',
-        categoryLink: '/category/investment',
-        formTitle: 'Enter inflation details',
-        resultTitle: 'Purchasing Power Result',
-        content: {
-            what: <p>This calculator measures the buying power of the dollar over time. Enter a start year and amount to see what it's worth in today's dollars.</p>,
-            how: <ol><li>Enter Amount</li><li>Enter Start Year</li><li>Enter End Year</li></ol>,
-            formula: <p>Based on CPI (Consumer Price Index) data.</p>
-        },
-        faq: [
-            { question: "What data source is used?", answer: "We use historical CPI data from the Bureau of Labor Statistics." }
-        ]
-    },
-    'currency-converter': {
-        title: 'Currency Converter',
-        description: 'Convert between different currencies using real-time exchange rates.',
-        category: 'Conversion',
-        categoryLink: '/category/conversion',
-        formTitle: 'Enter amount and currencies',
-        resultTitle: 'Conversion Result',
-        content: {
-            what: <p>This tool allows you to convert between major world currencies. It uses up-to-date exchange rates to provide accurate conversions.</p>,
-            how: <ol><li>Enter Amount</li><li>Select From Currency</li><li>Select To Currency</li><li>Click Calculate</li></ol>,
-            formula: <p>Result = Amount * Exchange Rate</p>
-        },
-        faq: [
-            { question: "How often are rates updated?", answer: "Rates are updated daily based on market closing prices." }
-        ]
-    },
-    'length-converter': {
-        title: 'Length Converter',
-        description: 'Convert between different units of length (meters, feet, inches, etc.).',
-        category: 'Conversion',
-        categoryLink: '/category/conversion',
-        formTitle: 'Enter length details',
-        resultTitle: 'Converted Length',
-        content: {
-            what: <p>Easily convert between metric and imperial length units. Useful for construction, education, and daily tasks.</p>,
-            how: <ol><li>Enter Length Value</li><li>Select From Unit</li><li>Select To Unit</li></ol>,
-            formula: <p>1 meter = 3.28084 feet</p>
-        },
-        faq: []
-    },
-    'age-calculator': {
-        title: 'Age Calculator',
-        description: 'Calculate your exact age in years, months, and days from your date of birth.',
-        category: 'Everyday Life',
-        categoryLink: '/category/everyday-life',
-        formTitle: 'Enter your date of birth',
-        resultTitle: 'Your Exact Age',
-        content: {
-            what: <p>Find out exactly how old you are in years, months, and days. It also calculates the days until your next birthday.</p>,
-            how: <ol><li>Select Date of Birth</li><li>Click Calculate</li></ol>,
-            formula: <p>Current Date - Birth Date</p>
-        },
-        faq: []
-    },
-    'date-calculator': {
-        title: 'Date Calculator',
-        description: 'Calculate the number of days between two dates.',
-        category: 'Everyday Life',
-        categoryLink: '/category/everyday-life',
-        formTitle: 'Enter dates',
-        resultTitle: 'Time Difference',
-        content: {
-            what: <p>Calculate the duration between two dates in years, months, and days.</p>,
-            how: <ol><li>Select Start Date</li><li>Select End Date</li><li>Click Calculate</li></ol>,
-            formula: <p>End Date - Start Date</p>
-        },
-        faq: []
-    },
-    'tip-calculator': {
-        title: 'Tip Calculator',
-        description: 'Calculate the tip amount and total bill, including splitting between people.',
-        category: 'Everyday Life',
-        categoryLink: '/category/everyday-life',
-        formTitle: 'Enter bill details',
-        resultTitle: 'Tip & Total',
-        content: {
-            what: <p>Quickly calculate how much to tip your server and how to split the bill among friends.</p>,
-            how: <ol><li>Enter Bill Amount</li><li>Select Tip Percentage</li><li>Enter Number of People</li></ol>,
-            formula: <p>Tip = Bill * %; Total = Bill + Tip</p>
-        },
-        faq: []
-    },
-    'percentage-calculator': {
-        title: 'Percentage Calculator',
-        description: 'Calculate percentages, percentage increase/decrease, and more.',
-        category: 'Math',
-        categoryLink: '/category/math',
-        formTitle: 'Enter values',
-        resultTitle: 'Result',
-        content: {
-            what: <p>Solve common percentage problems like "What is X% of Y?" or "X is what % of Y?".</p>,
-            how: <ol><li>Enter Value X</li><li>Enter Value Y</li><li>Select Operation</li></ol>,
-            formula: <p>X% of Y = (X/100) * Y</p>
-        },
-        faq: []
-    },
-    'concrete-calculator': {
-        title: 'Concrete Calculator',
-        description: 'Estimate the number of concrete bags needed for a slab or footing.',
-        category: 'Construction',
-        categoryLink: '/category/construction',
-        formTitle: 'Enter dimensions',
-        resultTitle: 'Concrete Needed',
-        content: {
-            what: <p>Calculate the volume of concrete required for your project and estimate the number of 60lb or 80lb bags needed.</p>,
-            how: <ol><li>Enter Length (ft)</li><li>Enter Width (ft)</li><li>Enter Depth (in)</li></ol>,
-            formula: <p>Volume = L * W * (D/12) cubic feet</p>
-        },
-        faq: []
-    },
-    'random-number': {
-        title: 'Random Number Generator',
-        description: 'Generate a random number within a specified range.',
-        category: 'Other',
-        categoryLink: '/category/other',
-        formTitle: 'Enter range',
-        resultTitle: 'Random Number',
-        content: {
-            what: <p>Generate a random integer between a minimum and maximum value. Useful for games, lotteries, and decision making.</p>,
-            how: <ol><li>Enter Minimum Value</li><li>Enter Maximum Value</li><li>Click Generate</li></ol>,
-            formula: <p>Math.random() * (Max - Min) + Min</p>
-        },
-        faq: []
-    },
-    // Default fallback
-    'default': {
-        title: 'Calculator Tool',
-        description: 'A useful financial calculator.',
-        category: 'Tools',
-        categoryLink: '/all-tools',
-        formTitle: 'Enter details',
-        resultTitle: 'Results',
-        content: {
-            what: <p>This is a placeholder for a generic calculator tool.</p>,
-            how: <p>Enter the required values and click Calculate.</p>,
-            formula: <p>Calculation logic varies by tool.</p>
-        },
-        faq: []
-    }
-};
 
 export const CalculatorDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const config = toolConfigs[id || ''] || toolConfigs['default'];
+
+    // JSON-LD Structured Data
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": config.title,
+        "applicationCategory": config.category,
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "description": config.description
+    };
 
     // Generic State
     const [salaryInput, setSalaryInput] = useState<number>(100000);
@@ -414,16 +77,11 @@ export const CalculatorDetail: React.FC = () => {
     const [toUnit, setToUnit] = useState<string>('EUR');
 
     // Generic Inputs
-    const [input1, setInput1] = useState<number | string>('');
-    const [input2, setInput2] = useState<number | string>('');
-    const [input3, setInput3] = useState<number | string>('');
+    const [input1, setInput1] = useState<string | number>('');
+    const [input2, setInput2] = useState<string | number>('');
+    const [input3, setInput3] = useState<string | number>('');
 
-    // Results State
-    const [results, setResults] = useState([
-        { label: 'Result', value: '-' },
-        { label: 'Total', value: '-', isTotal: true },
-    ]);
-
+    const [results, setResults] = useState<any[]>([]);
     const [isCalculating, setIsCalculating] = useState(false);
 
     // Effect to reset state when tool changes
@@ -810,7 +468,7 @@ export const CalculatorDetail: React.FC = () => {
                             value={selectedState}
                             onChange={(e) => setSelectedState(e.target.value)}
                         >
-                            {US_STATES.map(state => (
+                            {US_STATES.map((state: { code: string; name: string; taxRate: number }) => (
                                 <option key={state.code} value={state.code}>{state.name}</option>
                             ))}
                         </select>
@@ -832,10 +490,21 @@ export const CalculatorDetail: React.FC = () => {
 
     return (
         <div className="bg-white min-h-screen pb-20">
+            <SEO
+                title={`${config.title} - Free Online Calculator`}
+                description={config.description}
+                keywords={`${config.title.toLowerCase()}, free calculator, online tool, ${config.category.toLowerCase()}`}
+            />
+            <Helmet>
+                <script type="application/ld+json">
+                    {JSON.stringify(jsonLd)}
+                </script>
+            </Helmet>
+
             <div className="container mx-auto px-4 py-8">
                 <Breadcrumbs items={[
                     { label: 'Categories', href: '/all-tools' },
-                    { label: config.category, href: config.categoryLink },
+                    { label: config.category },
                     { label: config.title }
                 ]} />
 

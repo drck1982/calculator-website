@@ -4,10 +4,16 @@ import { CategoryGrid } from '../components/home/CategoryGrid';
 import { PopularTools } from '../components/home/PopularTools';
 import { SeoTextBlock } from '../components/home/SeoTextBlock';
 import { AdSlot } from '../components/common/AdSlot';
+import { SEO } from '../components/common/SEO';
 
 export const Home: React.FC = () => {
     return (
         <div className="flex flex-col">
+            <SEO
+                title="Free Online Calculators - Finance, Health, Math & More"
+                description="Access free, accurate, and easy-to-use online calculators for salary tax, mortgage payments, BMI, unit conversions, and more. Smart tools for your daily needs."
+                keywords="online calculator, free calculator, salary tax calculator, mortgage calculator, bmi calculator, finance tools"
+            />
             <Hero />
 
             {/* Ad #1: Top banner - High visibility after hero */}
