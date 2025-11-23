@@ -530,6 +530,20 @@ export const CalculatorDetail: React.FC = () => {
                 ]);
             }
             setIsCalculating(false);
+
+            // Auto-scroll to results on mobile devices
+            if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+                setTimeout(() => {
+                    const resultsPanel = document.getElementById('results-panel');
+                    if (resultsPanel) {
+                        resultsPanel.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                            inline: 'nearest'
+                        });
+                    }
+                }, 100);
+            }
         }, 600);
     };
 
@@ -1103,36 +1117,17 @@ export const CalculatorDetail: React.FC = () => {
 
                 <AdSlot id="calc-top-banner" className="mb-8" />
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-                    {/* Left Column: Form */}
-                    <div className="lg:col-span-2">
+
+                <div className="flex flex-col lg:grid lg:grid-cols-3 gap-8 mb-16">
+                    {/* Form - Always first (order-1) */}
+                    <div className="order-1 lg:col-span-2">
                         <CalculatorForm title={config.formTitle} onCalculate={handleCalculate}>
                             {renderForm()}
                         </CalculatorForm>
-
-                        <div className="mt-12">
-                            <ContentSection id="what-it-does" title="What this calculator does">
-                                {config.content.what}
-                            </ContentSection>
-
-                            <AdSlot id="in-content-1" />
-
-                            <ContentSection id="how-to-use" title="How to use the calculator">
-                                {config.content.how}
-                            </ContentSection>
-
-                            <ContentSection id="formula" title="Formula & Methodology">
-                                {config.content.formula}
-                            </ContentSection>
-
-                            <AdSlot id="in-content-2" />
-
-                            <FAQSection items={config.faq} />
-                        </div>
                     </div>
 
-                    {/* Right Column: Results & Ads */}
-                    <div className="lg:col-span-1">
+                    {/* Results - Second on mobile, third on desktop (order-2 lg:order-3) */}
+                    <div id="results-panel" className="order-2 lg:order-3 lg:col-span-1 lg:sticky lg:top-4 lg:self-start">
                         <div className={`transition-opacity duration-200 ${isCalculating ? 'opacity-50' : 'opacity-100'}`}>
                             <ResultPanel title={config.resultTitle} results={results} />
                             <div className="mt-4 flex justify-end">
@@ -1158,27 +1153,34 @@ export const CalculatorDetail: React.FC = () => {
                                 </li>
                                 <li>
                                     <Link to="/tools/date-calculator" className="flex items-center text-gray-600 hover:text-blue-600">
-                                        <Calendar className="w-4 h-4 mr-2 text-indigo-400" /> Date Calculator
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/tools/bmi-calculator" className="flex items-center text-gray-600 hover:text-blue-600">
-                                        <div className="w-4 h-4 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold mr-2">B</div>
-                                        BMI Calculator
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/tools/mortgage-calculator" className="flex items-center text-gray-600 hover:text-blue-600">
-                                        <div className="w-4 h-4 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold mr-2">$</div>
-                                        Mortgage Calculator
+                                        <Calendar className="w-4 h-4 mr-2 text-blue-400" /> Date Calculator
                                     </Link>
                                 </li>
                             </ul>
                         </div>
 
-                        <div className="mt-8">
-                            <AdSlot id="sidebar-ad" className="h-[600px]" label="Advertisement" />
-                        </div>
+                        <AdSlot id="calc-sidebar" className="mt-8" />
+                    </div>
+
+                    {/* Content sections - Third on mobile, second on desktop (order-3 lg:order-2) */}
+                    <div className="order-3 lg:order-2 lg:col-span-2 mt-8 lg:mt-0">
+                        <ContentSection id="what-it-does" title="What this calculator does">
+                            {config.content.what}
+                        </ContentSection>
+
+                        <AdSlot id="in-content-1" />
+
+                        <ContentSection id="how-to-use" title="How to use the calculator">
+                            {config.content.how}
+                        </ContentSection>
+
+                        <ContentSection id="formula" title="Formula & Methodology">
+                            {config.content.formula}
+                        </ContentSection>
+
+                        <AdSlot id="in-content-2" />
+
+                        <FAQSection items={config.faq} />
                     </div>
                 </div>
 
