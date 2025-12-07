@@ -1298,8 +1298,9 @@ export const CalculatorDetail: React.FC = () => {
         <div className="bg-white min-h-screen pb-20">
             <SEO
                 title={`${config.title} - Free Online Calculator`}
-                description={config.description}
-                keywords={`${config.title.toLowerCase()}, free calculator, online tool, ${config.category.toLowerCase()}`}
+                description={`${config.description} Use our free ${config.title.toLowerCase()} to get instant, accurate results. No signup required.`}
+                keywords={`${config.title.toLowerCase()}, free calculator, online tool, ${config.category.toLowerCase()}, calculate ${config.title.toLowerCase().replace(' calculator', '')}`}
+                canonicalUrl={`/tools/${id}`}
             />
             <Helmet>
                 <script type="application/ld+json">

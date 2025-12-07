@@ -31,8 +31,9 @@ export const Contact: React.FC = () => {
         <div className="bg-white min-h-screen">
             <SEO
                 title="Contact Us - WorkMoney Tools"
-                description="Get in touch with the WorkMoney Tools team. We'd love to hear your feedback, suggestions, or questions."
-                keywords="contact workmoney tools, feedback, support"
+                description="Get in touch with the WorkMoney Tools team. We'd love to hear your feedback, suggestions, or questions about our free online calculators."
+                keywords="contact workmoney tools, feedback, support, calculator help"
+                canonicalUrl="/contact"
             />
 
             <div className="container mx-auto px-4 py-8">

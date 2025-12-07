@@ -8,8 +8,9 @@ export const About: React.FC = () => {
         <div className="bg-white min-h-screen">
             <SEO
                 title="About Us - WorkMoney Tools"
-                description="Learn about WorkMoney Tools - your trusted source for free, accurate, and easy-to-use online calculators."
-                keywords="about workmoney tools, free calculators, online tools"
+                description="Learn about WorkMoney Tools - your trusted source for 50+ free, accurate, and easy-to-use online calculators. Our mission is to democratize access to financial and mathematical tools."
+                keywords="about workmoney tools, free calculators, online tools, calculator website"
+                canonicalUrl="/about"
             />
 
             <div className="container mx-auto px-4 py-8">

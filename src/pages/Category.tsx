@@ -26,8 +26,9 @@ export const Category: React.FC = () => {
         <div className="bg-white min-h-screen pb-20">
             <SEO
                 title={`${data.title} Calculators - Free Online Tools`}
-                description={`Free ${data.title.toLowerCase()} calculators and tools. ${data.description}`}
-                keywords={`${data.title.toLowerCase()} calculator, ${data.title.toLowerCase()} tools, free online calculators`}
+                description={`Free ${data.title.toLowerCase()} calculators and tools. ${data.description} Accurate, easy-to-use, no signup required.`}
+                keywords={`${data.title.toLowerCase()} calculator, ${data.title.toLowerCase()} tools, free online calculators, ${data.title.toLowerCase()} calculation`}
+                canonicalUrl={`/category/${id}`}
             />
 
             <div className="container mx-auto px-4 py-8">

@@ -1,4 +1,15 @@
+# robots.txt for WorkMoney Tools Calculator Website
+
 User-agent: *
 Allow: /
 
-Sitemap: https://your-domain.com/sitemap.xml
+# Disallow admin or private pages (if any)
+Disallow: /api/
+Disallow: /_next/
+Disallow: /icon-demo
+
+# Sitemap
+Sitemap: https://calculator-website-puce.vercel.app/sitemap.xml
+
+# Crawl-delay for politeness (optional)
+Crawl-delay: 1

@@ -41,9 +41,10 @@ export const AllTools: React.FC = () => {
     return (
         <div className="bg-gray-50 min-h-screen">
             <SEO
-                title="All Calculators - Free Online Tools"
-                description="Browse our complete collection of free online calculators. Finance, health, math, conversion tools and more."
-                keywords="all calculators, free online tools, calculator collection"
+                title="All Calculators - Browse 50+ Free Online Tools"
+                description="Browse our complete collection of 50+ free online calculators. Finance, health, math, conversion tools and more. Find the perfect calculator for your needs."
+                keywords="all calculators, free online tools, calculator collection, finance calculator, health calculator, math tools, unit converter"
+                canonicalUrl="/all-tools"
             />
 
             <div className="container mx-auto px-4 py-8">

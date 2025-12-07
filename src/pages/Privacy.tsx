@@ -8,8 +8,9 @@ export const Privacy: React.FC = () => {
         <div className="bg-white min-h-screen">
             <SEO
                 title="Privacy Policy - WorkMoney Tools"
-                description="Learn how WorkMoney Tools protects your privacy and handles your data."
-                keywords="privacy policy, data protection, workmoney tools"
+                description="Learn how WorkMoney Tools protects your privacy. All calculations happen in your browser - we don't store your personal data."
+                keywords="privacy policy, data protection, workmoney tools, calculator privacy"
+                canonicalUrl="/privacy"
             />
 
             <div className="container mx-auto px-4 py-8">

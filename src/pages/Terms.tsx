@@ -8,8 +8,9 @@ export const Terms: React.FC = () => {
         <div className="bg-white min-h-screen">
             <SEO
                 title="Terms of Service - WorkMoney Tools"
-                description="Read the terms of service for using WorkMoney Tools calculators and services."
-                keywords="terms of service, terms and conditions, workmoney tools"
+                description="Read the terms of service for using WorkMoney Tools free online calculators. Our tools are for informational purposes only."
+                keywords="terms of service, terms and conditions, workmoney tools, calculator terms"
+                canonicalUrl="/terms"
             />
 
             <div className="container mx-auto px-4 py-8">

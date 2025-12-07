@@ -11,8 +11,9 @@ export const Home: React.FC = () => {
         <div className="flex flex-col">
             <SEO
                 title="Free Online Calculators - Finance, Health, Math & More"
-                description="Access free, accurate, and easy-to-use online calculators for salary tax, mortgage payments, BMI, unit conversions, and more. Smart tools for your daily needs."
-                keywords="online calculator, free calculator, salary tax calculator, mortgage calculator, bmi calculator, finance tools"
+                description="Access 50+ free, accurate online calculators for salary tax, mortgage payments, BMI, unit conversions, compound interest, and more. Smart tools trusted by millions for daily financial and mathematical needs."
+                keywords="online calculator, free calculator, salary tax calculator, mortgage calculator, bmi calculator, finance tools, compound interest calculator, unit converter, math calculator"
+                canonicalUrl="/"
             />
             <Hero />
 
