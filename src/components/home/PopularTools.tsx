@@ -6,97 +6,97 @@ import { useLanguage } from '../../contexts/LanguageContext';
 // Ordered by search volume (highest first)
 const popularTools = [
     {
-        name: 'Paycheck Calculator',
-        description: 'Calculate your take-home pay after taxes for any pay period.',
-        category: 'Salary',
+        nameKey: 'popular.paycheck',
+        descKey: 'popular.paycheck.desc',
+        categoryKey: 'popular.cat.salary',
         icon: DollarSign,
         color: 'text-green-600 bg-green-50',
         link: '/tools/paycheck-calculator'
     },
     {
-        name: 'Mortgage Calculator',
-        description: 'Calculate monthly mortgage payments with taxes and insurance.',
-        category: 'Loans',
+        nameKey: 'popular.mortgage',
+        descKey: 'popular.mortgage.desc',
+        categoryKey: 'popular.cat.loans',
         icon: Home,
         color: 'text-indigo-600 bg-indigo-50',
         link: '/tools/mortgage-calculator'
     },
     {
-        name: 'BMI Calculator',
-        description: 'Calculate your Body Mass Index based on height and weight.',
-        category: 'Health',
+        nameKey: 'popular.bmi',
+        descKey: 'popular.bmi.desc',
+        categoryKey: 'popular.cat.health',
         icon: Scale,
         color: 'text-rose-600 bg-rose-50',
         link: '/tools/bmi-calculator'
     },
     {
-        name: 'Tip Calculator',
-        description: 'Calculate tip amount and split the bill among friends.',
-        category: 'Everyday',
+        nameKey: 'popular.tip',
+        descKey: 'popular.tip.desc',
+        categoryKey: 'popular.cat.everyday',
         icon: Utensils,
         color: 'text-orange-600 bg-orange-50',
         link: '/tools/tip-calculator'
     },
     {
-        name: 'GPA Calculator',
-        description: 'Calculate your Grade Point Average instantly.',
-        category: 'Education',
+        nameKey: 'popular.gpa',
+        descKey: 'popular.gpa.desc',
+        categoryKey: 'popular.cat.education',
         icon: GraduationCap,
         color: 'text-purple-600 bg-purple-50',
         link: '/tools/gpa-calculator'
     },
     {
-        name: 'Age Calculator',
-        description: 'Calculate exact age in years, months, and days.',
-        category: 'Tools',
+        nameKey: 'popular.age',
+        descKey: 'popular.age.desc',
+        categoryKey: 'popular.cat.tools',
         icon: Calendar,
         color: 'text-cyan-600 bg-cyan-50',
         link: '/tools/age-calculator'
     },
     {
-        name: 'Sleep Calculator',
-        description: 'Find the best time to wake up based on sleep cycles.',
-        category: 'Health',
+        nameKey: 'popular.sleep',
+        descKey: 'popular.sleep.desc',
+        categoryKey: 'popular.cat.health',
         icon: Moon,
         color: 'text-violet-600 bg-violet-50',
         link: '/tools/sleep-calculator'
     },
     {
-        name: 'Password Generator',
-        description: 'Create strong, secure passwords instantly.',
-        category: 'Security',
+        nameKey: 'popular.password',
+        descKey: 'popular.password.desc',
+        categoryKey: 'popular.cat.security',
         icon: Lock,
         color: 'text-red-600 bg-red-50',
         link: '/tools/password-generator'
     },
     {
-        name: 'Compound Interest',
-        description: 'See how your investments grow over time.',
-        category: 'Investment',
+        nameKey: 'popular.compound',
+        descKey: 'popular.compound.desc',
+        categoryKey: 'popular.cat.investment',
         icon: TrendingUp,
         color: 'text-emerald-600 bg-emerald-50',
         link: '/tools/compound-interest-calculator'
     },
     {
-        name: 'Body Fat Calculator',
-        description: 'Estimate your body fat percentage with the Navy method.',
-        category: 'Fitness',
+        nameKey: 'popular.bodyFat',
+        descKey: 'popular.bodyFat.desc',
+        categoryKey: 'popular.cat.fitness',
         icon: Activity,
         color: 'text-amber-600 bg-amber-50',
         link: '/tools/body-fat-calculator'
     },
     {
-        name: 'Home Affordability',
-        description: 'How much house can you afford based on income?',
-        category: 'Finance',
+        nameKey: 'popular.homeAfford',
+        descKey: 'popular.homeAfford.desc',
+        categoryKey: 'popular.cat.finance',
         icon: Home,
         color: 'text-blue-600 bg-blue-50',
         link: '/tools/home-affordability'
     },
     {
-        name: 'Student Loan Calculator',
-        description: 'Plan your student loan repayment strategy.',
-        category: 'Loans',
+        nameKey: 'popular.studentLoan',
+        descKey: 'popular.studentLoan.desc',
+        categoryKey: 'popular.cat.loans',
         icon: Calculator,
         color: 'text-teal-600 bg-teal-50',
         link: '/tools/student-loan-calculator'
@@ -139,16 +139,16 @@ export const PopularTools: React.FC = () => {
                                 <div className="flex-1">
                                     <div className="flex items-center space-x-2 mb-2">
                                         <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
-                                            {tool.category}
+                                            {t(tool.categoryKey)}
                                         </span>
                                     </div>
 
                                     <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                                        {tool.name}
+                                        {t(tool.nameKey)}
                                     </h3>
 
                                     <p className="text-gray-500 text-sm leading-relaxed">
-                                        {tool.description}
+                                        {t(tool.descKey)}
                                     </p>
                                 </div>
                             </div>

@@ -11,137 +11,137 @@ import { useLanguage } from '../../contexts/LanguageContext';
 const categories = [
     {
         id: 'salary-tax',
-        name: 'Finance',
+        nameKey: 'cat.finance',
         icon: FinanceAIIcon,
-        description: 'Salary, tax, investments, and retirement planning.',
+        descKey: 'cat.finance.desc',
         color: 'bg-blue-100 text-blue-600',
-        tools: ['Salary Calculator', 'Mortgage Calc', 'Investment Return'],
+        toolKeys: ['tool.salaryCalculator', 'tool.mortgageCalc', 'tool.investmentReturn'],
         link: '/category/salary-tax'
     },
     {
         id: 'finance',
-        name: 'Business',
+        nameKey: 'cat.business',
         icon: FinanceAIIcon,
-        description: 'ROI, margin, break-even, and business calculators.',
+        descKey: 'cat.business.desc',
         color: 'bg-indigo-100 text-indigo-600',
-        tools: ['ROI Calculator', 'Margin Calc', 'Break-Even'],
+        toolKeys: ['tool.roiCalculator', 'tool.marginCalc', 'tool.breakEven'],
         link: '/category/finance'
     },
     {
         id: 'loans-debt',
-        name: 'Loans & Debt',
+        nameKey: 'cat.loansDebt',
         icon: FinanceAIIcon,
-        description: 'Mortgage, auto loans, and amortization calculators.',
+        descKey: 'cat.loansDebt.desc',
         color: 'bg-orange-100 text-orange-600',
-        tools: ['Mortgage Calc', 'Auto Loan', 'Amortization'],
+        toolKeys: ['tool.mortgageCalc', 'tool.autoLoan', 'tool.amortization'],
         link: '/category/loans-debt'
     },
     {
         id: 'investment',
-        name: 'Investment',
+        nameKey: 'cat.investment',
         icon: FinanceAIIcon,
-        description: 'Compound interest, 401k, and inflation calculators.',
+        descKey: 'cat.investment.desc',
         color: 'bg-emerald-100 text-emerald-600',
-        tools: ['Compound Interest', '401k Calc', 'Inflation'],
+        toolKeys: ['tool.compoundInterest', 'tool.401kCalc', 'tool.inflation'],
         link: '/category/investment'
     },
     {
         id: 'health',
-        name: 'Health',
+        nameKey: 'cat.health',
         icon: HealthAIIcon,
-        description: 'BMI, BMR, pregnancy, and fitness trackers.',
+        descKey: 'cat.health.desc',
         color: 'bg-rose-100 text-rose-600',
-        tools: ['BMI Calculator', 'Calorie Calc', 'Due Date'],
+        toolKeys: ['tool.bmiCalculator', 'tool.calorieCalc', 'tool.dueDate'],
         link: '/category/health'
     },
     {
         id: 'math',
-        name: 'Math',
+        nameKey: 'cat.math',
         icon: MathAIIcon,
-        description: 'Algebra, geometry, statistics, and matrices.',
+        descKey: 'cat.math.desc',
         color: 'bg-cyan-100 text-cyan-600',
-        tools: ['Percentage Calc', 'Binary Calc', 'Prime Numbers'],
+        toolKeys: ['tool.percentageCalc', 'tool.binaryCalc', 'tool.primeNumbers'],
         link: '/category/math'
     },
     {
         id: 'geometry',
-        name: 'Geometry',
+        nameKey: 'cat.geometry',
         icon: MathAIIcon,
-        description: 'Calculate areas, volumes, and construction needs.',
+        descKey: 'cat.geometry.desc',
         color: 'bg-teal-100 text-teal-600',
-        tools: ['Circle Calc', 'Triangle Calc', 'Paint Calculator'],
+        toolKeys: ['tool.circleCalc', 'tool.triangleCalc', 'tool.paintCalculator'],
         link: '/category/geometry'
     },
     {
         id: 'conversion',
-        name: 'Conversion',
+        nameKey: 'cat.conversion',
         icon: ConversionAIIcon,
-        description: 'Convert length, weight, volume, temperature, and more.',
+        descKey: 'cat.conversion.desc',
         color: 'bg-gray-100 text-gray-600',
-        tools: ['Length Converter', 'Weight Converter', 'Currency'],
+        toolKeys: ['tool.lengthConverter', 'tool.weightConverter', 'tool.currency'],
         link: '/category/conversion'
     },
     {
         id: 'everyday-life',
-        name: 'Everyday Life',
+        nameKey: 'cat.everydayLife',
         icon: EverydayLifeAIIcon,
-        description: 'Time, date, shopping, and daily utilities.',
+        descKey: 'cat.everydayLife.desc',
         color: 'bg-yellow-100 text-yellow-600',
-        tools: ['Age Calculator', 'Date Difference', 'Tip Calculator'],
+        toolKeys: ['tool.ageCalculator', 'tool.dateDifference', 'tool.tipCalculator'],
         link: '/category/everyday-life'
     },
     {
         id: 'biology',
-        name: 'Biology',
+        nameKey: 'cat.biology',
         icon: BiologyAIIcon,
-        description: 'Genetics, cell biology, and evolution calculators.',
+        descKey: 'cat.biology.desc',
         color: 'bg-green-100 text-green-600',
-        tools: ['DNA Replication', 'Allele Frequency'],
+        toolKeys: ['tool.dnaReplication', 'tool.alleleFrequency'],
         link: '/category/biology'
     },
     {
         id: 'chemistry',
-        name: 'Chemistry',
+        nameKey: 'cat.chemistry',
         icon: ChemistryAIIcon,
-        description: 'Molarity, pH, periodic table, and reactions.',
+        descKey: 'cat.chemistry.desc',
         color: 'bg-purple-100 text-purple-600',
-        tools: ['Molarity Calc', 'pH Calculator'],
+        toolKeys: ['tool.molarityCalc', 'tool.phCalculator'],
         link: '/category/chemistry'
     },
     {
         id: 'physics',
-        name: 'Physics',
+        nameKey: 'cat.physics',
         icon: PhysicsAIIcon,
-        description: 'Mechanics, thermodynamics, electricity, and waves.',
+        descKey: 'cat.physics.desc',
         color: 'bg-violet-100 text-violet-600',
-        tools: ['Velocity Calculator'],
+        toolKeys: ['tool.velocityCalculator'],
         link: '/category/physics'
     },
     {
         id: 'sports',
-        name: 'Sports',
+        nameKey: 'cat.sports',
         icon: SportsAIIcon,
-        description: 'Running pace, cycling power, and scoreboards.',
+        descKey: 'cat.sports.desc',
         color: 'bg-lime-100 text-lime-600',
-        tools: ['Pace Calculator'],
+        toolKeys: ['tool.paceCalculator'],
         link: '/category/sports'
     },
     {
         id: 'statistics',
-        name: 'Statistics',
+        nameKey: 'cat.statistics',
         icon: StatisticsAIIcon,
-        description: 'Probability, distributions, and data analysis.',
+        descKey: 'cat.statistics.desc',
         color: 'bg-slate-100 text-slate-600',
-        tools: ['Standard Deviation'],
+        toolKeys: ['tool.standardDeviation'],
         link: '/category/statistics'
     },
     {
         id: 'other',
-        name: 'Other',
+        nameKey: 'cat.other',
         icon: OtherAIIcon,
-        description: 'Miscellaneous tools and fun calculators.',
+        descKey: 'cat.other.desc',
         color: 'bg-pink-100 text-pink-600',
-        tools: ['Random Number Generator'],
+        toolKeys: ['tool.randomNumberGenerator'],
         link: '/category/other'
     }
 ];
@@ -169,16 +169,16 @@ export const CategoryGrid: React.FC = () => {
                                 <category.icon size={48} />
                             </div>
                             <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                                {category.name}
+                                {t(category.nameKey)}
                             </h3>
                             <p className="text-gray-500 text-sm mb-4 line-clamp-2">
-                                {category.description}
+                                {t(category.descKey)}
                             </p>
                             <ul className="space-y-1">
-                                {category.tools.map((tool, index) => (
+                                {category.toolKeys.map((toolKey, index) => (
                                     <li key={index} className="text-sm text-gray-400 flex items-center">
                                         <span className="w-1.5 h-1.5 rounded-full bg-gray-300 mr-2"></span>
-                                        {tool}
+                                        {t(toolKey)}
                                     </li>
                                 ))}
                             </ul>
