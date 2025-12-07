@@ -5,11 +5,21 @@ Allow: /
 
 # Disallow admin or private pages (if any)
 Disallow: /api/
-Disallow: /_next/
+Disallow: /assets/
 Disallow: /icon-demo
 
-# Sitemap
+# Sitemap location
 Sitemap: https://calculator-website-puce.vercel.app/sitemap.xml
 
 # Crawl-delay for politeness (optional)
 Crawl-delay: 1
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /

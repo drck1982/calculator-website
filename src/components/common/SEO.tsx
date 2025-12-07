@@ -15,7 +15,7 @@ interface SEOProps {
 
 const SITE_NAME = 'WorkMoney Tools';
 const SITE_URL = 'https://calculator-website-puce.vercel.app';
-const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
+const DEFAULT_IMAGE = `${SITE_URL}/og-image.svg`;
 
 export const SEO: React.FC<SEOProps> = ({
     title,

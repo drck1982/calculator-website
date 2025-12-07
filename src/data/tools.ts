@@ -214,6 +214,41 @@ export const toolConfigs: Record<string, ToolConfig> = {
         content: { what: 'Convert hourly rate to yearly salary.', how: 'Enter hourly wage and hours per week.', formula: 'Annual = Hourly * Hours/Week * 52' },
         faq: []
     },
+    'bonus-tax-calculator': {
+        id: 'bonus-tax-calculator',
+        title: 'Bonus Tax Calculator (2025)',
+        description: 'Calculate federal and state taxes on your bonus using 2025 tax rates.',
+        category: 'Finance',
+        categoryLink: '/category/salary-tax',
+        formTitle: 'Enter Bonus Details',
+        resultTitle: 'Tax Breakdown',
+        content: { 
+            what: 'Calculates taxes withheld from bonus payments including federal supplemental tax (22%), state income tax, Social Security (6.2%), and Medicare (1.45%).', 
+            how: 'Enter your bonus amount and select your state for accurate state income tax calculation.', 
+            formula: 'Total Tax = Federal (22%) + State Tax + Social Security (6.2% up to $176,100) + Medicare (1.45%)' 
+        },
+        faq: [
+            { question: 'Why is the federal tax rate 22%?', answer: 'The IRS requires employers to withhold a flat 22% federal tax on supplemental wages (like bonuses) under $1 million.' },
+            { question: 'Which states have no income tax?', answer: 'Alaska, Florida, Nevada, New Hampshire, South Dakota, Tennessee, Texas, Washington, and Wyoming have no state income tax on wages.' }
+        ]
+    },
+    'federal-tax-calculator': {
+        id: 'federal-tax-calculator',
+        title: 'Federal Income Tax Calculator (2025)',
+        description: 'Estimate your federal income tax liability using 2025 tax brackets.',
+        category: 'Finance',
+        categoryLink: '/category/salary-tax',
+        formTitle: 'Enter Taxable Income',
+        resultTitle: 'Tax Estimate',
+        content: { 
+            what: 'Calculates your federal income tax based on 2025 tax brackets for single filers.', 
+            how: 'Enter your taxable income to see your tax bracket and estimated federal tax.', 
+            formula: 'Progressive tax brackets: 10%, 12%, 22%, 24%, 32%, 35%, 37%' 
+        },
+        faq: [
+            { question: 'What are the 2025 tax brackets?', answer: '10% ($0-$11,925), 12% ($11,926-$48,475), 22% ($48,476-$103,350), 24% ($103,351-$197,300), 32% ($197,301-$250,500), 35% ($250,501-$626,350), 37% (over $626,350).' }
+        ]
+    },
     'simple-interest-calculator': {
         id: 'simple-interest-calculator',
         title: 'Simple Interest Calculator',
@@ -597,6 +632,23 @@ export const toolConfigs: Record<string, ToolConfig> = {
         resultTitle: 'Rolls Needed',
         content: { what: 'Estimates wallpaper rolls.', how: 'Enter wall area and roll coverage.', formula: 'Area / Roll Area' },
         faq: []
+    },
+    'concrete-calculator': {
+        id: 'concrete-calculator',
+        title: 'Concrete Calculator',
+        description: 'Estimate concrete bags needed for your project.',
+        category: 'Construction',
+        categoryLink: '/category/geometry',
+        formTitle: 'Project Dimensions',
+        resultTitle: 'Concrete Needed',
+        content: { 
+            what: 'Calculates the amount of concrete needed for slabs, footings, or other projects.', 
+            how: 'Enter length, width, and depth in feet.', 
+            formula: 'Volume (cu ft) = L × W × D; Bags = Volume / 0.45 (80lb bag coverage)' 
+        },
+        faq: [
+            { question: 'How much does one bag of concrete cover?', answer: 'An 80-pound bag of concrete mix yields approximately 0.6 cubic feet when mixed.' }
+        ]
     },
 
     // --- Conversion ---

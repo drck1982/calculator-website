@@ -592,16 +592,6 @@ export const CalculatorDetail: React.FC = () => {
                     { label: 'Calculation', value: `${val} is what % of ${total}?` },
                     { label: 'Result', value: `${pct.toFixed(2)}%`, isTotal: true },
                 ]);
-            } else if (id === 'concrete-calculator') {
-                const l = Number(input1) || 10;
-                const w = Number(input2) || 10;
-                const d = Number(input3) || 4;
-                const vol = l * w * (d / 12);
-                const bags = Math.ceil(vol / 0.6);
-                setResults([
-                    { label: 'Volume', value: `${vol.toFixed(2)} cu. ft.` },
-                    { label: '80lb Bags Needed', value: `${bags}`, isTotal: true },
-                ]);
             } else if (id === 'hourly-to-salary') {
                 const hourly = Number(input1) || 25;
                 const hours = Number(input2) || 40;
