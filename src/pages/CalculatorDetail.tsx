@@ -118,7 +118,7 @@ export const CalculatorDetail: React.FC = () => {
     const [input2, setInput2] = useState<string | number>('');
     const [input3, setInput3] = useState<string | number>('');
 
-    const [results, setResults] = useState<any[]>([]);
+    const [results, setResults] = useState<{ label: string; value: string | number; isTotal?: boolean }[]>([]);
     const [isCalculating, setIsCalculating] = useState(false);
 
     // Effect to reset state when tool changes

@@ -12,8 +12,8 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, className, label = 'Advertis
         try {
             // @ts-ignore
             (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (err) {
-            console.error('AdSense error:', err);
+        } catch {
+            // AdSense not loaded or blocked - silently ignore
         }
     }, []);
 

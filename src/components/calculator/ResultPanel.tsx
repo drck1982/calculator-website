@@ -2,7 +2,7 @@ import React from 'react';
 
 interface ResultRowProps {
     label: string;
-    value: string;
+    value: string | number;
     isTotal?: boolean;
 }
 
@@ -15,7 +15,7 @@ const ResultRow: React.FC<ResultRowProps> = ({ label, value, isTotal }) => (
 
 interface ResultPanelProps {
     title: string;
-    results: { label: string; value: string; isTotal?: boolean }[];
+    results: { label: string; value: string | number; isTotal?: boolean }[];
 }
 
 export const ResultPanel: React.FC<ResultPanelProps> = ({ title, results }) => {
