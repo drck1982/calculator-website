@@ -14,8 +14,7 @@ export const Contact: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // In a real app, you would send this to a backend
-        console.log('Form submitted:', formData);
+        // In production, integrate with email service (e.g., Formspree, EmailJS)
         setIsSubmitted(true);
         setFormData({ name: '', email: '', subject: '', message: '' });
     };

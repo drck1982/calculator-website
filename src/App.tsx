@@ -11,6 +11,7 @@ import { Contact } from './pages/Contact';
 import { Privacy } from './pages/Privacy';
 import { Terms } from './pages/Terms';
 import { AllTools } from './pages/AllTools';
+import { NotFound } from './pages/NotFound';
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
-            <Route path="*" element={<div className="container mx-auto px-4 py-20 text-center"><h1 className="text-4xl font-bold">404 - Page Not Found</h1></div>} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>
