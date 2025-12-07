@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
     FinanceAIIcon, HealthAIIcon, MathAIIcon, ConversionAIIcon,
-    BiologyAIIcon, ChemistryAIIcon, ConstructionAIIcon, EcologyAIIcon,
-    EverydayLifeAIIcon, FoodAIIcon, PhysicsAIIcon, SportsAIIcon,
-    StatisticsAIIcon, OtherAIIcon
+    BiologyAIIcon, ChemistryAIIcon, EverydayLifeAIIcon, PhysicsAIIcon,
+    SportsAIIcon, StatisticsAIIcon, OtherAIIcon
 } from '../icons/CategoryIcons';
 
 const categories = [
