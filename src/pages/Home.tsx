@@ -10,9 +10,9 @@ export const Home: React.FC = () => {
     return (
         <div className="flex flex-col">
             <SEO
-                title="Free Online Calculators - Finance, Health, Math & More"
-                description="Access 50+ free, accurate online calculators for salary tax, mortgage payments, BMI, unit conversions, compound interest, and more. Smart tools trusted by millions for daily financial and mathematical needs."
-                keywords="online calculator, free calculator, salary tax calculator, mortgage calculator, bmi calculator, finance tools, compound interest calculator, unit converter, math calculator"
+                title="80+ Free Online Calculators - Finance, Health, Math & More"
+                description="Access 80+ free, accurate online calculators for paycheck, mortgage, BMI, tip, GPA, student loans, and more. Smart tools trusted by millions for daily financial and mathematical needs."
+                keywords="online calculator, free calculator, paycheck calculator, mortgage calculator, bmi calculator, tip calculator, gpa calculator, student loan calculator, finance tools"
                 canonicalUrl="/"
             />
             <Hero />

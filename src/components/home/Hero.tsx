@@ -120,17 +120,23 @@ export const Hero: React.FC = () => {
                     )}
                 </div>
 
-                {/* Quick Links */}
+                {/* Quick Links - Ordered by search volume */}
                 <div className="flex flex-wrap justify-center gap-3 animate-fade-in-up">
                     <span className="text-sm font-medium text-gray-500 py-2">Trending:</span>
-                    <Link to="/tools/ny-salary-tax-calculator" className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
-                        NY Salary Tax
+                    <Link to="/tools/paycheck-calculator" className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
+                        Paycheck
                     </Link>
                     <Link to="/tools/mortgage-calculator" className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
-                        Mortgage Payment
+                        Mortgage
                     </Link>
-                    <Link to="/tools/inflation-calculator" className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
-                        Inflation
+                    <Link to="/tools/tip-calculator" className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
+                        Tip
+                    </Link>
+                    <Link to="/tools/bmi-calculator" className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
+                        BMI
+                    </Link>
+                    <Link to="/tools/gpa-calculator" className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
+                        GPA
                     </Link>
                 </div>
             </div>
