@@ -6,7 +6,7 @@ import { LanguageSwitcher } from '../common/LanguageSwitcher';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 export const Header: React.FC = () => {
-    useLanguage(); // Ensure context is available
+    const { t } = useLanguage();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -63,16 +63,16 @@ export const Header: React.FC = () => {
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center space-x-8">
                     <Link to="/category/salary-tax" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-                        Salary & Tax
+                        {t('footer.salaryTax')}
                     </Link>
                     <Link to="/category/loans-debt" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-                        Loans & Debt
+                        {t('footer.loansDebt')}
                     </Link>
                     <Link to="/category/investment" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-                        Investment
+                        {t('footer.investment')}
                     </Link>
                     <Link to="/about" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-                        About
+                        {t('nav.about')}
                     </Link>
                 </nav>
 
@@ -98,7 +98,7 @@ export const Header: React.FC = () => {
                                     <input
                                         type="text"
                                         className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                        placeholder="Search calculators..."
+                                        placeholder={t('nav.search')}
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                         autoFocus
@@ -131,7 +131,7 @@ export const Header: React.FC = () => {
                                             </ul>
                                         ) : (
                                             <div className="px-4 py-6 text-center text-gray-500 text-sm">
-                                                No results for "{searchQuery}"
+                                                {t('common.noResults')}
                                             </div>
                                         )}
                                     </div>
@@ -160,42 +160,42 @@ export const Header: React.FC = () => {
                             className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                         >
-                            Salary & Tax
+                            {t('footer.salaryTax')}
                         </Link>
                         <Link
                             to="/category/loans-debt"
                             className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                         >
-                            Loans & Debt
+                            {t('footer.loansDebt')}
                         </Link>
                         <Link
                             to="/category/investment"
                             className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                         >
-                            Investment
+                            {t('footer.investment')}
                         </Link>
                         <Link
                             to="/category/health"
                             className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                         >
-                            Health
+                            {t('cat.health')}
                         </Link>
                         <Link
                             to="/category/math"
                             className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                         >
-                            Math
+                            {t('cat.math')}
                         </Link>
                         <Link
                             to="/category/conversion"
                             className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                         >
-                            Conversion
+                            {t('cat.conversion')}
                         </Link>
                         <div className="border-t border-gray-100 my-2"></div>
                         <Link
@@ -203,21 +203,21 @@ export const Header: React.FC = () => {
                             className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                         >
-                            All Calculators
+                            {t('nav.allTools')}
                         </Link>
                         <Link
                             to="/about"
                             className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                         >
-                            About Us
+                            {t('footer.aboutUs')}
                         </Link>
                         <Link
                             to="/contact"
                             className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                         >
-                            Contact
+                            {t('nav.contact')}
                         </Link>
                     </nav>
                 </div>

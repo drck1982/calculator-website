@@ -167,6 +167,18 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.privacy': 'Privacy Policy',
         'footer.terms': 'Terms of Service',
         
+        // Tags
+        'tag.tax': 'Tax',
+        'tag.mortgage': 'Mortgage',
+        'tag.loan': 'Loan',
+        'tag.debt': 'Debt',
+        'tag.bmi': 'BMI',
+        'tag.calorie': 'Calorie',
+        'tag.percentage': 'Percentage',
+        'tag.binary': 'Binary',
+        'tag.circle': 'Circle',
+        'tag.triangle': 'Triangle',
+        
         // Common
         'common.loading': 'Loading...',
         'common.error': 'Error',
@@ -328,6 +340,18 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.aboutUs': '关于我们',
         'footer.privacy': '隐私政策',
         'footer.terms': '服务条款',
+        
+        // Tags
+        'tag.tax': '税务',
+        'tag.mortgage': '房贷',
+        'tag.loan': '贷款',
+        'tag.debt': '债务',
+        'tag.bmi': 'BMI',
+        'tag.calorie': '卡路里',
+        'tag.percentage': '百分比',
+        'tag.binary': '二进制',
+        'tag.circle': '圆形',
+        'tag.triangle': '三角形',
         
         // Common
         'common.loading': '加载中...',
@@ -491,6 +515,18 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.privacy': 'Política de Privacidad',
         'footer.terms': 'Términos de Servicio',
         
+        // Tags
+        'tag.tax': 'Impuestos',
+        'tag.mortgage': 'Hipoteca',
+        'tag.loan': 'Préstamo',
+        'tag.debt': 'Deuda',
+        'tag.bmi': 'IMC',
+        'tag.calorie': 'Calorías',
+        'tag.percentage': 'Porcentaje',
+        'tag.binary': 'Binario',
+        'tag.circle': 'Círculo',
+        'tag.triangle': 'Triángulo',
+        
         // Common
         'common.loading': 'Cargando...',
         'common.error': 'Error',
@@ -653,6 +689,18 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.privacy': 'プライバシーポリシー',
         'footer.terms': '利用規約',
         
+        // Tags
+        'tag.tax': '税金',
+        'tag.mortgage': '住宅ローン',
+        'tag.loan': 'ローン',
+        'tag.debt': '債務',
+        'tag.bmi': 'BMI',
+        'tag.calorie': 'カロリー',
+        'tag.percentage': '割合',
+        'tag.binary': '2進数',
+        'tag.circle': '円',
+        'tag.triangle': '三角形',
+        
         // Common
         'common.loading': '読み込み中...',
         'common.error': 'エラー',
@@ -814,6 +862,18 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.aboutUs': 'À propos',
         'footer.privacy': 'Politique de Confidentialité',
         'footer.terms': 'Conditions d\'Utilisation',
+        
+        // Tags
+        'tag.tax': 'Impôts',
+        'tag.mortgage': 'Hypothèque',
+        'tag.loan': 'Prêt',
+        'tag.debt': 'Dette',
+        'tag.bmi': 'IMC',
+        'tag.calorie': 'Calories',
+        'tag.percentage': 'Pourcentage',
+        'tag.binary': 'Binaire',
+        'tag.circle': 'Cercle',
+        'tag.triangle': 'Triangle',
         
         // Common
         'common.loading': 'Chargement...',
