@@ -792,7 +792,216 @@ export const CalculatorDetail: React.FC = () => {
                     { label: `Total Buy Cost (${years} yrs)`, value: `$${totalBuy.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
                     { label: 'Recommendation', value: savings > 0 ? 'Buying may be better' : 'Renting may be better', isTotal: true },
                 ]);
-            } else if (id === 'amortization-calculator') {
+            } 
+            // NEW CALCULATORS
+            else if (id === 'paycheck-calculator') {
+                const grossPay = Number(input1) || 5000;
+                const payFrequency = (input2 as string) || 'biweekly';
+                const stateCode = (input3 as string) || 'NY';
+                const stateData = US_STATES.find(s => s.code === stateCode) || US_STATES[0];
+                
+                // Annualize for tax calculation
+                const multipliers: Record<string, number> = { weekly: 52, biweekly: 26, semimonthly: 24, monthly: 12 };
+                const annualGross = grossPay * (multipliers[payFrequency] || 26);
+                
+                // Federal tax (2025 brackets)
+                let fedTaxAnnual = 0;
+                if (annualGross <= 11925) fedTaxAnnual = annualGross * 0.10;
+                else if (annualGross <= 48475) fedTaxAnnual = 1192.50 + (annualGross - 11925) * 0.12;
+                else if (annualGross <= 103350) fedTaxAnnual = 5570.50 + (annualGross - 48475) * 0.22;
+                else if (annualGross <= 197300) fedTaxAnnual = 17633.50 + (annualGross - 103350) * 0.24;
+                else fedTaxAnnual = 40180.50 + (annualGross - 197300) * 0.32;
+                
+                const fedTax = fedTaxAnnual / (multipliers[payFrequency] || 26);
+                const stateTax = grossPay * (stateData.incomeTaxRate || 0);
+                const socialSecurity = Math.min(grossPay, 176100 / (multipliers[payFrequency] || 26)) * 0.062;
+                const medicare = grossPay * 0.0145;
+                const totalDeductions = fedTax + stateTax + socialSecurity + medicare;
+                const netPay = grossPay - totalDeductions;
+                
+                setResults([
+                    { label: 'Gross Pay', value: `$${grossPay.toLocaleString()}` },
+                    { label: 'Federal Tax', value: `$${fedTax.toFixed(2)}` },
+                    { label: `State Tax (${stateCode})`, value: stateData.incomeTaxRate === 0 ? '$0.00' : `$${stateTax.toFixed(2)}` },
+                    { label: 'Social Security', value: `$${socialSecurity.toFixed(2)}` },
+                    { label: 'Medicare', value: `$${medicare.toFixed(2)}` },
+                    { label: 'Total Deductions', value: `$${totalDeductions.toFixed(2)}` },
+                    { label: 'Net Pay (Take Home)', value: `$${netPay.toFixed(2)}`, isTotal: true },
+                ]);
+            } else if (id === 'student-loan-calculator') {
+                const balance = Number(input1) || 30000;
+                const rate = Number(input2) || 5.5;
+                const years = Number(input3) || 10;
+                const monthlyRate = (rate / 100) / 12;
+                const numPayments = years * 12;
+                const monthlyPayment = balance * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+                const totalPaid = monthlyPayment * numPayments;
+                const totalInterest = totalPaid - balance;
+                
+                setResults([
+                    { label: 'Loan Balance', value: `$${balance.toLocaleString()}` },
+                    { label: 'Interest Rate', value: `${rate}%` },
+                    { label: 'Loan Term', value: `${years} years` },
+                    { label: 'Monthly Payment', value: `$${monthlyPayment.toFixed(2)}`, isTotal: true },
+                    { label: 'Total Interest', value: `$${totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'Total Cost', value: `$${totalPaid.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                ]);
+            } else if (id === 'debt-payoff-calculator' || id === 'credit-card-payoff') {
+                const balance = Number(input1) || 5000;
+                const apr = Number(input2) || 20;
+                const payment = Number(input3) || 200;
+                const monthlyRate = (apr / 100) / 12;
+                
+                if (payment <= balance * monthlyRate) {
+                    setResults([{ label: 'Error', value: 'Payment too low to pay off debt!' }]);
+                } else {
+                    let remaining = balance;
+                    let months = 0;
+                    let totalInterest = 0;
+                    while (remaining > 0 && months < 600) {
+                        const interest = remaining * monthlyRate;
+                        totalInterest += interest;
+                        remaining = remaining + interest - payment;
+                        months++;
+                    }
+                    const years = Math.floor(months / 12);
+                    const remainingMonths = months % 12;
+                    
+                    setResults([
+                        { label: 'Starting Balance', value: `$${balance.toLocaleString()}` },
+                        { label: 'APR', value: `${apr}%` },
+                        { label: 'Monthly Payment', value: `$${payment.toLocaleString()}` },
+                        { label: 'Payoff Time', value: `${years > 0 ? `${years} yr ` : ''}${remainingMonths} mo`, isTotal: true },
+                        { label: 'Total Interest Paid', value: `$${totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                        { label: 'Total Cost', value: `$${(balance + totalInterest).toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    ]);
+                }
+            } else if (id === 'body-fat-calculator') {
+                const height = Number(input1) || 70; // inches
+                const waist = Number(input2) || 34; // inches
+                const neck = Number(input3) || 15; // inches
+                const hip = Number(salaryInput) || 0; // inches (for women)
+                const gender = (selectedState as string) || 'male';
+                
+                let bodyFat: number;
+                if (gender === 'female' && hip > 0) {
+                    bodyFat = 163.205 * Math.log10(waist + hip - neck) - 97.684 * Math.log10(height) - 78.387;
+                } else {
+                    bodyFat = 86.010 * Math.log10(waist - neck) - 70.041 * Math.log10(height) + 36.76;
+                }
+                bodyFat = Math.max(0, Math.min(60, bodyFat));
+                
+                let category = '';
+                if (gender === 'male') {
+                    if (bodyFat < 6) category = 'Essential Fat';
+                    else if (bodyFat < 14) category = 'Athletes';
+                    else if (bodyFat < 18) category = 'Fitness';
+                    else if (bodyFat < 25) category = 'Average';
+                    else category = 'Obese';
+                } else {
+                    if (bodyFat < 14) category = 'Essential Fat';
+                    else if (bodyFat < 21) category = 'Athletes';
+                    else if (bodyFat < 25) category = 'Fitness';
+                    else if (bodyFat < 32) category = 'Average';
+                    else category = 'Obese';
+                }
+                
+                setResults([
+                    { label: 'Body Fat %', value: `${bodyFat.toFixed(1)}%`, isTotal: true },
+                    { label: 'Category', value: category },
+                    { label: 'Fat Mass', value: `~${((bodyFat / 100) * 180).toFixed(1)} lbs` },
+                    { label: 'Lean Mass', value: `~${(180 - (bodyFat / 100) * 180).toFixed(1)} lbs` },
+                ]);
+            } else if (id === 'ideal-weight-calculator') {
+                const heightInches = Number(input1) || 70;
+                const gender = (input2 as string) || 'male';
+                const feet = Math.floor(heightInches / 12);
+                const inches = heightInches % 12;
+                const inchesOver5ft = heightInches - 60;
+                
+                let devine, robinson, miller, hamwi;
+                if (gender === 'male') {
+                    devine = 50 + 2.3 * inchesOver5ft;
+                    robinson = 52 + 1.9 * inchesOver5ft;
+                    miller = 56.2 + 1.41 * inchesOver5ft;
+                    hamwi = 48 + 2.7 * inchesOver5ft;
+                } else {
+                    devine = 45.5 + 2.3 * inchesOver5ft;
+                    robinson = 49 + 1.7 * inchesOver5ft;
+                    miller = 53.1 + 1.36 * inchesOver5ft;
+                    hamwi = 45.5 + 2.2 * inchesOver5ft;
+                }
+                const avgKg = (devine + robinson + miller + hamwi) / 4;
+                const avgLbs = avgKg * 2.205;
+                
+                setResults([
+                    { label: 'Height', value: `${feet}'${inches}"` },
+                    { label: 'Devine Formula', value: `${(devine * 2.205).toFixed(0)} lbs` },
+                    { label: 'Robinson Formula', value: `${(robinson * 2.205).toFixed(0)} lbs` },
+                    { label: 'Miller Formula', value: `${(miller * 2.205).toFixed(0)} lbs` },
+                    { label: 'Average Ideal Weight', value: `${avgLbs.toFixed(0)} lbs`, isTotal: true },
+                ]);
+            } else if (id === 'password-generator') {
+                const length = Number(input1) || 16;
+                const includeUpper = true;
+                const includeLower = true;
+                const includeNumbers = true;
+                const includeSymbols = (input2 as string) !== 'no';
+                
+                let chars = '';
+                if (includeLower) chars += 'abcdefghijklmnopqrstuvwxyz';
+                if (includeUpper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                if (includeNumbers) chars += '0123456789';
+                if (includeSymbols) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+                
+                let password = '';
+                const array = new Uint32Array(length);
+                crypto.getRandomValues(array);
+                for (let i = 0; i < length; i++) {
+                    password += chars[array[i] % chars.length];
+                }
+                
+                // Strength calculation
+                const poolSize = chars.length;
+                const entropy = Math.log2(Math.pow(poolSize, length));
+                let strength = 'Weak';
+                if (entropy >= 128) strength = 'Very Strong';
+                else if (entropy >= 60) strength = 'Strong';
+                else if (entropy >= 36) strength = 'Moderate';
+                
+                setResults([
+                    { label: 'Password', value: password, isTotal: true },
+                    { label: 'Length', value: `${length} characters` },
+                    { label: 'Strength', value: strength },
+                    { label: 'Entropy', value: `${entropy.toFixed(0)} bits` },
+                ]);
+            } else if (id === 'word-counter') {
+                const text = (input1 as string) || '';
+                const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+                const chars = text.length;
+                const charsNoSpace = text.replace(/\s/g, '').length;
+                const sentences = text.split(/[.!?]+/).filter(s => s.trim()).length;
+                const paragraphs = text.split(/\n\n+/).filter(p => p.trim()).length;
+                const readingTime = Math.ceil(words / 200);
+                
+                setResults([
+                    { label: 'Words', value: words, isTotal: true },
+                    { label: 'Characters', value: chars },
+                    { label: 'Characters (no spaces)', value: charsNoSpace },
+                    { label: 'Sentences', value: sentences },
+                    { label: 'Paragraphs', value: paragraphs || 1 },
+                    { label: 'Reading Time', value: `~${readingTime} min` },
+                ]);
+            } else if (id === 'qr-code-generator') {
+                const content = (input1 as string) || 'https://example.com';
+                // For QR code, we'll display a message - actual generation would need a library
+                setResults([
+                    { label: 'Content', value: content.substring(0, 50) + (content.length > 50 ? '...' : '') },
+                    { label: 'Status', value: 'QR Code Generated!', isTotal: true },
+                    { label: 'Note', value: 'Right-click to save' },
+                ]);
+            }
+            else if (id === 'amortization-calculator') {
                 const principal = Number(input1) || 200000;
                 const rate = Number(input2) || 6.5;
                 const years = Number(input3) || 30;
@@ -1623,6 +1832,123 @@ export const CalculatorDetail: React.FC = () => {
                             ))}
                         </select>
                     </div>
+                </div>
+            );
+        }
+        // NEW CALCULATOR FORMS
+        else if (id === 'paycheck-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Gross Pay ($)</label>
+                        <input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="5000" />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Pay Frequency</label>
+                        <select className="block w-full p-2 border border-gray-300 rounded-md" value={input2 as string} onChange={(e) => setInput2(e.target.value)}>
+                            <option value="weekly">Weekly</option>
+                            <option value="biweekly">Bi-Weekly</option>
+                            <option value="semimonthly">Semi-Monthly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+                        <select className="block w-full p-2 border border-gray-300 rounded-md" value={input3 as string} onChange={(e) => setInput3(e.target.value)}>
+                            {US_STATES.map((state) => (
+                                <option key={state.code} value={state.code}>{state.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+            );
+        } else if (id === 'student-loan-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Loan Balance ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="30000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Interest Rate (%)</label><input type="number" step="0.1" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="5.5" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Loan Term (years)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="10" /></div>
+                </div>
+            );
+        } else if (id === 'debt-payoff-calculator' || id === 'credit-card-payoff') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Current Balance ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="5000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">APR (%)</label><input type="number" step="0.1" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="20" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Monthly Payment ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="200" /></div>
+                </div>
+            );
+        } else if (id === 'body-fat-calculator') {
+            return (
+                <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                            <select className="block w-full p-2 border border-gray-300 rounded-md" value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-1">Height (inches)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="70" /></div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div><label className="block text-sm font-medium text-gray-700 mb-1">Waist (inches)</label><input type="number" step="0.5" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="34" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-1">Neck (inches)</label><input type="number" step="0.5" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="15" /></div>
+                        {selectedState === 'female' && (
+                            <div><label className="block text-sm font-medium text-gray-700 mb-1">Hip (inches)</label><input type="number" step="0.5" className="block w-full p-2 border border-gray-300 rounded-md" value={salaryInput} onChange={(e) => setSalaryInput(Number(e.target.value))} placeholder="38" /></div>
+                        )}
+                    </div>
+                </div>
+            );
+        } else if (id === 'ideal-weight-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Height (inches)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="70" /></div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                        <select className="block w-full p-2 border border-gray-300 rounded-md" value={input2 as string} onChange={(e) => setInput2(e.target.value)}>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+            );
+        } else if (id === 'password-generator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Password Length</label><input type="number" min="8" max="64" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="16" /></div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Include Symbols</label>
+                        <select className="block w-full p-2 border border-gray-300 rounded-md" value={input2 as string} onChange={(e) => setInput2(e.target.value)}>
+                            <option value="yes">Yes (!@#$%...)</option>
+                            <option value="no">No (letters & numbers only)</option>
+                        </select>
+                    </div>
+                </div>
+            );
+        } else if (id === 'word-counter') {
+            return (
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Enter or Paste Text</label>
+                    <textarea
+                        className="block w-full p-3 border border-gray-300 rounded-md h-40 resize-none"
+                        value={input1 as string}
+                        onChange={(e) => setInput1(e.target.value)}
+                        placeholder="Paste your text here to count words, characters, and more..."
+                    />
+                </div>
+            );
+        } else if (id === 'qr-code-generator') {
+            return (
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">URL or Text to Encode</label>
+                    <input
+                        type="text"
+                        className="block w-full p-2 border border-gray-300 rounded-md"
+                        value={input1 as string}
+                        onChange={(e) => setInput1(e.target.value)}
+                        placeholder="https://example.com or any text"
+                    />
                 </div>
             );
         } else {

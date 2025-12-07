@@ -18,6 +18,7 @@ export const toolsByCategory: Record<string, CategoryData> = {
         description: 'Calculate your take-home pay, income tax, and more. Our salary tools help you understand your paycheck and plan your finances better.',
         tools: [
             { id: 'ny-salary-tax-calculator', name: 'New York Salary Tax Calculator', description: 'Estimate your take-home pay in NY.', link: '/tools/ny-salary-tax-calculator', tags: ['Salary', 'Tax'] },
+            { id: 'paycheck-calculator', name: 'Paycheck Calculator', description: 'Calculate your net pay for any pay period.', link: '/tools/paycheck-calculator', tags: ['Salary', 'Paycheck'] },
             { id: 'hourly-to-salary', name: 'Hourly to Salary Converter', description: 'Convert hourly wage to annual salary.', link: '/tools/hourly-to-salary', tags: ['Salary'] },
             { id: 'bonus-tax-calculator', name: 'Bonus Tax Calculator', description: 'Calculate taxes on your bonus.', link: '/tools/bonus-tax-calculator', tags: ['Tax'] },
             { id: 'federal-tax-calculator', name: 'Federal Income Tax Calculator', description: 'Estimate your federal tax liability.', link: '/tools/federal-tax-calculator', tags: ['Tax'] },
@@ -43,6 +44,9 @@ export const toolsByCategory: Record<string, CategoryData> = {
         tools: [
             { id: 'mortgage-calculator', name: 'Mortgage Calculator', description: 'Calculate monthly mortgage payments.', link: '/tools/mortgage-calculator', tags: ['Mortgage'] },
             { id: 'auto-loan-calculator', name: 'Auto Loan Calculator', description: 'Estimate car loan payments.', link: '/tools/auto-loan-calculator', tags: ['Auto'] },
+            { id: 'student-loan-calculator', name: 'Student Loan Calculator', description: 'Plan your student loan repayment.', link: '/tools/student-loan-calculator', tags: ['Student', 'Loan'] },
+            { id: 'debt-payoff-calculator', name: 'Debt Payoff Calculator', description: 'Calculate time to pay off debt with snowball or avalanche method.', link: '/tools/debt-payoff-calculator', tags: ['Debt'] },
+            { id: 'credit-card-payoff', name: 'Credit Card Payoff Calculator', description: 'Calculate how long to pay off credit card debt.', link: '/tools/credit-card-payoff', tags: ['Credit Card', 'Debt'] },
             { id: 'amortization-calculator', name: 'Amortization Calculator', description: 'View your loan amortization schedule.', link: '/tools/amortization-calculator', tags: ['Loan'] },
         ]
     },
@@ -60,6 +64,8 @@ export const toolsByCategory: Record<string, CategoryData> = {
         description: 'Monitor your health and fitness goals.',
         tools: [
             { id: 'bmi-calculator', name: 'BMI Calculator', description: 'Calculate Body Mass Index.', link: '/tools/bmi-calculator', tags: ['Health'] },
+            { id: 'body-fat-calculator', name: 'Body Fat Calculator', description: 'Estimate your body fat percentage.', link: '/tools/body-fat-calculator', tags: ['Health', 'Fitness'] },
+            { id: 'ideal-weight-calculator', name: 'Ideal Weight Calculator', description: 'Calculate your ideal body weight.', link: '/tools/ideal-weight-calculator', tags: ['Health'] },
             { id: 'calorie-calculator', name: 'Calorie Calculator', description: 'Estimate daily calorie needs.', link: '/tools/calorie-calculator', tags: ['Fitness'] },
             { id: 'pregnancy-calculator', name: 'Pregnancy Calculator', description: 'Estimate your due date.', link: '/tools/pregnancy-calculator', tags: ['Health'] },
             { id: 'tdee-calculator', name: 'TDEE Calculator', description: 'Total Daily Energy Expenditure estimator.', link: '/tools/tdee-calculator', tags: ['Fitness'] },
@@ -158,10 +164,13 @@ export const toolsByCategory: Record<string, CategoryData> = {
         ]
     },
     'other': {
-        title: 'Other Calculators',
+        title: 'Other Tools',
         description: 'Miscellaneous tools for various needs.',
         tools: [
             { id: 'random-number', name: 'Random Number Generator', description: 'Generate random numbers within a range.', link: '/tools/random-number', tags: ['Tools'] },
+            { id: 'password-generator', name: 'Password Generator', description: 'Create strong, secure passwords.', link: '/tools/password-generator', tags: ['Security', 'Tools'] },
+            { id: 'qr-code-generator', name: 'QR Code Generator', description: 'Generate QR codes for URLs, text, and more.', link: '/tools/qr-code-generator', tags: ['Tools'] },
+            { id: 'word-counter', name: 'Word Counter', description: 'Count words, characters, and sentences.', link: '/tools/word-counter', tags: ['Writing', 'Tools'] },
         ]
     }
 };
@@ -248,6 +257,158 @@ export const toolConfigs: Record<string, ToolConfig> = {
         faq: [
             { question: 'What are the 2025 tax brackets?', answer: '10% ($0-$11,925), 12% ($11,926-$48,475), 22% ($48,476-$103,350), 24% ($103,351-$197,300), 32% ($197,301-$250,500), 35% ($250,501-$626,350), 37% (over $626,350).' }
         ]
+    },
+    'paycheck-calculator': {
+        id: 'paycheck-calculator',
+        title: 'Paycheck Calculator (2025)',
+        description: 'Calculate your net pay for weekly, bi-weekly, semi-monthly, or monthly pay periods.',
+        category: 'Finance',
+        categoryLink: '/category/salary-tax',
+        formTitle: 'Enter Paycheck Details',
+        resultTitle: 'Your Take-Home Pay',
+        content: { 
+            what: 'Calculates your net paycheck after federal tax, state tax, Social Security, and Medicare deductions.', 
+            how: 'Enter your gross pay, pay frequency, and state to see your take-home pay.', 
+            formula: 'Net Pay = Gross Pay - Federal Tax - State Tax - Social Security (6.2%) - Medicare (1.45%)' 
+        },
+        faq: [
+            { question: 'How often do most people get paid?', answer: 'Most Americans are paid bi-weekly (every two weeks), which means 26 paychecks per year.' },
+            { question: 'What is the difference between gross and net pay?', answer: 'Gross pay is your total earnings before deductions. Net pay is what you take home after taxes and deductions.' }
+        ]
+    },
+    'student-loan-calculator': {
+        id: 'student-loan-calculator',
+        title: 'Student Loan Calculator',
+        description: 'Calculate your student loan payments and total interest.',
+        category: 'Loans',
+        categoryLink: '/category/loans-debt',
+        formTitle: 'Loan Details',
+        resultTitle: 'Repayment Summary',
+        content: { 
+            what: 'Calculates monthly payments, total interest, and payoff timeline for student loans.', 
+            how: 'Enter your loan balance, interest rate, and repayment term.', 
+            formula: 'M = P[r(1+r)^n]/[(1+r)^n-1]' 
+        },
+        faq: [
+            { question: 'What is the average student loan interest rate?', answer: 'Federal student loan rates for 2024-25 range from 5.50% to 8.05% depending on the loan type.' },
+            { question: 'Should I pay off student loans early?', answer: 'Paying extra each month can save thousands in interest. Use our calculator to see the impact of extra payments.' }
+        ]
+    },
+    'debt-payoff-calculator': {
+        id: 'debt-payoff-calculator',
+        title: 'Debt Payoff Calculator',
+        description: 'Plan your debt-free journey with snowball or avalanche methods.',
+        category: 'Loans',
+        categoryLink: '/category/loans-debt',
+        formTitle: 'Debt Information',
+        resultTitle: 'Payoff Plan',
+        content: { 
+            what: 'Calculates how long it will take to pay off debt and how much interest you will pay.', 
+            how: 'Enter your debt balance, interest rate, and monthly payment amount.', 
+            formula: 'Uses amortization formula to calculate payoff timeline.' 
+        },
+        faq: [
+            { question: 'What is the debt snowball method?', answer: 'Pay off smallest debts first for psychological wins, regardless of interest rate.' },
+            { question: 'What is the debt avalanche method?', answer: 'Pay off highest interest rate debts first to minimize total interest paid.' }
+        ]
+    },
+    'credit-card-payoff': {
+        id: 'credit-card-payoff',
+        title: 'Credit Card Payoff Calculator',
+        description: 'Calculate how long to pay off credit card debt.',
+        category: 'Loans',
+        categoryLink: '/category/loans-debt',
+        formTitle: 'Credit Card Details',
+        resultTitle: 'Payoff Timeline',
+        content: { 
+            what: 'Shows how long it takes to pay off credit card debt and total interest cost.', 
+            how: 'Enter your balance, APR, and monthly payment.', 
+            formula: 'Amortization calculation with compound interest.' 
+        },
+        faq: [
+            { question: 'Why does credit card debt take so long to pay off?', answer: 'Credit cards compound interest daily at high APRs (often 20%+). Minimum payments mostly cover interest, not principal.' }
+        ]
+    },
+    'body-fat-calculator': {
+        id: 'body-fat-calculator',
+        title: 'Body Fat Calculator',
+        description: 'Estimate your body fat percentage using the U.S. Navy method.',
+        category: 'Health',
+        categoryLink: '/category/health',
+        formTitle: 'Body Measurements',
+        resultTitle: 'Body Fat Estimate',
+        content: { 
+            what: 'Estimates body fat percentage using the U.S. Navy circumference method.', 
+            how: 'Enter your height, waist, neck (and hip for women) measurements.', 
+            formula: 'Men: 86.010×log10(waist-neck) - 70.041×log10(height) + 36.76' 
+        },
+        faq: [
+            { question: 'What is a healthy body fat percentage?', answer: 'For men: 10-20% is athletic to fit. For women: 18-28% is athletic to fit.' },
+            { question: 'How accurate is this method?', answer: 'The Navy method is typically accurate within 3-4% compared to more advanced methods like DEXA scans.' }
+        ]
+    },
+    'ideal-weight-calculator': {
+        id: 'ideal-weight-calculator',
+        title: 'Ideal Weight Calculator',
+        description: 'Calculate your ideal body weight using multiple formulas.',
+        category: 'Health',
+        categoryLink: '/category/health',
+        formTitle: 'Your Information',
+        resultTitle: 'Ideal Weight Range',
+        content: { 
+            what: 'Calculates ideal body weight using Devine, Robinson, Miller, and Hamwi formulas.', 
+            how: 'Enter your height and gender.', 
+            formula: 'Devine: Men = 50 + 2.3kg per inch over 5ft; Women = 45.5 + 2.3kg per inch over 5ft' 
+        },
+        faq: []
+    },
+    'password-generator': {
+        id: 'password-generator',
+        title: 'Password Generator',
+        description: 'Create strong, secure, random passwords.',
+        category: 'Tools',
+        categoryLink: '/category/other',
+        formTitle: 'Password Options',
+        resultTitle: 'Your Password',
+        content: { 
+            what: 'Generates cryptographically secure random passwords.', 
+            how: 'Select password length and character types to include.', 
+            formula: 'Uses crypto.getRandomValues() for secure randomness.' 
+        },
+        faq: [
+            { question: 'How long should my password be?', answer: 'At least 12 characters. 16+ is recommended for important accounts.' },
+            { question: 'What makes a strong password?', answer: 'Length + complexity (uppercase, lowercase, numbers, symbols) + uniqueness (different for each account).' }
+        ]
+    },
+    'qr-code-generator': {
+        id: 'qr-code-generator',
+        title: 'QR Code Generator',
+        description: 'Generate QR codes for URLs, text, WiFi, and more.',
+        category: 'Tools',
+        categoryLink: '/category/other',
+        formTitle: 'Enter Content',
+        resultTitle: 'Your QR Code',
+        content: { 
+            what: 'Creates scannable QR codes for any text or URL.', 
+            how: 'Enter the content you want to encode.', 
+            formula: 'Reed-Solomon error correction encoding.' 
+        },
+        faq: []
+    },
+    'word-counter': {
+        id: 'word-counter',
+        title: 'Word Counter',
+        description: 'Count words, characters, sentences, and paragraphs.',
+        category: 'Tools',
+        categoryLink: '/category/other',
+        formTitle: 'Enter Text',
+        resultTitle: 'Statistics',
+        content: { 
+            what: 'Counts words, characters, sentences, paragraphs, and estimates reading time.', 
+            how: 'Paste or type your text.', 
+            formula: 'Reading time = Words / 200 (average reading speed)' 
+        },
+        faq: []
     },
     'simple-interest-calculator': {
         id: 'simple-interest-calculator',
