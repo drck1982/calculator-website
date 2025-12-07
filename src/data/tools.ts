@@ -17,11 +17,11 @@ export const toolsByCategory: Record<string, CategoryData> = {
         title: 'Salary & Tax Calculators',
         description: 'Calculate your take-home pay, income tax, and more. Our salary tools help you understand your paycheck and plan your finances better.',
         tools: [
-            { id: 'ny-salary-tax-calculator', name: 'New York Salary Tax Calculator', description: 'Estimate your take-home pay in NY.', link: '/tools/ny-salary-tax-calculator', tags: ['Salary', 'Tax'] },
             { id: 'paycheck-calculator', name: 'Paycheck Calculator', description: 'Calculate your net pay for any pay period.', link: '/tools/paycheck-calculator', tags: ['Salary', 'Paycheck'] },
-            { id: 'hourly-to-salary', name: 'Hourly to Salary Converter', description: 'Convert hourly wage to annual salary.', link: '/tools/hourly-to-salary', tags: ['Salary'] },
-            { id: 'bonus-tax-calculator', name: 'Bonus Tax Calculator', description: 'Calculate taxes on your bonus.', link: '/tools/bonus-tax-calculator', tags: ['Tax'] },
             { id: 'federal-tax-calculator', name: 'Federal Income Tax Calculator', description: 'Estimate your federal tax liability.', link: '/tools/federal-tax-calculator', tags: ['Tax'] },
+            { id: 'bonus-tax-calculator', name: 'Bonus Tax Calculator', description: 'Calculate taxes on your bonus.', link: '/tools/bonus-tax-calculator', tags: ['Tax'] },
+            { id: 'hourly-to-salary', name: 'Hourly to Salary Converter', description: 'Convert hourly wage to annual salary.', link: '/tools/hourly-to-salary', tags: ['Salary'] },
+            { id: 'ny-salary-tax-calculator', name: 'New York Salary Tax Calculator', description: 'Estimate your take-home pay in NY.', link: '/tools/ny-salary-tax-calculator', tags: ['Salary', 'Tax'] },
         ]
     },
     'finance': {
@@ -30,16 +30,16 @@ export const toolsByCategory: Record<string, CategoryData> = {
         tools: [
             { id: 'home-affordability', name: 'Home Affordability Calculator', description: 'How much house can you afford?', link: '/tools/home-affordability', tags: ['Mortgage', 'Real Estate'] },
             { id: 'net-worth-calculator', name: 'Net Worth Calculator', description: 'Calculate your total net worth.', link: '/tools/net-worth-calculator', tags: ['Finance', 'Wealth'] },
-            { id: 'emergency-fund-calculator', name: 'Emergency Fund Calculator', description: 'How much emergency savings do you need?', link: '/tools/emergency-fund-calculator', tags: ['Savings', 'Planning'] },
+            { id: 'rent-vs-buy-calculator', name: 'Rent vs. Buy Calculator', description: 'Decide whether to rent or buy a home.', link: '/tools/rent-vs-buy-calculator', tags: ['Real Estate'] },
             { id: 'savings-goal-calculator', name: 'Savings Goal Calculator', description: 'Plan your savings to reach a goal.', link: '/tools/savings-goal-calculator', tags: ['Savings'] },
+            { id: 'emergency-fund-calculator', name: 'Emergency Fund Calculator', description: 'How much emergency savings do you need?', link: '/tools/emergency-fund-calculator', tags: ['Savings', 'Planning'] },
+            { id: 'roi-calculator', name: 'ROI Calculator', description: 'Calculate Return on Investment.', link: '/tools/roi-calculator', tags: ['Business'] },
+            { id: 'down-payment-calculator', name: 'Down Payment Calculator', description: 'Calculate down payment percentage and amount.', link: '/tools/down-payment-calculator', tags: ['Mortgage'] },
             { id: 'simple-interest-calculator', name: 'Simple Interest Calculator', description: 'Calculate simple interest on loans or savings.', link: '/tools/simple-interest-calculator', tags: ['Finance'] },
             { id: 'apy-calculator', name: 'APY Calculator', description: 'Calculate Annual Percentage Yield.', link: '/tools/apy-calculator', tags: ['Interest'] },
-            { id: 'roi-calculator', name: 'ROI Calculator', description: 'Calculate Return on Investment.', link: '/tools/roi-calculator', tags: ['Business'] },
-            { id: 'break-even-calculator', name: 'Break-Even Point Calculator', description: 'Find when your business becomes profitable.', link: '/tools/break-even-calculator', tags: ['Business'] },
             { id: 'margin-calculator', name: 'Margin Calculator', description: 'Calculate profit margin and markup.', link: '/tools/margin-calculator', tags: ['Business'] },
+            { id: 'break-even-calculator', name: 'Break-Even Point Calculator', description: 'Find when your business becomes profitable.', link: '/tools/break-even-calculator', tags: ['Business'] },
             { id: 'vat-calculator', name: 'VAT Calculator', description: 'Calculate Value Added Tax.', link: '/tools/vat-calculator', tags: ['Tax'] },
-            { id: 'down-payment-calculator', name: 'Down Payment Calculator', description: 'Calculate down payment percentage and amount.', link: '/tools/down-payment-calculator', tags: ['Mortgage'] },
-            { id: 'rent-vs-buy-calculator', name: 'Rent vs. Buy Calculator', description: 'Decide whether to rent or buy a home.', link: '/tools/rent-vs-buy-calculator', tags: ['Real Estate'] },
         ]
     },
     'loans-debt': {
@@ -47,12 +47,12 @@ export const toolsByCategory: Record<string, CategoryData> = {
         description: 'Plan your loan payments and debt payoff strategies. Use our tools to compare loan options and save on interest.',
         tools: [
             { id: 'mortgage-calculator', name: 'Mortgage Calculator', description: 'Calculate monthly mortgage payments.', link: '/tools/mortgage-calculator', tags: ['Mortgage'] },
-            { id: 'auto-loan-calculator', name: 'Auto Loan Calculator', description: 'Estimate car loan payments.', link: '/tools/auto-loan-calculator', tags: ['Auto'] },
-            { id: 'lease-vs-buy-car', name: 'Lease vs Buy Car Calculator', description: 'Should you lease or buy your next car?', link: '/tools/lease-vs-buy-car', tags: ['Auto', 'Lease'] },
             { id: 'student-loan-calculator', name: 'Student Loan Calculator', description: 'Plan your student loan repayment.', link: '/tools/student-loan-calculator', tags: ['Student', 'Loan'] },
-            { id: 'debt-payoff-calculator', name: 'Debt Payoff Calculator', description: 'Calculate time to pay off debt with snowball or avalanche method.', link: '/tools/debt-payoff-calculator', tags: ['Debt'] },
+            { id: 'auto-loan-calculator', name: 'Auto Loan Calculator', description: 'Estimate car loan payments.', link: '/tools/auto-loan-calculator', tags: ['Auto'] },
             { id: 'credit-card-payoff', name: 'Credit Card Payoff Calculator', description: 'Calculate how long to pay off credit card debt.', link: '/tools/credit-card-payoff', tags: ['Credit Card', 'Debt'] },
+            { id: 'debt-payoff-calculator', name: 'Debt Payoff Calculator', description: 'Calculate time to pay off debt with snowball or avalanche method.', link: '/tools/debt-payoff-calculator', tags: ['Debt'] },
             { id: 'refinance-calculator', name: 'Refinance Calculator', description: 'Is refinancing worth it for you?', link: '/tools/refinance-calculator', tags: ['Mortgage', 'Refinance'] },
+            { id: 'lease-vs-buy-car', name: 'Lease vs Buy Car Calculator', description: 'Should you lease or buy your next car?', link: '/tools/lease-vs-buy-car', tags: ['Auto', 'Lease'] },
             { id: 'amortization-calculator', name: 'Amortization Calculator', description: 'View your loan amortization schedule.', link: '/tools/amortization-calculator', tags: ['Loan'] },
         ]
     },
@@ -70,14 +70,14 @@ export const toolsByCategory: Record<string, CategoryData> = {
         description: 'Monitor your health and fitness goals.',
         tools: [
             { id: 'bmi-calculator', name: 'BMI Calculator', description: 'Calculate Body Mass Index.', link: '/tools/bmi-calculator', tags: ['Health'] },
-            { id: 'body-fat-calculator', name: 'Body Fat Calculator', description: 'Estimate your body fat percentage.', link: '/tools/body-fat-calculator', tags: ['Health', 'Fitness'] },
-            { id: 'ideal-weight-calculator', name: 'Ideal Weight Calculator', description: 'Calculate your ideal body weight.', link: '/tools/ideal-weight-calculator', tags: ['Health'] },
-            { id: 'sleep-calculator', name: 'Sleep Calculator', description: 'Find the best time to wake up or go to bed.', link: '/tools/sleep-calculator', tags: ['Health', 'Sleep'] },
-            { id: 'water-intake-calculator', name: 'Water Intake Calculator', description: 'How much water should you drink daily?', link: '/tools/water-intake-calculator', tags: ['Health', 'Hydration'] },
-            { id: 'calorie-calculator', name: 'Calorie Calculator', description: 'Estimate daily calorie needs.', link: '/tools/calorie-calculator', tags: ['Fitness'] },
-            { id: 'pregnancy-calculator', name: 'Pregnancy Calculator', description: 'Estimate your due date.', link: '/tools/pregnancy-calculator', tags: ['Health'] },
             { id: 'age-calculator', name: 'Age Calculator', description: 'Calculate exact age in years, months, and days.', link: '/tools/age-calculator', tags: ['Health', 'Date'] },
+            { id: 'calorie-calculator', name: 'Calorie Calculator', description: 'Estimate daily calorie needs.', link: '/tools/calorie-calculator', tags: ['Fitness'] },
+            { id: 'body-fat-calculator', name: 'Body Fat Calculator', description: 'Estimate your body fat percentage.', link: '/tools/body-fat-calculator', tags: ['Health', 'Fitness'] },
+            { id: 'sleep-calculator', name: 'Sleep Calculator', description: 'Find the best time to wake up or go to bed.', link: '/tools/sleep-calculator', tags: ['Health', 'Sleep'] },
+            { id: 'pregnancy-calculator', name: 'Pregnancy Calculator', description: 'Estimate your due date.', link: '/tools/pregnancy-calculator', tags: ['Health'] },
+            { id: 'ideal-weight-calculator', name: 'Ideal Weight Calculator', description: 'Calculate your ideal body weight.', link: '/tools/ideal-weight-calculator', tags: ['Health'] },
             { id: 'tdee-calculator', name: 'TDEE Calculator', description: 'Total Daily Energy Expenditure estimator.', link: '/tools/tdee-calculator', tags: ['Fitness'] },
+            { id: 'water-intake-calculator', name: 'Water Intake Calculator', description: 'How much water should you drink daily?', link: '/tools/water-intake-calculator', tags: ['Health', 'Hydration'] },
             { id: 'macro-calculator', name: 'Macro Calculator', description: 'Calculate optimal macronutrient split.', link: '/tools/macro-calculator', tags: ['Diet'] },
             { id: 'one-rep-max-calculator', name: 'One Rep Max Calculator', description: 'Estimate your 1RM for lifting.', link: '/tools/one-rep-max-calculator', tags: ['Fitness'] },
             { id: 'bac-calculator', name: 'BAC Calculator', description: 'Estimate Blood Alcohol Content.', link: '/tools/bac-calculator', tags: ['Health'] },
@@ -173,19 +173,19 @@ export const toolsByCategory: Record<string, CategoryData> = {
         ]
     },
     'other': {
-        title: 'Other Tools',
-        description: 'Miscellaneous tools for various needs.',
+        title: 'Popular Tools',
+        description: 'Most-used everyday calculators and generators.',
         tools: [
-            { id: 'random-number', name: 'Random Number Generator', description: 'Generate random numbers within a range.', link: '/tools/random-number', tags: ['Tools'] },
-            { id: 'password-generator', name: 'Password Generator', description: 'Create strong, secure passwords.', link: '/tools/password-generator', tags: ['Security', 'Tools'] },
-            { id: 'qr-code-generator', name: 'QR Code Generator', description: 'Generate QR codes for URLs, text, and more.', link: '/tools/qr-code-generator', tags: ['Tools'] },
-            { id: 'word-counter', name: 'Word Counter', description: 'Count words, characters, and sentences.', link: '/tools/word-counter', tags: ['Writing', 'Tools'] },
-            { id: 'gpa-calculator', name: 'GPA Calculator', description: 'Calculate your Grade Point Average.', link: '/tools/gpa-calculator', tags: ['Education', 'School'] },
             { id: 'tip-calculator', name: 'Tip Calculator', description: 'Calculate tip and split the bill.', link: '/tools/tip-calculator', tags: ['Money', 'Tools'] },
+            { id: 'gpa-calculator', name: 'GPA Calculator', description: 'Calculate your Grade Point Average.', link: '/tools/gpa-calculator', tags: ['Education', 'School'] },
+            { id: 'password-generator', name: 'Password Generator', description: 'Create strong, secure passwords.', link: '/tools/password-generator', tags: ['Security', 'Tools'] },
+            { id: 'grade-calculator', name: 'Grade Calculator', description: 'Calculate final grade and what you need to pass.', link: '/tools/grade-calculator', tags: ['Education', 'School'] },
             { id: 'date-calculator', name: 'Date Calculator', description: 'Calculate days between dates or add/subtract days.', link: '/tools/date-calculator', tags: ['Date', 'Tools'] },
             { id: 'time-zone-converter', name: 'Time Zone Converter', description: 'Convert time between time zones.', link: '/tools/time-zone-converter', tags: ['Time', 'Tools'] },
+            { id: 'qr-code-generator', name: 'QR Code Generator', description: 'Generate QR codes for URLs, text, and more.', link: '/tools/qr-code-generator', tags: ['Tools'] },
+            { id: 'word-counter', name: 'Word Counter', description: 'Count words, characters, and sentences.', link: '/tools/word-counter', tags: ['Writing', 'Tools'] },
             { id: 'unit-price-calculator', name: 'Unit Price Calculator', description: 'Compare prices per unit to find the best deal.', link: '/tools/unit-price-calculator', tags: ['Shopping', 'Money'] },
-            { id: 'grade-calculator', name: 'Grade Calculator', description: 'Calculate final grade and what you need to pass.', link: '/tools/grade-calculator', tags: ['Education', 'School'] },
+            { id: 'random-number', name: 'Random Number Generator', description: 'Generate random numbers within a range.', link: '/tools/random-number', tags: ['Tools'] },
         ]
     }
 };

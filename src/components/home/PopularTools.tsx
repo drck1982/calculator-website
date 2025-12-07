@@ -1,18 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Star, Calculator, Home, TrendingUp, Car, Activity, Coins, ArrowRight } from 'lucide-react';
+import { Star, Calculator, Home, TrendingUp, Activity, Moon, Lock, Utensils, GraduationCap, ArrowRight, DollarSign, Scale, Calendar } from 'lucide-react';
 
+// Ordered by search volume (highest first)
 const popularTools = [
     {
-        name: 'NY Salary Tax Calculator',
-        description: 'Estimate your take-home pay after federal, state, and local taxes.',
+        name: 'Paycheck Calculator',
+        description: 'Calculate your take-home pay after taxes for any pay period.',
         category: 'Salary',
-        icon: Calculator,
-        color: 'text-blue-600 bg-blue-50',
-        link: '/tools/ny-salary-tax-calculator'
+        icon: DollarSign,
+        color: 'text-green-600 bg-green-50',
+        link: '/tools/paycheck-calculator'
     },
     {
-        name: 'Mortgage Payment Calculator',
+        name: 'Mortgage Calculator',
         description: 'Calculate monthly mortgage payments with taxes and insurance.',
         category: 'Loans',
         icon: Home,
@@ -20,36 +21,84 @@ const popularTools = [
         link: '/tools/mortgage-calculator'
     },
     {
-        name: 'Compound Interest Calculator',
-        description: 'See how your investments grow over time with compound interest.',
+        name: 'BMI Calculator',
+        description: 'Calculate your Body Mass Index based on height and weight.',
+        category: 'Health',
+        icon: Scale,
+        color: 'text-rose-600 bg-rose-50',
+        link: '/tools/bmi-calculator'
+    },
+    {
+        name: 'Tip Calculator',
+        description: 'Calculate tip amount and split the bill among friends.',
+        category: 'Everyday',
+        icon: Utensils,
+        color: 'text-orange-600 bg-orange-50',
+        link: '/tools/tip-calculator'
+    },
+    {
+        name: 'GPA Calculator',
+        description: 'Calculate your Grade Point Average instantly.',
+        category: 'Education',
+        icon: GraduationCap,
+        color: 'text-purple-600 bg-purple-50',
+        link: '/tools/gpa-calculator'
+    },
+    {
+        name: 'Age Calculator',
+        description: 'Calculate exact age in years, months, and days.',
+        category: 'Tools',
+        icon: Calendar,
+        color: 'text-cyan-600 bg-cyan-50',
+        link: '/tools/age-calculator'
+    },
+    {
+        name: 'Sleep Calculator',
+        description: 'Find the best time to wake up based on sleep cycles.',
+        category: 'Health',
+        icon: Moon,
+        color: 'text-violet-600 bg-violet-50',
+        link: '/tools/sleep-calculator'
+    },
+    {
+        name: 'Password Generator',
+        description: 'Create strong, secure passwords instantly.',
+        category: 'Security',
+        icon: Lock,
+        color: 'text-red-600 bg-red-50',
+        link: '/tools/password-generator'
+    },
+    {
+        name: 'Compound Interest',
+        description: 'See how your investments grow over time.',
         category: 'Investment',
         icon: TrendingUp,
         color: 'text-emerald-600 bg-emerald-50',
         link: '/tools/compound-interest-calculator'
     },
     {
-        name: 'Auto Loan Calculator',
-        description: 'Estimate your monthly car payments and total interest.',
-        category: 'Loans',
-        icon: Car,
-        color: 'text-orange-600 bg-orange-50',
-        link: '/tools/auto-loan-calculator'
-    },
-    {
-        name: 'BMI Calculator',
-        description: 'Calculate your Body Mass Index (BMI) based on height and weight.',
-        category: 'Health',
+        name: 'Body Fat Calculator',
+        description: 'Estimate your body fat percentage with the Navy method.',
+        category: 'Fitness',
         icon: Activity,
-        color: 'text-rose-600 bg-rose-50',
-        link: '/tools/bmi-calculator'
+        color: 'text-amber-600 bg-amber-50',
+        link: '/tools/body-fat-calculator'
     },
     {
-        name: 'Inflation Calculator',
-        description: 'Calculate the value of money over time due to inflation.',
+        name: 'Home Affordability',
+        description: 'How much house can you afford based on income?',
         category: 'Finance',
-        icon: Coins,
-        color: 'text-yellow-600 bg-yellow-50',
-        link: '/tools/inflation-calculator'
+        icon: Home,
+        color: 'text-blue-600 bg-blue-50',
+        link: '/tools/home-affordability'
+    },
+    {
+        name: 'Student Loan Calculator',
+        description: 'Plan your student loan repayment strategy.',
+        category: 'Loans',
+        icon: Calculator,
+        color: 'text-teal-600 bg-teal-50',
+        link: '/tools/student-loan-calculator'
     }
 ];
 
