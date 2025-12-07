@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export const SeoTextBlock: React.FC = () => {
+    const { t } = useLanguage();
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
@@ -43,9 +45,9 @@ export const SeoTextBlock: React.FC = () => {
                         className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800 transition-colors"
                     >
                         {isExpanded ? (
-                            <>Show Less <ChevronUp className="ml-1 h-4 w-4" /></>
+                            <>{t('common.showLess')} <ChevronUp className="ml-1 h-4 w-4" /></>
                         ) : (
-                            <>Read More <ChevronDown className="ml-1 h-4 w-4" /></>
+                            <>{t('common.readMore')} <ChevronDown className="ml-1 h-4 w-4" /></>
                         )}
                     </button>
                 </div>

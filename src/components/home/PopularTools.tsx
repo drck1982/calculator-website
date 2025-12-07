@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Star, Calculator, Home, TrendingUp, Activity, Moon, Lock, Utensils, GraduationCap, ArrowRight, DollarSign, Scale, Calendar } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 // Ordered by search volume (highest first)
 const popularTools = [
@@ -103,6 +104,7 @@ const popularTools = [
 ];
 
 export const PopularTools: React.FC = () => {
+    const { t } = useLanguage();
     return (
         <section className="py-20 bg-gray-50/50">
             <div className="container mx-auto px-4">
@@ -112,8 +114,8 @@ export const PopularTools: React.FC = () => {
                             <Star className="h-6 w-6 text-yellow-600 fill-yellow-600" />
                         </div>
                         <div>
-                            <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Popular Calculators</h2>
-                            <p className="text-gray-500 mt-1">Most used tools by our community</p>
+                            <h2 className="text-3xl font-bold text-gray-900 tracking-tight">{t('popular.title')}</h2>
+                            <p className="text-gray-500 mt-1">{t('popular.subtitle')}</p>
                         </div>
                     </div>
                 </div>

@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Search, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getAllTools, type ToolSummary } from '../../data/tools';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export const Hero: React.FC = () => {
+    const { t } = useLanguage();
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<ToolSummary[]>([]);
     const [showResults, setShowResults] = useState(false);
@@ -51,19 +53,18 @@ export const Hero: React.FC = () => {
 
             <div className="container relative z-10 mx-auto px-4 text-center">
                 <div className="inline-flex items-center justify-center px-4 py-1.5 mb-8 rounded-full bg-blue-50 border border-blue-100">
-                    <span className="text-sm font-semibold text-blue-700 tracking-wide uppercase">New Tools Added</span>
+                    <span className="text-sm font-semibold text-blue-700 tracking-wide uppercase">{t('hero.badge')}</span>
                 </div>
 
                 <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-6 tracking-tight leading-tight">
-                    Smart calculators for your <br className="hidden md:block" />
+                    {t('hero.title1')} <br className="hidden md:block" />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                        financial future.
+                        {t('hero.title2')}
                     </span>
                 </h1>
 
                 <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-                    Make better decisions with our free, accurate, and easy-to-use tools.
-                    From salary taxes to investment growth, we've got you covered.
+                    {t('hero.subtitle')}
                 </p>
 
                 {/* Search Bar */}
@@ -77,7 +78,7 @@ export const Hero: React.FC = () => {
                             <input
                                 type="text"
                                 className="block w-full pl-14 pr-4 py-5 bg-transparent border-0 rounded-xl text-lg placeholder-gray-400 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
-                                placeholder="Search calculators... e.g. mortgage, tax, interest"
+                                placeholder={t('hero.searchPlaceholder')}
                                 value={query}
                                 onChange={(e) => {
                                     setQuery(e.target.value);
@@ -122,7 +123,7 @@ export const Hero: React.FC = () => {
 
                 {/* Quick Links - Ordered by search volume */}
                 <div className="flex flex-wrap justify-center gap-3 animate-fade-in-up">
-                    <span className="text-sm font-medium text-gray-500 py-2">Trending:</span>
+                    <span className="text-sm font-medium text-gray-500 py-2">{t('hero.trending')}</span>
                     <Link to="/tools/paycheck-calculator" className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
                         Paycheck
                     </Link>

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from '@vercel/analytics/react';
+import { LanguageProvider } from './contexts/LanguageContext';
 import { MainLayout } from './layouts/MainLayout';
 import { Home } from './pages/Home';
 import { Category } from './pages/Category';
@@ -16,6 +17,7 @@ import { NotFound } from './pages/NotFound';
 function App() {
   return (
     <HelmetProvider>
+      <LanguageProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout />}>
@@ -33,6 +35,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <Analytics />
+      </LanguageProvider>
     </HelmetProvider>
   );
 }

@@ -6,6 +6,7 @@ import {
     BiologyAIIcon, ChemistryAIIcon, EverydayLifeAIIcon, PhysicsAIIcon,
     SportsAIIcon, StatisticsAIIcon, OtherAIIcon
 } from '../icons/CategoryIcons';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const categories = [
     {
@@ -146,13 +147,14 @@ const categories = [
 ];
 
 export const CategoryGrid: React.FC = () => {
+    const { t } = useLanguage();
     return (
         <section className="py-16 bg-white">
             <div className="container mx-auto px-4">
                 <div className="flex items-center justify-between mb-10">
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Browse by Category</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{t('categories.title')}</h2>
                     <Link to="/all-tools" className="text-blue-600 font-medium hover:text-blue-700 flex items-center">
-                        View all <ArrowRight className="ml-1 h-4 w-4" />
+                        {t('categories.viewAll')} <ArrowRight className="ml-1 h-4 w-4" />
                     </Link>
                 </div>
 

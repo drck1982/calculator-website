@@ -2,8 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Calculator, Menu, Search, X, ChevronRight } from 'lucide-react';
 import { getAllTools, type ToolSummary } from '../../data/tools';
+import { LanguageSwitcher } from '../common/LanguageSwitcher';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export const Header: React.FC = () => {
+    useLanguage(); // Ensure context is available
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -74,7 +77,10 @@ export const Header: React.FC = () => {
                 </nav>
 
                 {/* Right Actions */}
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1">
+                    {/* Language Switcher */}
+                    <LanguageSwitcher />
+                    
                     {/* Search */}
                     <div className="relative" ref={searchRef}>
                         <button
