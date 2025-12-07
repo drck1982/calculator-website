@@ -5,8 +5,29 @@ import { SEO } from '../components/common/SEO';
 import { Breadcrumbs } from '../components/common/Breadcrumbs';
 import { AdSlot } from '../components/common/AdSlot';
 import { toolsByCategory, getAllTools } from '../data/tools';
+import { useLanguage } from '../contexts/LanguageContext';
+
+// Category translation key mapping
+const categoryKeyMap: Record<string, string> = {
+    'salary-tax': 'cat.finance',
+    'finance': 'cat.business',
+    'loans-debt': 'cat.loansDebt',
+    'investment': 'cat.investment',
+    'health': 'cat.health',
+    'math': 'cat.math',
+    'geometry': 'cat.geometry',
+    'conversion': 'cat.conversion',
+    'everyday-life': 'cat.everydayLife',
+    'biology': 'cat.biology',
+    'chemistry': 'cat.chemistry',
+    'physics': 'cat.physics',
+    'sports': 'cat.sports',
+    'statistics': 'cat.statistics',
+    'other': 'cat.other',
+};
 
 export const AllTools: React.FC = () => {
+    const { t, language } = useLanguage();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -35,28 +56,33 @@ export const AllTools: React.FC = () => {
     }, [allTools, selectedCategory, searchQuery]);
 
     const getCategoryTitle = (categoryId: string) => {
+        const key = categoryKeyMap[categoryId];
+        if (key && language !== 'en') {
+            const translated = t(key);
+            if (translated !== key) return translated;
+        }
         return toolsByCategory[categoryId]?.title || categoryId;
     };
 
     return (
         <div className="bg-gray-50 min-h-screen">
             <SEO
-                title="All Calculators - Browse 50+ Free Online Tools"
-                description="Browse our complete collection of 50+ free online calculators. Finance, health, math, conversion tools and more. Find the perfect calculator for your needs."
+                title={`${t('allTools.title')} - Browse 80+ Free Online Tools`}
+                description={t('allTools.subtitle')}
                 keywords="all calculators, free online tools, calculator collection, finance calculator, health calculator, math tools, unit converter"
                 canonicalUrl="/all-tools"
             />
 
             <div className="container mx-auto px-4 py-8">
-                <Breadcrumbs items={[{ label: 'All Calculators' }]} />
+                <Breadcrumbs items={[{ label: t('allTools.title') }]} />
 
                 {/* Header */}
                 <div className="text-center py-12">
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                        All Calculators
+                        {t('allTools.title')}
                     </h1>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                        Browse our complete collection of {allTools.length}+ free calculators
+                        {t('allTools.subtitle')} ({allTools.length}+)
                     </p>
                 </div>
 
@@ -69,7 +95,7 @@ export const AllTools: React.FC = () => {
                                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                                 <input
                                     type="text"
-                                    placeholder="Search calculators..."
+                                    placeholder={t('allTools.searchPlaceholder')}
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
@@ -84,7 +110,7 @@ export const AllTools: React.FC = () => {
                                     onChange={(e) => setSelectedCategory(e.target.value)}
                                     className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all appearance-none bg-white cursor-pointer"
                                 >
-                                    <option value="all">All Categories</option>
+                                    <option value="all">{t('allTools.allCategories')}</option>
                                     {categories.map(cat => (
                                         <option key={cat} value={cat}>{getCategoryTitle(cat)}</option>
                                     ))}
@@ -94,9 +120,9 @@ export const AllTools: React.FC = () => {
 
                         {/* Results count */}
                         <div className="mt-4 text-sm text-gray-500">
-                            Showing {filteredTools.length} calculator{filteredTools.length !== 1 ? 's' : ''}
-                            {selectedCategory !== 'all' && ` in ${getCategoryTitle(selectedCategory)}`}
-                            {searchQuery && ` matching "${searchQuery}"`}
+                            {t('allTools.showing')} {filteredTools.length} {filteredTools.length !== 1 ? t('allTools.calculators') : t('allTools.calculator')}
+                            {selectedCategory !== 'all' && ` ${t('allTools.in')} ${getCategoryTitle(selectedCategory)}`}
+                            {searchQuery && ` ${t('allTools.matching')} "${searchQuery}"`}
                         </div>
                     </div>
                 </div>
@@ -148,9 +174,9 @@ export const AllTools: React.FC = () => {
                     ) : (
                         <div className="text-center py-16 bg-white rounded-2xl border border-gray-200">
                             <Calculator className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">No calculators found</h3>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">{t('allTools.noFound')}</h3>
                             <p className="text-gray-500 mb-6">
-                                Try adjusting your search or filter criteria
+                                {t('allTools.tryAdjusting')}
                             </p>
                             <button
                                 onClick={() => {
@@ -159,7 +185,7 @@ export const AllTools: React.FC = () => {
                                 }}
                                 className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                             >
-                                Clear Filters
+                                {t('allTools.clearFilters')}
                             </button>
                         </div>
                     )}
@@ -167,7 +193,7 @@ export const AllTools: React.FC = () => {
 
                 {/* Category Quick Links */}
                 <div className="max-w-6xl mx-auto mt-16">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Browse by Category</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('allTools.browseByCategory')}</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
                         {categories.map(cat => (
                             <button
@@ -187,7 +213,7 @@ export const AllTools: React.FC = () => {
                                     {getCategoryTitle(cat)}
                                 </div>
                                 <div className="text-xs text-gray-500 mt-1">
-                                    {toolsByCategory[cat]?.tools.length || 0} tools
+                                    {toolsByCategory[cat]?.tools.length || 0} {t('allTools.tools')}
                                 </div>
                             </button>
                         ))}
@@ -199,4 +225,3 @@ export const AllTools: React.FC = () => {
         </div>
     );
 };
-
