@@ -1001,6 +1001,292 @@ export const CalculatorDetail: React.FC = () => {
                     { label: 'Note', value: 'Right-click to save' },
                 ]);
             }
+            // === NEW HIGH-TRAFFIC CALCULATORS ===
+            else if (id === 'home-affordability') {
+                const annualIncome = Number(input1) || 80000;
+                const monthlyDebts = Number(input2) || 500;
+                const downPayment = Number(input3) || 60000;
+                const interestRate = Number(salaryInput) || 6.5;
+                
+                const monthlyIncome = annualIncome / 12;
+                const maxHousingPayment = monthlyIncome * 0.28; // 28% rule
+                const maxTotalDebt = monthlyIncome * 0.36; // 36% rule
+                const availableForHousing = Math.min(maxHousingPayment, maxTotalDebt - monthlyDebts);
+                
+                const monthlyRate = (interestRate / 100) / 12;
+                const numPayments = 30 * 12;
+                const maxLoan = availableForHousing * (Math.pow(1 + monthlyRate, numPayments) - 1) / (monthlyRate * Math.pow(1 + monthlyRate, numPayments));
+                const maxHomePrice = maxLoan + downPayment;
+                
+                setResults([
+                    { label: 'Annual Income', value: `$${annualIncome.toLocaleString()}` },
+                    { label: 'Max Monthly Payment', value: `$${availableForHousing.toFixed(0)}` },
+                    { label: 'Max Loan Amount', value: `$${maxLoan.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'Max Home Price', value: `$${maxHomePrice.toLocaleString(undefined, { maximumFractionDigits: 0 })}`, isTotal: true },
+                ]);
+            } else if (id === 'net-worth-calculator') {
+                const assets = Number(input1) || 100000;
+                const liabilities = Number(input2) || 50000;
+                const netWorth = assets - liabilities;
+                
+                setResults([
+                    { label: 'Total Assets', value: `$${assets.toLocaleString()}` },
+                    { label: 'Total Liabilities', value: `$${liabilities.toLocaleString()}` },
+                    { label: 'Net Worth', value: `$${netWorth.toLocaleString()}`, isTotal: true },
+                    { label: 'Debt-to-Asset Ratio', value: `${((liabilities / assets) * 100).toFixed(1)}%` },
+                ]);
+            } else if (id === 'emergency-fund-calculator') {
+                const monthlyExpenses = Number(input1) || 4000;
+                const months = Number(input2) || 6;
+                const currentSavings = Number(input3) || 5000;
+                
+                const targetFund = monthlyExpenses * months;
+                const needed = Math.max(0, targetFund - currentSavings);
+                
+                setResults([
+                    { label: 'Monthly Expenses', value: `$${monthlyExpenses.toLocaleString()}` },
+                    { label: `Target (${months} months)`, value: `$${targetFund.toLocaleString()}`, isTotal: true },
+                    { label: 'Current Savings', value: `$${currentSavings.toLocaleString()}` },
+                    { label: 'Still Needed', value: `$${needed.toLocaleString()}` },
+                ]);
+            } else if (id === 'savings-goal-calculator') {
+                const goalAmount = Number(input1) || 10000;
+                const currentSavings = Number(input2) || 1000;
+                const monthsToGoal = Number(input3) || 12;
+                const annualRate = Number(salaryInput) || 4;
+                
+                const monthlyRate = (annualRate / 100) / 12;
+                const futureCurrentValue = currentSavings * Math.pow(1 + monthlyRate, monthsToGoal);
+                const remaining = goalAmount - futureCurrentValue;
+                const monthlySavings = remaining > 0 ? remaining * monthlyRate / (Math.pow(1 + monthlyRate, monthsToGoal) - 1) : 0;
+                
+                setResults([
+                    { label: 'Goal Amount', value: `$${goalAmount.toLocaleString()}` },
+                    { label: 'Timeline', value: `${monthsToGoal} months` },
+                    { label: 'Monthly Savings Needed', value: `$${Math.max(0, monthlySavings).toFixed(2)}`, isTotal: true },
+                    { label: 'Interest Earned', value: `$${(goalAmount - currentSavings - monthlySavings * monthsToGoal).toFixed(0)}` },
+                ]);
+            } else if (id === 'sleep-calculator') {
+                const wakeTime = (input1 as string) || '07:00';
+                const [hours, minutes] = wakeTime.split(':').map(Number);
+                const wakeMinutes = hours * 60 + minutes;
+                
+                // Calculate bedtimes (going back 5-6 cycles + 15 min to fall asleep)
+                const cycles = [6, 5, 4, 3];
+                const bedtimes = cycles.map(c => {
+                    let bedMinutes = wakeMinutes - (c * 90 + 15);
+                    if (bedMinutes < 0) bedMinutes += 24 * 60;
+                    const h = Math.floor(bedMinutes / 60);
+                    const m = bedMinutes % 60;
+                    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+                });
+                
+                setResults([
+                    { label: 'Wake Time', value: wakeTime },
+                    { label: '6 cycles (9h)', value: bedtimes[0], isTotal: true },
+                    { label: '5 cycles (7.5h)', value: bedtimes[1] },
+                    { label: '4 cycles (6h)', value: bedtimes[2] },
+                    { label: '3 cycles (4.5h)', value: bedtimes[3] },
+                ]);
+            } else if (id === 'water-intake-calculator') {
+                const weightLbs = Number(input1) || 150;
+                const activityLevel = (input2 as string) || 'moderate';
+                
+                const activityMultipliers: Record<string, number> = {
+                    sedentary: 0.5,
+                    light: 0.6,
+                    moderate: 0.7,
+                    active: 0.8,
+                    athlete: 1.0
+                };
+                
+                const baseOz = weightLbs * (activityMultipliers[activityLevel] || 0.7);
+                const liters = baseOz * 0.0296;
+                const glasses = Math.ceil(baseOz / 8);
+                
+                setResults([
+                    { label: 'Weight', value: `${weightLbs} lbs` },
+                    { label: 'Activity', value: activityLevel.charAt(0).toUpperCase() + activityLevel.slice(1) },
+                    { label: 'Daily Water', value: `${baseOz.toFixed(0)} oz`, isTotal: true },
+                    { label: 'In Liters', value: `${liters.toFixed(1)} L` },
+                    { label: '8oz Glasses', value: `${glasses} glasses` },
+                ]);
+            } else if (id === 'age-calculator') {
+                const birthDate = new Date((input1 as string) || '1990-01-01');
+                const today = new Date();
+                
+                let years = today.getFullYear() - birthDate.getFullYear();
+                let months = today.getMonth() - birthDate.getMonth();
+                let days = today.getDate() - birthDate.getDate();
+                
+                if (days < 0) {
+                    months--;
+                    days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+                }
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+                
+                const totalDays = Math.floor((today.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24));
+                const nextBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+                if (nextBirthday < today) nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+                const daysUntilBirthday = Math.ceil((nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+                
+                setResults([
+                    { label: 'Age', value: `${years} years, ${months} months, ${days} days`, isTotal: true },
+                    { label: 'Total Days', value: totalDays.toLocaleString() },
+                    { label: 'Total Weeks', value: Math.floor(totalDays / 7).toLocaleString() },
+                    { label: 'Next Birthday In', value: `${daysUntilBirthday} days` },
+                ]);
+            } else if (id === 'lease-vs-buy-car') {
+                const carPrice = Number(input1) || 35000;
+                const leaseMonthly = Number(input2) || 350;
+                const leaseTerm = Number(input3) || 36;
+                const loanRate = 6.5;
+                
+                // Lease total cost
+                const leaseTotal = leaseMonthly * leaseTerm + 2000; // + fees
+                
+                // Buy cost (5 year loan, keep same term for comparison)
+                const monthlyRate = (loanRate / 100) / 12;
+                const loanTerm = 60;
+                const loanPayment = carPrice * (monthlyRate * Math.pow(1 + monthlyRate, loanTerm)) / (Math.pow(1 + monthlyRate, loanTerm) - 1);
+                const buyTotalPayments = loanPayment * leaseTerm; // Only compare same period
+                const depreciationRate = 0.15 + 0.12 + 0.10; // First 3 years ~37%
+                const residualValue = carPrice * (1 - depreciationRate);
+                const buyCost = buyTotalPayments - (residualValue * (leaseTerm / loanTerm));
+                
+                setResults([
+                    { label: 'Lease Total', value: `$${leaseTotal.toLocaleString()}` },
+                    { label: 'Buy Monthly Payment', value: `$${loanPayment.toFixed(0)}` },
+                    { label: `Buy Cost (${leaseTerm} mo)`, value: `$${buyTotalPayments.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'Recommendation', value: leaseTotal < buyCost ? 'Leasing may save money' : 'Buying may save money', isTotal: true },
+                ]);
+            } else if (id === 'refinance-calculator') {
+                const currentBalance = Number(input1) || 250000;
+                const currentRate = Number(input2) || 6.5;
+                const newRate = Number(input3) || 5.5;
+                const closingCosts = Number(salaryInput) || 5000;
+                
+                const monthlyRateOld = (currentRate / 100) / 12;
+                const monthlyRateNew = (newRate / 100) / 12;
+                const term = 30 * 12;
+                
+                const oldPayment = currentBalance * (monthlyRateOld * Math.pow(1 + monthlyRateOld, term)) / (Math.pow(1 + monthlyRateOld, term) - 1);
+                const newPayment = currentBalance * (monthlyRateNew * Math.pow(1 + monthlyRateNew, term)) / (Math.pow(1 + monthlyRateNew, term) - 1);
+                const monthlySavings = oldPayment - newPayment;
+                const breakEvenMonths = closingCosts / monthlySavings;
+                const totalSavings = monthlySavings * term - closingCosts;
+                
+                setResults([
+                    { label: 'Current Payment', value: `$${oldPayment.toFixed(2)}` },
+                    { label: 'New Payment', value: `$${newPayment.toFixed(2)}` },
+                    { label: 'Monthly Savings', value: `$${monthlySavings.toFixed(2)}`, isTotal: true },
+                    { label: 'Break-Even', value: `${breakEvenMonths.toFixed(0)} months` },
+                    { label: 'Total Savings', value: `$${totalSavings.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                ]);
+            } else if (id === 'gpa-calculator') {
+                // Simple GPA: use input1 as total grade points, input2 as credit hours
+                const gradePoints = Number(input1) || 45;
+                const creditHours = Number(input2) || 15;
+                const gpa = creditHours > 0 ? gradePoints / creditHours : 0;
+                
+                let standing = 'Academic Probation';
+                if (gpa >= 3.7) standing = 'Summa Cum Laude';
+                else if (gpa >= 3.5) standing = 'Magna Cum Laude';
+                else if (gpa >= 3.0) standing = 'Cum Laude';
+                else if (gpa >= 2.0) standing = 'Good Standing';
+                
+                setResults([
+                    { label: 'Total Grade Points', value: gradePoints },
+                    { label: 'Credit Hours', value: creditHours },
+                    { label: 'GPA', value: gpa.toFixed(2), isTotal: true },
+                    { label: 'Standing', value: standing },
+                ]);
+            } else if (id === 'tip-calculator') {
+                const billAmount = Number(input1) || 50;
+                const tipPercent = Number(input2) || 18;
+                const numPeople = Number(input3) || 1;
+                
+                const tipAmount = billAmount * (tipPercent / 100);
+                const totalBill = billAmount + tipAmount;
+                const perPerson = totalBill / numPeople;
+                
+                setResults([
+                    { label: 'Bill Amount', value: `$${billAmount.toFixed(2)}` },
+                    { label: `Tip (${tipPercent}%)`, value: `$${tipAmount.toFixed(2)}` },
+                    { label: 'Total', value: `$${totalBill.toFixed(2)}`, isTotal: true },
+                    { label: 'Per Person', value: `$${perPerson.toFixed(2)}` },
+                ]);
+            } else if (id === 'date-calculator') {
+                const date1 = new Date((input1 as string) || new Date().toISOString().split('T')[0]);
+                const date2 = new Date((input2 as string) || new Date().toISOString().split('T')[0]);
+                
+                const diffTime = Math.abs(date2.getTime() - date1.getTime());
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                const diffWeeks = Math.floor(diffDays / 7);
+                const diffMonths = Math.floor(diffDays / 30.44);
+                const diffYears = Math.floor(diffDays / 365.25);
+                
+                setResults([
+                    { label: 'From', value: date1.toLocaleDateString() },
+                    { label: 'To', value: date2.toLocaleDateString() },
+                    { label: 'Days', value: diffDays, isTotal: true },
+                    { label: 'Weeks', value: diffWeeks },
+                    { label: 'Months', value: diffMonths },
+                    { label: 'Years', value: diffYears },
+                ]);
+            } else if (id === 'time-zone-converter') {
+                const time = (input1 as string) || '12:00';
+                const fromZone = Number(input2) || -5; // EST
+                const toZone = Number(input3) || 0; // UTC
+                
+                const [hours, minutes] = time.split(':').map(Number);
+                let convertedHours = hours + (toZone - fromZone);
+                if (convertedHours < 0) convertedHours += 24;
+                if (convertedHours >= 24) convertedHours -= 24;
+                
+                const convertedTime = `${convertedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+                
+                setResults([
+                    { label: 'Original Time', value: time },
+                    { label: 'From UTC', value: `UTC${fromZone >= 0 ? '+' : ''}${fromZone}` },
+                    { label: 'To UTC', value: `UTC${toZone >= 0 ? '+' : ''}${toZone}` },
+                    { label: 'Converted Time', value: convertedTime, isTotal: true },
+                ]);
+            } else if (id === 'unit-price-calculator') {
+                const price1 = Number(input1) || 5.99;
+                const quantity1 = Number(input2) || 12;
+                const price2 = Number(input3) || 9.99;
+                const quantity2 = Number(salaryInput) || 24;
+                
+                const unitPrice1 = price1 / quantity1;
+                const unitPrice2 = price2 / quantity2;
+                const savings = Math.abs(unitPrice1 - unitPrice2) * Math.max(quantity1, quantity2);
+                
+                setResults([
+                    { label: 'Item 1 Unit Price', value: `$${unitPrice1.toFixed(3)}/unit` },
+                    { label: 'Item 2 Unit Price', value: `$${unitPrice2.toFixed(3)}/unit` },
+                    { label: 'Better Deal', value: unitPrice1 < unitPrice2 ? 'Item 1' : 'Item 2', isTotal: true },
+                    { label: 'Savings', value: `$${savings.toFixed(2)}` },
+                ]);
+            } else if (id === 'grade-calculator') {
+                const currentGrade = Number(input1) || 85;
+                const desiredGrade = Number(input2) || 90;
+                const finalWeight = Number(input3) || 20;
+                
+                const weightDecimal = finalWeight / 100;
+                const currentWeight = 1 - weightDecimal;
+                const requiredScore = (desiredGrade - currentGrade * currentWeight) / weightDecimal;
+                
+                setResults([
+                    { label: 'Current Grade', value: `${currentGrade}%` },
+                    { label: 'Desired Grade', value: `${desiredGrade}%` },
+                    { label: 'Final Weight', value: `${finalWeight}%` },
+                    { label: 'Required Final Score', value: requiredScore > 100 ? 'Not Possible' : `${requiredScore.toFixed(1)}%`, isTotal: true },
+                ]);
+            }
             else if (id === 'amortization-calculator') {
                 const principal = Number(input1) || 200000;
                 const rate = Number(input2) || 6.5;
@@ -1949,6 +2235,167 @@ export const CalculatorDetail: React.FC = () => {
                         onChange={(e) => setInput1(e.target.value)}
                         placeholder="https://example.com or any text"
                     />
+                </div>
+            );
+        }
+        // === NEW HIGH-TRAFFIC CALCULATOR FORMS ===
+        else if (id === 'home-affordability') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Annual Income ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="80000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Monthly Debts ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="500" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Down Payment ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="60000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Interest Rate (%)</label><input type="number" step="0.1" className="block w-full p-2 border border-gray-300 rounded-md" value={salaryInput} onChange={(e) => setSalaryInput(Number(e.target.value))} placeholder="6.5" /></div>
+                </div>
+            );
+        } else if (id === 'net-worth-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Total Assets ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="100000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Total Liabilities ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="50000" /></div>
+                </div>
+            );
+        } else if (id === 'emergency-fund-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Monthly Expenses ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="4000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Months of Coverage</label><input type="number" min="3" max="12" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="6" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Current Savings ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="5000" /></div>
+                </div>
+            );
+        } else if (id === 'savings-goal-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Goal Amount ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="10000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Current Savings ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="1000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Months to Goal</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="12" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Interest Rate (%)</label><input type="number" step="0.1" className="block w-full p-2 border border-gray-300 rounded-md" value={salaryInput} onChange={(e) => setSalaryInput(Number(e.target.value))} placeholder="4" /></div>
+                </div>
+            );
+        } else if (id === 'sleep-calculator') {
+            return (
+                <div className="grid grid-cols-1 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Wake Up Time</label><input type="time" className="block w-full p-2 border border-gray-300 rounded-md" value={input1 as string} onChange={(e) => setInput1(e.target.value)} /></div>
+                </div>
+            );
+        } else if (id === 'water-intake-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Weight (lbs)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="150" /></div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Activity Level</label>
+                        <select className="block w-full p-2 border border-gray-300 rounded-md" value={input2 as string} onChange={(e) => setInput2(e.target.value)}>
+                            <option value="sedentary">Sedentary (little exercise)</option>
+                            <option value="light">Light (1-3 days/week)</option>
+                            <option value="moderate">Moderate (3-5 days/week)</option>
+                            <option value="active">Active (6-7 days/week)</option>
+                            <option value="athlete">Athlete (2x/day)</option>
+                        </select>
+                    </div>
+                </div>
+            );
+        } else if (id === 'age-calculator') {
+            return (
+                <div className="grid grid-cols-1 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label><input type="date" className="block w-full p-2 border border-gray-300 rounded-md" value={input1 as string} onChange={(e) => setInput1(e.target.value)} /></div>
+                </div>
+            );
+        } else if (id === 'lease-vs-buy-car') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Car Price ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="35000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Lease Monthly ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="350" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Lease Term (months)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="36" /></div>
+                </div>
+            );
+        } else if (id === 'refinance-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Current Loan Balance ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="250000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Current Rate (%)</label><input type="number" step="0.1" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="6.5" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">New Rate (%)</label><input type="number" step="0.1" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="5.5" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Closing Costs ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={salaryInput} onChange={(e) => setSalaryInput(Number(e.target.value))} placeholder="5000" /></div>
+                </div>
+            );
+        } else if (id === 'gpa-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Total Grade Points</label><input type="number" step="0.1" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="45" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Total Credit Hours</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="15" /></div>
+                </div>
+            );
+        } else if (id === 'tip-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Bill Amount ($)</label><input type="number" step="0.01" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="50" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Tip Percentage (%)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="18" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Number of People</label><input type="number" min="1" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="1" /></div>
+                </div>
+            );
+        } else if (id === 'date-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label><input type="date" className="block w-full p-2 border border-gray-300 rounded-md" value={input1 as string} onChange={(e) => setInput1(e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">End Date</label><input type="date" className="block w-full p-2 border border-gray-300 rounded-md" value={input2 as string} onChange={(e) => setInput2(e.target.value)} /></div>
+                </div>
+            );
+        } else if (id === 'time-zone-converter') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Time</label><input type="time" className="block w-full p-2 border border-gray-300 rounded-md" value={input1 as string} onChange={(e) => setInput1(e.target.value)} /></div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">From Time Zone</label>
+                        <select className="block w-full p-2 border border-gray-300 rounded-md" value={input2 as number} onChange={(e) => setInput2(Number(e.target.value))}>
+                            <option value="-5">EST (UTC-5)</option>
+                            <option value="-6">CST (UTC-6)</option>
+                            <option value="-7">MST (UTC-7)</option>
+                            <option value="-8">PST (UTC-8)</option>
+                            <option value="0">UTC</option>
+                            <option value="1">CET (UTC+1)</option>
+                            <option value="8">CST China (UTC+8)</option>
+                            <option value="9">JST Japan (UTC+9)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">To Time Zone</label>
+                        <select className="block w-full p-2 border border-gray-300 rounded-md" value={input3 as number} onChange={(e) => setInput3(Number(e.target.value))}>
+                            <option value="-5">EST (UTC-5)</option>
+                            <option value="-6">CST (UTC-6)</option>
+                            <option value="-7">MST (UTC-7)</option>
+                            <option value="-8">PST (UTC-8)</option>
+                            <option value="0">UTC</option>
+                            <option value="1">CET (UTC+1)</option>
+                            <option value="8">CST China (UTC+8)</option>
+                            <option value="9">JST Japan (UTC+9)</option>
+                        </select>
+                    </div>
+                </div>
+            );
+        } else if (id === 'unit-price-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="p-3 bg-blue-50 rounded-lg">
+                        <h4 className="font-medium mb-2">Item 1</h4>
+                        <div className="space-y-2">
+                            <div><label className="block text-sm text-gray-600 mb-1">Price ($)</label><input type="number" step="0.01" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="5.99" /></div>
+                            <div><label className="block text-sm text-gray-600 mb-1">Quantity</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="12" /></div>
+                        </div>
+                    </div>
+                    <div className="p-3 bg-green-50 rounded-lg">
+                        <h4 className="font-medium mb-2">Item 2</h4>
+                        <div className="space-y-2">
+                            <div><label className="block text-sm text-gray-600 mb-1">Price ($)</label><input type="number" step="0.01" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="9.99" /></div>
+                            <div><label className="block text-sm text-gray-600 mb-1">Quantity</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={salaryInput} onChange={(e) => setSalaryInput(Number(e.target.value))} placeholder="24" /></div>
+                        </div>
+                    </div>
+                </div>
+            );
+        } else if (id === 'grade-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Current Grade (%)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="85" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Desired Grade (%)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="90" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Final Exam Weight (%)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="20" /></div>
                 </div>
             );
         } else {

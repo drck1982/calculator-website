@@ -28,6 +28,10 @@ export const toolsByCategory: Record<string, CategoryData> = {
         title: 'Finance Calculators',
         description: 'Manage your personal finances, investments, and business calculations.',
         tools: [
+            { id: 'home-affordability', name: 'Home Affordability Calculator', description: 'How much house can you afford?', link: '/tools/home-affordability', tags: ['Mortgage', 'Real Estate'] },
+            { id: 'net-worth-calculator', name: 'Net Worth Calculator', description: 'Calculate your total net worth.', link: '/tools/net-worth-calculator', tags: ['Finance', 'Wealth'] },
+            { id: 'emergency-fund-calculator', name: 'Emergency Fund Calculator', description: 'How much emergency savings do you need?', link: '/tools/emergency-fund-calculator', tags: ['Savings', 'Planning'] },
+            { id: 'savings-goal-calculator', name: 'Savings Goal Calculator', description: 'Plan your savings to reach a goal.', link: '/tools/savings-goal-calculator', tags: ['Savings'] },
             { id: 'simple-interest-calculator', name: 'Simple Interest Calculator', description: 'Calculate simple interest on loans or savings.', link: '/tools/simple-interest-calculator', tags: ['Finance'] },
             { id: 'apy-calculator', name: 'APY Calculator', description: 'Calculate Annual Percentage Yield.', link: '/tools/apy-calculator', tags: ['Interest'] },
             { id: 'roi-calculator', name: 'ROI Calculator', description: 'Calculate Return on Investment.', link: '/tools/roi-calculator', tags: ['Business'] },
@@ -44,9 +48,11 @@ export const toolsByCategory: Record<string, CategoryData> = {
         tools: [
             { id: 'mortgage-calculator', name: 'Mortgage Calculator', description: 'Calculate monthly mortgage payments.', link: '/tools/mortgage-calculator', tags: ['Mortgage'] },
             { id: 'auto-loan-calculator', name: 'Auto Loan Calculator', description: 'Estimate car loan payments.', link: '/tools/auto-loan-calculator', tags: ['Auto'] },
+            { id: 'lease-vs-buy-car', name: 'Lease vs Buy Car Calculator', description: 'Should you lease or buy your next car?', link: '/tools/lease-vs-buy-car', tags: ['Auto', 'Lease'] },
             { id: 'student-loan-calculator', name: 'Student Loan Calculator', description: 'Plan your student loan repayment.', link: '/tools/student-loan-calculator', tags: ['Student', 'Loan'] },
             { id: 'debt-payoff-calculator', name: 'Debt Payoff Calculator', description: 'Calculate time to pay off debt with snowball or avalanche method.', link: '/tools/debt-payoff-calculator', tags: ['Debt'] },
             { id: 'credit-card-payoff', name: 'Credit Card Payoff Calculator', description: 'Calculate how long to pay off credit card debt.', link: '/tools/credit-card-payoff', tags: ['Credit Card', 'Debt'] },
+            { id: 'refinance-calculator', name: 'Refinance Calculator', description: 'Is refinancing worth it for you?', link: '/tools/refinance-calculator', tags: ['Mortgage', 'Refinance'] },
             { id: 'amortization-calculator', name: 'Amortization Calculator', description: 'View your loan amortization schedule.', link: '/tools/amortization-calculator', tags: ['Loan'] },
         ]
     },
@@ -66,8 +72,11 @@ export const toolsByCategory: Record<string, CategoryData> = {
             { id: 'bmi-calculator', name: 'BMI Calculator', description: 'Calculate Body Mass Index.', link: '/tools/bmi-calculator', tags: ['Health'] },
             { id: 'body-fat-calculator', name: 'Body Fat Calculator', description: 'Estimate your body fat percentage.', link: '/tools/body-fat-calculator', tags: ['Health', 'Fitness'] },
             { id: 'ideal-weight-calculator', name: 'Ideal Weight Calculator', description: 'Calculate your ideal body weight.', link: '/tools/ideal-weight-calculator', tags: ['Health'] },
+            { id: 'sleep-calculator', name: 'Sleep Calculator', description: 'Find the best time to wake up or go to bed.', link: '/tools/sleep-calculator', tags: ['Health', 'Sleep'] },
+            { id: 'water-intake-calculator', name: 'Water Intake Calculator', description: 'How much water should you drink daily?', link: '/tools/water-intake-calculator', tags: ['Health', 'Hydration'] },
             { id: 'calorie-calculator', name: 'Calorie Calculator', description: 'Estimate daily calorie needs.', link: '/tools/calorie-calculator', tags: ['Fitness'] },
             { id: 'pregnancy-calculator', name: 'Pregnancy Calculator', description: 'Estimate your due date.', link: '/tools/pregnancy-calculator', tags: ['Health'] },
+            { id: 'age-calculator', name: 'Age Calculator', description: 'Calculate exact age in years, months, and days.', link: '/tools/age-calculator', tags: ['Health', 'Date'] },
             { id: 'tdee-calculator', name: 'TDEE Calculator', description: 'Total Daily Energy Expenditure estimator.', link: '/tools/tdee-calculator', tags: ['Fitness'] },
             { id: 'macro-calculator', name: 'Macro Calculator', description: 'Calculate optimal macronutrient split.', link: '/tools/macro-calculator', tags: ['Diet'] },
             { id: 'one-rep-max-calculator', name: 'One Rep Max Calculator', description: 'Estimate your 1RM for lifting.', link: '/tools/one-rep-max-calculator', tags: ['Fitness'] },
@@ -171,6 +180,12 @@ export const toolsByCategory: Record<string, CategoryData> = {
             { id: 'password-generator', name: 'Password Generator', description: 'Create strong, secure passwords.', link: '/tools/password-generator', tags: ['Security', 'Tools'] },
             { id: 'qr-code-generator', name: 'QR Code Generator', description: 'Generate QR codes for URLs, text, and more.', link: '/tools/qr-code-generator', tags: ['Tools'] },
             { id: 'word-counter', name: 'Word Counter', description: 'Count words, characters, and sentences.', link: '/tools/word-counter', tags: ['Writing', 'Tools'] },
+            { id: 'gpa-calculator', name: 'GPA Calculator', description: 'Calculate your Grade Point Average.', link: '/tools/gpa-calculator', tags: ['Education', 'School'] },
+            { id: 'tip-calculator', name: 'Tip Calculator', description: 'Calculate tip and split the bill.', link: '/tools/tip-calculator', tags: ['Money', 'Tools'] },
+            { id: 'date-calculator', name: 'Date Calculator', description: 'Calculate days between dates or add/subtract days.', link: '/tools/date-calculator', tags: ['Date', 'Tools'] },
+            { id: 'time-zone-converter', name: 'Time Zone Converter', description: 'Convert time between time zones.', link: '/tools/time-zone-converter', tags: ['Time', 'Tools'] },
+            { id: 'unit-price-calculator', name: 'Unit Price Calculator', description: 'Compare prices per unit to find the best deal.', link: '/tools/unit-price-calculator', tags: ['Shopping', 'Money'] },
+            { id: 'grade-calculator', name: 'Grade Calculator', description: 'Calculate final grade and what you need to pass.', link: '/tools/grade-calculator', tags: ['Education', 'School'] },
         ]
     }
 };
@@ -359,6 +374,242 @@ export const toolConfigs: Record<string, ToolConfig> = {
             what: 'Calculates ideal body weight using Devine, Robinson, Miller, and Hamwi formulas.', 
             how: 'Enter your height and gender.', 
             formula: 'Devine: Men = 50 + 2.3kg per inch over 5ft; Women = 45.5 + 2.3kg per inch over 5ft' 
+        },
+        faq: []
+    },
+    'home-affordability': {
+        id: 'home-affordability',
+        title: 'Home Affordability Calculator',
+        description: 'How much house can you afford based on your income?',
+        category: 'Finance',
+        categoryLink: '/category/finance',
+        formTitle: 'Financial Information',
+        resultTitle: 'Affordability Results',
+        content: { 
+            what: 'Calculates how much home you can afford based on income, debt, and down payment.', 
+            how: 'Enter your annual income, monthly debts, down payment, and interest rate.', 
+            formula: 'Uses 28/36 debt-to-income rule: housing costs ≤28% of gross income, total debt ≤36%.' 
+        },
+        faq: [
+            { question: 'What is the 28/36 rule?', answer: 'Lenders typically require housing costs to be ≤28% of gross income, and total debt ≤36%.' },
+            { question: 'How much should I put down?', answer: '20% avoids PMI, but many programs allow 3-5% down.' }
+        ]
+    },
+    'net-worth-calculator': {
+        id: 'net-worth-calculator',
+        title: 'Net Worth Calculator',
+        description: 'Calculate your total net worth by listing assets and liabilities.',
+        category: 'Finance',
+        categoryLink: '/category/finance',
+        formTitle: 'Assets & Liabilities',
+        resultTitle: 'Your Net Worth',
+        content: { 
+            what: 'Calculates your net worth by subtracting liabilities from assets.', 
+            how: 'Enter your assets (cash, investments, property) and liabilities (debts, loans).', 
+            formula: 'Net Worth = Total Assets - Total Liabilities' 
+        },
+        faq: []
+    },
+    'emergency-fund-calculator': {
+        id: 'emergency-fund-calculator',
+        title: 'Emergency Fund Calculator',
+        description: 'How much emergency savings do you need?',
+        category: 'Finance',
+        categoryLink: '/category/finance',
+        formTitle: 'Monthly Expenses',
+        resultTitle: 'Emergency Fund Goal',
+        content: { 
+            what: 'Calculates how much you should save for emergencies based on monthly expenses.', 
+            how: 'Enter your monthly expenses and choose 3-6 months coverage.', 
+            formula: 'Emergency Fund = Monthly Expenses × Months of Coverage (3-6 recommended)' 
+        },
+        faq: [
+            { question: 'How many months should I save?', answer: 'Financial advisors recommend 3-6 months. Self-employed should aim for 6-12 months.' }
+        ]
+    },
+    'savings-goal-calculator': {
+        id: 'savings-goal-calculator',
+        title: 'Savings Goal Calculator',
+        description: 'Plan your savings to reach a financial goal.',
+        category: 'Finance',
+        categoryLink: '/category/finance',
+        formTitle: 'Goal Details',
+        resultTitle: 'Savings Plan',
+        content: { 
+            what: 'Calculates how much to save monthly to reach a financial goal.', 
+            how: 'Enter your goal amount, current savings, interest rate, and target date.', 
+            formula: 'Monthly Savings = (Goal - Current × (1+r)^n) / [((1+r)^n - 1) / r]' 
+        },
+        faq: []
+    },
+    'sleep-calculator': {
+        id: 'sleep-calculator',
+        title: 'Sleep Calculator',
+        description: 'Find the best time to wake up or go to bed based on sleep cycles.',
+        category: 'Health',
+        categoryLink: '/category/health',
+        formTitle: 'Sleep Schedule',
+        resultTitle: 'Optimal Wake/Sleep Times',
+        content: { 
+            what: 'Calculates optimal wake times based on 90-minute sleep cycles.', 
+            how: 'Enter when you need to wake up or when you plan to go to bed.', 
+            formula: 'One sleep cycle = 90 minutes. Optimal sleep = 5-6 complete cycles (7.5-9 hours).' 
+        },
+        faq: [
+            { question: 'Why 90-minute cycles?', answer: 'Sleep occurs in ~90 minute cycles through light, deep, and REM stages. Waking between cycles feels more refreshed.' }
+        ]
+    },
+    'water-intake-calculator': {
+        id: 'water-intake-calculator',
+        title: 'Water Intake Calculator',
+        description: 'How much water should you drink daily?',
+        category: 'Health',
+        categoryLink: '/category/health',
+        formTitle: 'Your Information',
+        resultTitle: 'Daily Water Intake',
+        content: { 
+            what: 'Calculates recommended daily water intake based on weight and activity level.', 
+            how: 'Enter your weight and activity level.', 
+            formula: 'Base: 0.5-1 oz per pound of body weight, adjusted for activity.' 
+        },
+        faq: []
+    },
+    'age-calculator': {
+        id: 'age-calculator',
+        title: 'Age Calculator',
+        description: 'Calculate exact age in years, months, and days.',
+        category: 'Health',
+        categoryLink: '/category/health',
+        formTitle: 'Birth Date',
+        resultTitle: 'Your Age',
+        content: { 
+            what: 'Calculates your exact age and upcoming birthday.', 
+            how: 'Enter your date of birth.', 
+            formula: 'Age = Current Date - Birth Date' 
+        },
+        faq: []
+    },
+    'lease-vs-buy-car': {
+        id: 'lease-vs-buy-car',
+        title: 'Lease vs Buy Car Calculator',
+        description: 'Compare the costs of leasing versus buying a car.',
+        category: 'Loans',
+        categoryLink: '/category/loans-debt',
+        formTitle: 'Vehicle Details',
+        resultTitle: 'Cost Comparison',
+        content: { 
+            what: 'Compares the total cost of leasing vs buying a vehicle over time.', 
+            how: 'Enter vehicle price, down payment, interest rate, and lease terms.', 
+            formula: 'Includes depreciation, interest, fees, and opportunity cost.' 
+        },
+        faq: [
+            { question: 'When is leasing better?', answer: 'Leasing can be better if you want lower monthly payments, always drive newer cars, and stay under mileage limits.' }
+        ]
+    },
+    'refinance-calculator': {
+        id: 'refinance-calculator',
+        title: 'Refinance Calculator',
+        description: 'Is refinancing your mortgage worth it?',
+        category: 'Loans',
+        categoryLink: '/category/loans-debt',
+        formTitle: 'Loan Details',
+        resultTitle: 'Refinance Analysis',
+        content: { 
+            what: 'Calculates potential savings from refinancing your mortgage.', 
+            how: 'Enter current loan details and new loan terms.', 
+            formula: 'Savings = Old Payment × Remaining Term - New Payment × New Term - Closing Costs' 
+        },
+        faq: []
+    },
+    'gpa-calculator': {
+        id: 'gpa-calculator',
+        title: 'GPA Calculator',
+        description: 'Calculate your Grade Point Average.',
+        category: 'Tools',
+        categoryLink: '/category/other',
+        formTitle: 'Your Grades',
+        resultTitle: 'GPA Results',
+        content: { 
+            what: 'Calculates your GPA based on grades and credit hours.', 
+            how: 'Enter your grades and credit hours for each course.', 
+            formula: 'GPA = Σ(Grade Points × Credit Hours) / Σ(Credit Hours)' 
+        },
+        faq: [
+            { question: 'What is a good GPA?', answer: '3.0+ is good, 3.5+ is very good, 3.7+ is excellent for most purposes.' }
+        ]
+    },
+    'tip-calculator': {
+        id: 'tip-calculator',
+        title: 'Tip Calculator',
+        description: 'Calculate tip amount and split the bill.',
+        category: 'Tools',
+        categoryLink: '/category/other',
+        formTitle: 'Bill Details',
+        resultTitle: 'Tip & Total',
+        content: { 
+            what: 'Calculates tip amount and splits the bill among people.', 
+            how: 'Enter bill amount, tip percentage, and number of people.', 
+            formula: 'Tip = Bill × Tip%. Per Person = (Bill + Tip) / People' 
+        },
+        faq: []
+    },
+    'date-calculator': {
+        id: 'date-calculator',
+        title: 'Date Calculator',
+        description: 'Calculate days between dates or add/subtract days.',
+        category: 'Tools',
+        categoryLink: '/category/other',
+        formTitle: 'Date Information',
+        resultTitle: 'Date Results',
+        content: { 
+            what: 'Calculates the difference between dates or a future/past date.', 
+            how: 'Enter two dates or a date and number of days to add/subtract.', 
+            formula: 'Days = |Date2 - Date1|' 
+        },
+        faq: []
+    },
+    'time-zone-converter': {
+        id: 'time-zone-converter',
+        title: 'Time Zone Converter',
+        description: 'Convert time between different time zones.',
+        category: 'Tools',
+        categoryLink: '/category/other',
+        formTitle: 'Time & Zones',
+        resultTitle: 'Converted Time',
+        content: { 
+            what: 'Converts time between any two time zones.', 
+            how: 'Enter the time and select source and destination time zones.', 
+            formula: 'Destination Time = Source Time + (Destination UTC Offset - Source UTC Offset)' 
+        },
+        faq: []
+    },
+    'unit-price-calculator': {
+        id: 'unit-price-calculator',
+        title: 'Unit Price Calculator',
+        description: 'Compare prices per unit to find the best deal.',
+        category: 'Tools',
+        categoryLink: '/category/other',
+        formTitle: 'Product Details',
+        resultTitle: 'Price Comparison',
+        content: { 
+            what: 'Calculates and compares unit prices to find the best value.', 
+            how: 'Enter price and quantity for each item.', 
+            formula: 'Unit Price = Total Price / Quantity' 
+        },
+        faq: []
+    },
+    'grade-calculator': {
+        id: 'grade-calculator',
+        title: 'Grade Calculator',
+        description: 'Calculate your final grade and what you need to pass.',
+        category: 'Tools',
+        categoryLink: '/category/other',
+        formTitle: 'Grade Information',
+        resultTitle: 'Grade Analysis',
+        content: { 
+            what: 'Calculates your current grade and what score you need on finals to reach your goal.', 
+            how: 'Enter your current grade, desired grade, and final exam weight.', 
+            formula: 'Required Score = (Desired - Current × (1 - Weight)) / Weight' 
         },
         faq: []
     },
@@ -892,39 +1143,6 @@ export const toolConfigs: Record<string, ToolConfig> = {
     },
 
     // --- Everyday ---
-    'age-calculator': {
-        id: 'age-calculator',
-        title: 'Age Calculator',
-        description: 'Calculate your exact age.',
-        category: 'Everyday',
-        categoryLink: '/category/everyday-life',
-        formTitle: 'Date of Birth',
-        resultTitle: 'Your Age',
-        content: { what: 'Calculates age.', how: 'Enter birthdate.', formula: 'Current Date - Birthdate' },
-        faq: []
-    },
-    'date-calculator': {
-        id: 'date-calculator',
-        title: 'Date Calculator',
-        description: 'Calculate days between dates.',
-        category: 'Everyday',
-        categoryLink: '/category/everyday-life',
-        formTitle: 'Start and End Date',
-        resultTitle: 'Duration',
-        content: { what: 'Calculates duration between dates.', how: 'Enter two dates.', formula: 'Date2 - Date1' },
-        faq: []
-    },
-    'tip-calculator': {
-        id: 'tip-calculator',
-        title: 'Tip Calculator',
-        description: 'Calculate gratuity and split bills.',
-        category: 'Everyday',
-        categoryLink: '/category/everyday-life',
-        formTitle: 'Bill Details',
-        resultTitle: 'Total & Tip',
-        content: { what: 'Calculates tip.', how: 'Enter bill amount and percentage.', formula: 'Bill * %' },
-        faq: []
-    },
     'gas-mileage-calculator': {
         id: 'gas-mileage-calculator',
         title: 'Gas Mileage Calculator',
@@ -945,28 +1163,6 @@ export const toolConfigs: Record<string, ToolConfig> = {
         formTitle: 'Distance and Speed',
         resultTitle: 'Time Required',
         content: { what: 'Estimates travel duration.', how: 'Enter distance and speed.', formula: 'Distance / Speed' },
-        faq: []
-    },
-    'time-zone-converter': {
-        id: 'time-zone-converter',
-        title: 'Time Zone Converter',
-        description: 'Convert time between cities.',
-        category: 'Everyday',
-        categoryLink: '/category/everyday-life',
-        formTitle: 'Select Cities',
-        resultTitle: 'Converted Time',
-        content: { what: 'Converts time zones.', how: 'Select locations.', formula: 'UTC offset difference.' },
-        faq: []
-    },
-    'grade-calculator': {
-        id: 'grade-calculator',
-        title: 'Grade Calculator',
-        description: 'Calculate your class grade.',
-        category: 'Everyday',
-        categoryLink: '/category/everyday-life',
-        formTitle: 'Scores and Weights',
-        resultTitle: 'Final Grade',
-        content: { what: 'Calculates weighted average grade.', how: 'Enter scores and weights.', formula: 'Sum(Score * Weight)' },
         faq: []
     },
 
