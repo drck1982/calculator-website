@@ -722,18 +722,27 @@ export const CalculatorDetail: React.FC = () => {
             // --- Additional Finance Calculators ---
             else if (id === 'bonus-tax-calculator') {
                 const bonus = Number(input1) || 5000;
-                const fedRate = 0.22; // Federal supplemental rate
-                const stateTax = Number(input2) || 5;
+                const stateCode = (input2 as string) || 'NY';
+                const stateData = US_STATES.find(s => s.code === stateCode) || US_STATES.find(s => s.code === 'NY')!;
+                const fedRate = 0.22; // Federal supplemental wage rate
                 const fedTax = bonus * fedRate;
-                const stTax = bonus * (stateTax / 100);
-                const fica = bonus * 0.0765;
-                const netBonus = bonus - fedTax - stTax - fica;
+                const stateTaxRate = stateData.incomeTaxRate || 0;
+                const stTax = bonus * stateTaxRate;
+                const socialSecurity = Math.min(bonus, 168600) * 0.062; // 2024 SS wage base
+                const medicare = bonus * 0.0145;
+                const fica = socialSecurity + medicare;
+                const totalTax = fedTax + stTax + fica;
+                const netBonus = bonus - totalTax;
+                const effectiveRate = (totalTax / bonus) * 100;
                 setResults([
                     { label: 'Gross Bonus', value: `$${bonus.toLocaleString()}` },
-                    { label: 'Federal Tax (22%)', value: `$${fedTax.toFixed(2)}` },
-                    { label: 'State Tax', value: `$${stTax.toFixed(2)}` },
-                    { label: 'FICA (7.65%)', value: `$${fica.toFixed(2)}` },
-                    { label: 'Net Bonus', value: `$${netBonus.toFixed(2)}`, isTotal: true },
+                    { label: 'Federal Tax (22%)', value: `$${fedTax.toLocaleString(undefined, { maximumFractionDigits: 2 })}` },
+                    { label: `State Tax (${stateData.code} ${(stateTaxRate * 100).toFixed(2)}%)`, value: stateTaxRate === 0 ? '$0.00 (No State Tax)' : `$${stTax.toLocaleString(undefined, { maximumFractionDigits: 2 })}` },
+                    { label: 'Social Security (6.2%)', value: `$${socialSecurity.toFixed(2)}` },
+                    { label: 'Medicare (1.45%)', value: `$${medicare.toFixed(2)}` },
+                    { label: 'Total Taxes', value: `$${totalTax.toLocaleString(undefined, { maximumFractionDigits: 2 })}` },
+                    { label: 'Effective Tax Rate', value: `${effectiveRate.toFixed(1)}%` },
+                    { label: 'Net Bonus (Take Home)', value: `$${netBonus.toLocaleString(undefined, { maximumFractionDigits: 2 })}`, isTotal: true },
                 ]);
             } else if (id === 'federal-tax-calculator') {
                 const income = Number(input1) || 75000;
@@ -1449,7 +1458,20 @@ export const CalculatorDetail: React.FC = () => {
             return (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div><label className="block text-sm font-medium text-gray-700 mb-1">Bonus Amount ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="5000" /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">State Tax Rate (%)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="5" /></div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+                        <select 
+                            className="block w-full p-2 border border-gray-300 rounded-md" 
+                            value={(input2 as string) || 'NY'} 
+                            onChange={(e) => setInput2(e.target.value)}
+                        >
+                            {US_STATES.map((state) => (
+                                <option key={state.code} value={state.code}>
+                                    {state.name} {state.incomeTaxRate === 0 ? '(No State Tax)' : `(${(state.incomeTaxRate * 100).toFixed(2)}%)`}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
             );
         } else if (id === 'federal-tax-calculator') {
