@@ -728,7 +728,7 @@ export const CalculatorDetail: React.FC = () => {
                 const fedTax = bonus * fedRate;
                 const stateTaxRate = stateData.incomeTaxRate || 0;
                 const stTax = bonus * stateTaxRate;
-                const socialSecurity = Math.min(bonus, 168600) * 0.062; // 2024 SS wage base
+                const socialSecurity = Math.min(bonus, 176100) * 0.062; // 2025 SS wage base
                 const medicare = bonus * 0.0145;
                 const fica = socialSecurity + medicare;
                 const totalTax = fedTax + stTax + fica;
