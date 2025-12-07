@@ -62,65 +62,60 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/category/biology</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/category/chemistry</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/category/physics</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/category/sports</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/category/statistics</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/category/other</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   
-  <!-- Popular Calculators -->
+  <!-- Salary & Tax Calculators -->
   <url>
     <loc>https://calculator-website-puce.vercel.app/tools/ny-salary-tax-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://calculator-website-puce.vercel.app/tools/mortgage-calculator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://calculator-website-puce.vercel.app/tools/compound-interest-calculator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://calculator-website-puce.vercel.app/tools/bmi-calculator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://calculator-website-puce.vercel.app/tools/tip-calculator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calculator-website-puce.vercel.app/tools/percentage-calculator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calculator-website-puce.vercel.app/tools/auto-loan-calculator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calculator-website-puce.vercel.app/tools/age-calculator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calculator-website-puce.vercel.app/tools/currency-converter</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calculator-website-puce.vercel.app/tools/inflation-calculator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- Finance Calculators -->
-  <url>
     <loc>https://calculator-website-puce.vercel.app/tools/hourly-to-salary</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/bonus-tax-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/federal-tax-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Finance Calculators -->
   <url>
     <loc>https://calculator-website-puce.vercel.app/tools/simple-interest-calculator</loc>
     <changefreq>monthly</changefreq>
@@ -137,12 +132,182 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/break-even-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/margin-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/vat-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/down-payment-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/rent-vs-buy-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Loans & Debt Calculators -->
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/mortgage-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/auto-loan-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/amortization-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Investment Calculators -->
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/compound-interest-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://calculator-website-puce.vercel.app/tools/401k-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/inflation-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Health & Fitness Calculators -->
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/bmi-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/calorie-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/pregnancy-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/tdee-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/macro-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/one-rep-max-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/bac-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/smoking-cost-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Math Calculators -->
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/percentage-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/binary-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/hex-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/prime-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/gcf-lcm-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/slope-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Geometry Calculators -->
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/circle-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/triangle-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/pythagorean-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/tile-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/paint-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/wallpaper-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/concrete-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <!-- Conversion Calculators -->
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/currency-converter</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://calculator-website-puce.vercel.app/tools/length-converter</loc>
     <changefreq>monthly</changefreq>
@@ -158,17 +323,109 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
-  <!-- Health Calculators -->
   <url>
-    <loc>https://calculator-website-puce.vercel.app/tools/calorie-calculator</loc>
+    <loc>https://calculator-website-puce.vercel.app/tools/speed-converter</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://calculator-website-puce.vercel.app/tools/pregnancy-calculator</loc>
+    <loc>https://calculator-website-puce.vercel.app/tools/volume-converter</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/area-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Everyday Life Calculators -->
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/age-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/date-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/tip-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/gas-mileage-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/travel-time-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/time-zone-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/grade-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Biology Calculators -->
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/dna-replication</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/allele-frequency</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Chemistry Calculators -->
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/molarity-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/ph-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Physics Calculators -->
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/velocity-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Sports Calculators -->
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/pace-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Statistics Calculators -->
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/standard-deviation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Other Calculators -->
+  <url>
+    <loc>https://calculator-website-puce.vercel.app/tools/random-number</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <!-- Static Pages -->

@@ -718,6 +718,201 @@ export const CalculatorDetail: React.FC = () => {
                     { label: 'Adjusted Value', value: `$${adjustedValue.toFixed(2)}`, isTotal: true },
                     { label: 'Cumulative Inflation', value: `${cumulativeInflation.toFixed(1)}%` },
                 ]);
+            }
+            // --- Additional Finance Calculators ---
+            else if (id === 'bonus-tax-calculator') {
+                const bonus = Number(input1) || 5000;
+                const fedRate = 0.22; // Federal supplemental rate
+                const stateTax = Number(input2) || 5;
+                const fedTax = bonus * fedRate;
+                const stTax = bonus * (stateTax / 100);
+                const fica = bonus * 0.0765;
+                const netBonus = bonus - fedTax - stTax - fica;
+                setResults([
+                    { label: 'Gross Bonus', value: `$${bonus.toLocaleString()}` },
+                    { label: 'Federal Tax (22%)', value: `$${fedTax.toFixed(2)}` },
+                    { label: 'State Tax', value: `$${stTax.toFixed(2)}` },
+                    { label: 'FICA (7.65%)', value: `$${fica.toFixed(2)}` },
+                    { label: 'Net Bonus', value: `$${netBonus.toFixed(2)}`, isTotal: true },
+                ]);
+            } else if (id === 'federal-tax-calculator') {
+                const income = Number(input1) || 75000;
+                // 2024 Single brackets simplified (filingStatus can be used for future expansion)
+                let tax = 0;
+                if (income <= 11600) tax = income * 0.10;
+                else if (income <= 47150) tax = 1160 + (income - 11600) * 0.12;
+                else if (income <= 100525) tax = 5426 + (income - 47150) * 0.22;
+                else if (income <= 191950) tax = 17168.50 + (income - 100525) * 0.24;
+                else if (income <= 243725) tax = 39110.50 + (income - 191950) * 0.32;
+                else if (income <= 609350) tax = 55678.50 + (income - 243725) * 0.35;
+                else tax = 183647.25 + (income - 609350) * 0.37;
+                const effectiveRate = (tax / income) * 100;
+                setResults([
+                    { label: 'Taxable Income', value: `$${income.toLocaleString()}` },
+                    { label: 'Federal Tax', value: `$${tax.toLocaleString(undefined, { maximumFractionDigits: 0 })}`, isTotal: true },
+                    { label: 'Effective Tax Rate', value: `${effectiveRate.toFixed(2)}%` },
+                    { label: 'After-Tax Income', value: `$${(income - tax).toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                ]);
+            } else if (id === 'rent-vs-buy-calculator') {
+                const rent = Number(input1) || 2000;
+                const homePrice = Number(input2) || 400000;
+                const years = Number(input3) || 5;
+                const downPayment = homePrice * 0.2;
+                const loanAmount = homePrice - downPayment;
+                const monthlyRate = 0.065 / 12;
+                const numPayments = 30 * 12;
+                const mortgagePayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+                const propertyTax = homePrice * 0.012 / 12;
+                const insurance = 150;
+                const maintenance = homePrice * 0.01 / 12;
+                const totalMonthlyBuy = mortgagePayment + propertyTax + insurance + maintenance;
+                const totalRent = rent * 12 * years;
+                const totalBuy = totalMonthlyBuy * 12 * years + downPayment;
+                const savings = totalRent - totalBuy;
+                setResults([
+                    { label: 'Monthly Rent', value: `$${rent.toLocaleString()}` },
+                    { label: 'Monthly Mortgage + Costs', value: `$${totalMonthlyBuy.toFixed(0)}` },
+                    { label: `Total Rent (${years} yrs)`, value: `$${totalRent.toLocaleString()}` },
+                    { label: `Total Buy Cost (${years} yrs)`, value: `$${totalBuy.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'Recommendation', value: savings > 0 ? 'Buying may be better' : 'Renting may be better', isTotal: true },
+                ]);
+            } else if (id === 'amortization-calculator') {
+                const principal = Number(input1) || 200000;
+                const rate = Number(input2) || 6.5;
+                const years = Number(input3) || 30;
+                const monthlyRate = (rate / 100) / 12;
+                const numPayments = years * 12;
+                const monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+                const totalPaid = monthlyPayment * numPayments;
+                const totalInterest = totalPaid - principal;
+                // First year breakdown
+                let balance = principal;
+                let firstYearPrincipal = 0;
+                let firstYearInterest = 0;
+                for (let i = 0; i < 12; i++) {
+                    const interestPayment = balance * monthlyRate;
+                    const principalPayment = monthlyPayment - interestPayment;
+                    firstYearInterest += interestPayment;
+                    firstYearPrincipal += principalPayment;
+                    balance -= principalPayment;
+                }
+                setResults([
+                    { label: 'Monthly Payment', value: `$${monthlyPayment.toFixed(2)}`, isTotal: true },
+                    { label: 'Total Interest', value: `$${totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'Total Cost', value: `$${totalPaid.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'First Year Interest', value: `$${firstYearInterest.toFixed(0)}` },
+                    { label: 'First Year Principal', value: `$${firstYearPrincipal.toFixed(0)}` },
+                ]);
+            } else if (id === '401k-calculator') {
+                const salary = Number(input1) || 75000;
+                const contribution = Number(input2) || 10;
+                const employerMatch = Number(input3) || 50; // 50% match
+                const years = 30;
+                const rate = 0.07;
+                const annualContrib = salary * (contribution / 100);
+                const matchLimit = salary * 0.06; // Typical 6% match limit
+                const employerContrib = Math.min(annualContrib, matchLimit) * (employerMatch / 100);
+                const totalAnnual = annualContrib + employerContrib;
+                // Future value with annual contributions
+                const fv = totalAnnual * ((Math.pow(1 + rate, years) - 1) / rate) * (1 + rate);
+                const totalContributed = (annualContrib + employerContrib) * years;
+                const growth = fv - totalContributed;
+                setResults([
+                    { label: 'Your Annual Contribution', value: `$${annualContrib.toLocaleString()}` },
+                    { label: 'Employer Match', value: `$${employerContrib.toLocaleString()}` },
+                    { label: `Total Contributed (${years} yrs)`, value: `$${totalContributed.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'Investment Growth', value: `$${growth.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'Projected Balance', value: `$${fv.toLocaleString(undefined, { maximumFractionDigits: 0 })}`, isTotal: true },
+                ]);
+            }
+            // --- Health Calculators ---
+            else if (id === 'tdee-calculator') {
+                const age = Number(input1) || 30;
+                const heightCm = Number(input2) || 175;
+                const weightKg = Number(input3) || 75;
+                // Mifflin-St Jeor for male
+                const bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5;
+                const sedentary = bmr * 1.2;
+                const light = bmr * 1.375;
+                const moderate = bmr * 1.55;
+                const active = bmr * 1.725;
+                const veryActive = bmr * 1.9;
+                setResults([
+                    { label: 'BMR', value: `${Math.round(bmr)} kcal` },
+                    { label: 'Sedentary (office job)', value: `${Math.round(sedentary)} kcal` },
+                    { label: 'Light Exercise (1-3 days)', value: `${Math.round(light)} kcal` },
+                    { label: 'Moderate (3-5 days)', value: `${Math.round(moderate)} kcal`, isTotal: true },
+                    { label: 'Active (6-7 days)', value: `${Math.round(active)} kcal` },
+                    { label: 'Very Active (athlete)', value: `${Math.round(veryActive)} kcal` },
+                ]);
+            } else if (id === 'macro-calculator') {
+                const calories = Number(input1) || 2000;
+                const goal = (input2 as string) || 'maintain';
+                // Default balanced split
+                let proteinPct = 0.30, carbPct = 0.40, fatPct = 0.30;
+                if (goal === 'lose') { proteinPct = 0.40; carbPct = 0.30; fatPct = 0.30; }
+                else if (goal === 'gain') { proteinPct = 0.25; carbPct = 0.50; fatPct = 0.25; }
+                const proteinCal = calories * proteinPct;
+                const carbCal = calories * carbPct;
+                const fatCal = calories * fatPct;
+                setResults([
+                    { label: 'Daily Calories', value: `${calories} kcal` },
+                    { label: 'Protein', value: `${Math.round(proteinCal / 4)}g (${Math.round(proteinPct * 100)}%)`, isTotal: true },
+                    { label: 'Carbohydrates', value: `${Math.round(carbCal / 4)}g (${Math.round(carbPct * 100)}%)` },
+                    { label: 'Fat', value: `${Math.round(fatCal / 9)}g (${Math.round(fatPct * 100)}%)` },
+                ]);
+            } else if (id === 'one-rep-max-calculator') {
+                const weight = Number(input1) || 100;
+                const reps = Number(input2) || 8;
+                // Epley formula
+                const oneRM = weight * (1 + reps / 30);
+                setResults([
+                    { label: 'Weight Lifted', value: `${weight} lbs` },
+                    { label: 'Reps Performed', value: `${reps}` },
+                    { label: 'Estimated 1RM', value: `${Math.round(oneRM)} lbs`, isTotal: true },
+                    { label: '90% (Heavy Single)', value: `${Math.round(oneRM * 0.9)} lbs` },
+                    { label: '80% (Working Weight)', value: `${Math.round(oneRM * 0.8)} lbs` },
+                    { label: '70% (Volume Training)', value: `${Math.round(oneRM * 0.7)} lbs` },
+                ]);
+            } else if (id === 'bac-calculator') {
+                const weight = Number(input1) || 160; // lbs
+                const drinks = Number(input2) || 3;
+                const hours = Number(input3) || 2;
+                // Widmark formula (male r=0.73)
+                const alcoholGrams = drinks * 14;
+                const bodyWater = weight * 453.592 * 0.73;
+                const bac = (alcoholGrams / bodyWater) * 100 - (0.015 * hours);
+                const finalBAC = Math.max(0, bac);
+                let status = 'Sober';
+                if (finalBAC > 0.08) status = 'Legally Impaired';
+                else if (finalBAC > 0.05) status = 'Buzzed';
+                else if (finalBAC > 0) status = 'Mild Effect';
+                setResults([
+                    { label: 'Drinks Consumed', value: `${drinks}` },
+                    { label: 'Time Drinking', value: `${hours} hours` },
+                    { label: 'Estimated BAC', value: `${finalBAC.toFixed(3)}%`, isTotal: true },
+                    { label: 'Status', value: status },
+                    { label: 'Legal Limit (US)', value: '0.08%' },
+                ]);
+            } else if (id === 'smoking-cost-calculator') {
+                const packsPerDay = Number(input1) || 1;
+                const pricePerPack = Number(input2) || 8;
+                const years = Number(input3) || 10;
+                const daily = packsPerDay * pricePerPack;
+                const weekly = daily * 7;
+                const monthly = daily * 30;
+                const yearly = daily * 365;
+                const total = yearly * years;
+                // Investment alternative at 7%
+                const invested = yearly * ((Math.pow(1.07, years) - 1) / 0.07);
+                setResults([
+                    { label: 'Daily Cost', value: `$${daily.toFixed(2)}` },
+                    { label: 'Weekly Cost', value: `$${weekly.toFixed(2)}` },
+                    { label: 'Monthly Cost', value: `$${monthly.toFixed(2)}` },
+                    { label: 'Yearly Cost', value: `$${yearly.toLocaleString()}` },
+                    { label: `${years}-Year Total`, value: `$${total.toLocaleString()}`, isTotal: true },
+                    { label: 'If Invested Instead', value: `$${invested.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                ]);
             } else if (id?.includes('salary')) {
                 const stateData = US_STATES.find(s => s.code === selectedState) || US_STATES[0];
                 const fedTax = salaryInput * 0.1426;
@@ -1246,6 +1441,100 @@ export const CalculatorDetail: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div><label className="block text-sm font-medium text-gray-700 mb-1">Amount ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="100" /></div>
                     <div><label className="block text-sm font-medium text-gray-700 mb-1">Start Year</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="2000" /></div>
+                </div>
+            );
+        }
+        // --- Additional Finance Calculators ---
+        else if (id === 'bonus-tax-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Bonus Amount ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="5000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">State Tax Rate (%)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="5" /></div>
+                </div>
+            );
+        } else if (id === 'federal-tax-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Taxable Income ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="75000" /></div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Filing Status</label>
+                        <select className="block w-full p-2 border border-gray-300 rounded-md" value={input2 as string} onChange={(e) => setInput2(e.target.value)}>
+                            <option value="single">Single</option>
+                            <option value="married">Married Filing Jointly</option>
+                            <option value="head">Head of Household</option>
+                        </select>
+                    </div>
+                </div>
+            );
+        } else if (id === 'rent-vs-buy-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Monthly Rent ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="2000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Home Price ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="400000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Years to Compare</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="5" /></div>
+                </div>
+            );
+        } else if (id === 'amortization-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Loan Amount ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="200000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Interest Rate (%)</label><input type="number" step="0.1" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="6.5" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Loan Term (Years)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="30" /></div>
+                </div>
+            );
+        } else if (id === '401k-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Annual Salary ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="75000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Your Contribution (%)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="10" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Employer Match (%)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="50" /></div>
+                </div>
+            );
+        }
+        // --- Health Calculators ---
+        else if (id === 'tdee-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Age</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="30" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Height (cm)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="175" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="75" /></div>
+                </div>
+            );
+        } else if (id === 'macro-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Daily Calories</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="2000" /></div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Goal</label>
+                        <select className="block w-full p-2 border border-gray-300 rounded-md" value={input2 as string} onChange={(e) => setInput2(e.target.value)}>
+                            <option value="maintain">Maintain Weight</option>
+                            <option value="lose">Lose Weight</option>
+                            <option value="gain">Build Muscle</option>
+                        </select>
+                    </div>
+                </div>
+            );
+        } else if (id === 'one-rep-max-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Weight Lifted (lbs)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="100" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Reps Performed</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="8" /></div>
+                </div>
+            );
+        } else if (id === 'bac-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Body Weight (lbs)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="160" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Standard Drinks</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="3" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Hours Drinking</label><input type="number" step="0.5" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="2" /></div>
+                </div>
+            );
+        } else if (id === 'smoking-cost-calculator') {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Packs Per Day</label><input type="number" step="0.5" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="1" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Price Per Pack ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="8" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Years Smoking</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="10" /></div>
                 </div>
             );
         } else if (id?.includes('salary')) {

@@ -113,7 +113,7 @@ const categories = [
         icon: PhysicsAIIcon,
         description: 'Mechanics, thermodynamics, electricity, and waves.',
         color: 'bg-violet-100 text-violet-600',
-        tools: ['Velocity Calc', 'Force Calc'],
+        tools: ['Velocity Calculator'],
         link: '/category/physics'
     },
     {
@@ -122,7 +122,7 @@ const categories = [
         icon: SportsAIIcon,
         description: 'Running pace, cycling power, and scoreboards.',
         color: 'bg-lime-100 text-lime-600',
-        tools: ['Pace Calculator', 'Race Time'],
+        tools: ['Pace Calculator'],
         link: '/category/sports'
     },
     {
@@ -131,7 +131,7 @@ const categories = [
         icon: StatisticsAIIcon,
         description: 'Probability, distributions, and data analysis.',
         color: 'bg-slate-100 text-slate-600',
-        tools: ['Standard Deviation', 'Probability'],
+        tools: ['Standard Deviation'],
         link: '/category/statistics'
     },
     {
@@ -140,7 +140,7 @@ const categories = [
         icon: OtherAIIcon,
         description: 'Miscellaneous tools and fun calculators.',
         color: 'bg-pink-100 text-pink-600',
-        tools: ['Random Number', 'Password Gen'],
+        tools: ['Random Number Generator'],
         link: '/category/other'
     }
 ];
