@@ -746,18 +746,35 @@ export const CalculatorDetail: React.FC = () => {
                 ]);
             } else if (id === 'federal-tax-calculator') {
                 const income = Number(input1) || 75000;
-                // 2024 Single brackets simplified (filingStatus can be used for future expansion)
+                // 2025 Federal Income Tax Brackets (Single Filer)
                 let tax = 0;
-                if (income <= 11600) tax = income * 0.10;
-                else if (income <= 47150) tax = 1160 + (income - 11600) * 0.12;
-                else if (income <= 100525) tax = 5426 + (income - 47150) * 0.22;
-                else if (income <= 191950) tax = 17168.50 + (income - 100525) * 0.24;
-                else if (income <= 243725) tax = 39110.50 + (income - 191950) * 0.32;
-                else if (income <= 609350) tax = 55678.50 + (income - 243725) * 0.35;
-                else tax = 183647.25 + (income - 609350) * 0.37;
+                let bracket = '10%';
+                if (income <= 11925) {
+                    tax = income * 0.10;
+                    bracket = '10%';
+                } else if (income <= 48475) {
+                    tax = 1192.50 + (income - 11925) * 0.12;
+                    bracket = '12%';
+                } else if (income <= 103350) {
+                    tax = 5570.50 + (income - 48475) * 0.22;
+                    bracket = '22%';
+                } else if (income <= 197300) {
+                    tax = 17633.50 + (income - 103350) * 0.24;
+                    bracket = '24%';
+                } else if (income <= 250500) {
+                    tax = 40180.50 + (income - 197300) * 0.32;
+                    bracket = '32%';
+                } else if (income <= 626350) {
+                    tax = 57204.50 + (income - 250500) * 0.35;
+                    bracket = '35%';
+                } else {
+                    tax = 188752 + (income - 626350) * 0.37;
+                    bracket = '37%';
+                }
                 const effectiveRate = (tax / income) * 100;
                 setResults([
                     { label: 'Taxable Income', value: `$${income.toLocaleString()}` },
+                    { label: 'Tax Bracket (2025)', value: bracket },
                     { label: 'Federal Tax', value: `$${tax.toLocaleString(undefined, { maximumFractionDigits: 0 })}`, isTotal: true },
                     { label: 'Effective Tax Rate', value: `${effectiveRate.toFixed(2)}%` },
                     { label: 'After-Tax Income', value: `$${(income - tax).toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
@@ -924,16 +941,40 @@ export const CalculatorDetail: React.FC = () => {
                 ]);
             } else if (id?.includes('salary')) {
                 const stateData = US_STATES.find(s => s.code === selectedState) || US_STATES[0];
-                const fedTax = salaryInput * 0.1426;
-                const ficaTax = salaryInput * 0.0765;
-                const stateTax = salaryInput * stateData.taxRate;
-                const netPay = salaryInput - fedTax - ficaTax - stateTax;
+                const salary = salaryInput;
+                
+                // 2025 Federal Income Tax (simplified progressive brackets for single filer)
+                let fedTax = 0;
+                if (salary <= 11925) fedTax = salary * 0.10;
+                else if (salary <= 48475) fedTax = 1192.50 + (salary - 11925) * 0.12;
+                else if (salary <= 103350) fedTax = 5570.50 + (salary - 48475) * 0.22;
+                else if (salary <= 197300) fedTax = 17633.50 + (salary - 103350) * 0.24;
+                else if (salary <= 250500) fedTax = 40180.50 + (salary - 197300) * 0.32;
+                else if (salary <= 626350) fedTax = 57204.50 + (salary - 250500) * 0.35;
+                else fedTax = 188752 + (salary - 626350) * 0.37;
+                
+                // FICA (2025): SS 6.2% up to $176,100 + Medicare 1.45%
+                const socialSecurity = Math.min(salary, 176100) * 0.062;
+                const medicare = salary * 0.0145;
+                const ficaTax = socialSecurity + medicare;
+                
+                // State Income Tax (2025 rates)
+                const stateTaxRate = stateData.incomeTaxRate || 0;
+                const stateTax = salary * stateTaxRate;
+                
+                const totalTax = fedTax + ficaTax + stateTax;
+                const netPay = salary - totalTax;
+                const effectiveRate = (totalTax / salary) * 100;
 
                 setResults([
+                    { label: 'Gross Salary', value: `$${salary.toLocaleString()}` },
                     { label: 'Federal Tax', value: `$${fedTax.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
-                    { label: 'FICA Tax', value: `$${ficaTax.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
-                    { label: `State Tax (${stateData.code})`, value: `$${stateTax.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
-                    { label: 'Net Pay', value: `$${netPay.toLocaleString(undefined, { maximumFractionDigits: 0 })}`, isTotal: true },
+                    { label: 'Social Security (6.2%)', value: `$${socialSecurity.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'Medicare (1.45%)', value: `$${medicare.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: `State Tax (${stateData.code} ${(stateTaxRate * 100).toFixed(2)}%)`, value: stateTaxRate === 0 ? '$0 (No State Tax)' : `$${stateTax.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'Total Taxes', value: `$${totalTax.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'Effective Tax Rate', value: `${effectiveRate.toFixed(1)}%` },
+                    { label: 'Net Pay (Take Home)', value: `$${netPay.toLocaleString(undefined, { maximumFractionDigits: 0 })}`, isTotal: true },
                 ]);
             } else {
                 setResults([
@@ -1585,8 +1626,10 @@ export const CalculatorDetail: React.FC = () => {
                             value={selectedState}
                             onChange={(e) => setSelectedState(e.target.value)}
                         >
-                            {US_STATES.map((state: { code: string; name: string; taxRate: number }) => (
-                                <option key={state.code} value={state.code}>{state.name}</option>
+                            {US_STATES.map((state) => (
+                                <option key={state.code} value={state.code}>
+                                    {state.name} {state.incomeTaxRate === 0 ? '(No State Tax)' : `(${(state.incomeTaxRate * 100).toFixed(2)}%)`}
+                                </option>
                             ))}
                         </select>
                     </div>
