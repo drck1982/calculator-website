@@ -376,6 +376,96 @@ export const CalculatorDetail: React.FC = () => {
                 }
             }
 
+            // --- Science Calculators ---
+            else if (id === 'dna-replication') {
+                const sequence = (input1 as string).toUpperCase().replace(/[^ATCG]/g, '');
+                if (sequence.length > 0) {
+                    const complement = sequence.split('').map(base => {
+                        switch (base) {
+                            case 'A': return 'T';
+                            case 'T': return 'A';
+                            case 'C': return 'G';
+                            case 'G': return 'C';
+                            default: return '';
+                        }
+                    }).join('');
+                    setResults([
+                        { label: 'Original Strand', value: sequence.slice(0, 30) + (sequence.length > 30 ? '...' : '') },
+                        { label: 'Complementary Strand', value: complement.slice(0, 30) + (complement.length > 30 ? '...' : ''), isTotal: true },
+                        { label: 'Length', value: `${sequence.length} bases` },
+                    ]);
+                } else {
+                    setResults([{ label: 'Error', value: 'Enter valid DNA sequence (A, T, C, G)' }]);
+                }
+            } else if (id === 'allele-frequency') {
+                const AA = Number(input1) || 0;
+                const Aa = Number(input2) || 0;
+                const aa = Number(input3) || 0;
+                const total = AA + Aa + aa;
+                if (total > 0) {
+                    const pA = (2 * AA + Aa) / (2 * total);
+                    const pa = (2 * aa + Aa) / (2 * total);
+                    setResults([
+                        { label: 'Total Population', value: `${total}` },
+                        { label: 'Frequency of A (p)', value: pA.toFixed(4), isTotal: true },
+                        { label: 'Frequency of a (q)', value: pa.toFixed(4) },
+                        { label: 'p + q', value: (pA + pa).toFixed(4) },
+                    ]);
+                } else {
+                    setResults([{ label: 'Error', value: 'Enter genotype counts' }]);
+                }
+            } else if (id === 'molarity-calculator') {
+                const moles = Number(input1) || 1;
+                const liters = Number(input2) || 1;
+                const molarity = moles / liters;
+                setResults([
+                    { label: 'Moles of Solute', value: `${moles} mol` },
+                    { label: 'Volume', value: `${liters} L` },
+                    { label: 'Molarity', value: `${molarity.toFixed(4)} M`, isTotal: true },
+                ]);
+            } else if (id === 'ph-calculator') {
+                const hConc = Number(input1) || 0.0000001;
+                const pH = -Math.log10(hConc);
+                let acidity = 'Neutral';
+                if (pH < 7) acidity = 'Acidic';
+                else if (pH > 7) acidity = 'Basic (Alkaline)';
+                setResults([
+                    { label: '[H+] Concentration', value: `${hConc.toExponential(2)} M` },
+                    { label: 'pH Level', value: pH.toFixed(2), isTotal: true },
+                    { label: 'Nature', value: acidity },
+                ]);
+            } else if (id === 'velocity-calculator') {
+                const distance = Number(input1) || 100;
+                const time = Number(input2) || 10;
+                const velocity = distance / time;
+                setResults([
+                    { label: 'Distance', value: `${distance} m` },
+                    { label: 'Time', value: `${time} s` },
+                    { label: 'Velocity', value: `${velocity.toFixed(2)} m/s`, isTotal: true },
+                ]);
+            } else if (id === 'pace-calculator') {
+                const distance = Number(input1) || 5;
+                const timeMin = Number(input2) || 30;
+                const pace = timeMin / distance;
+                const speed = distance / (timeMin / 60);
+                setResults([
+                    { label: 'Distance', value: `${distance} km` },
+                    { label: 'Time', value: `${timeMin} min` },
+                    { label: 'Pace', value: `${pace.toFixed(2)} min/km`, isTotal: true },
+                    { label: 'Speed', value: `${speed.toFixed(2)} km/h` },
+                ]);
+            } else if (id === 'wallpaper-calculator') {
+                const height = Number(input1) || 8;
+                const width = Number(input2) || 10;
+                const wallArea = height * width;
+                const rollCoverage = 30; // typical roll covers ~30 sq ft
+                const rollsNeeded = Math.ceil((wallArea * 1.15) / rollCoverage); // 15% waste
+                setResults([
+                    { label: 'Wall Area', value: `${wallArea} sq ft` },
+                    { label: 'Rolls Needed (with 15% waste)', value: `${rollsNeeded}`, isTotal: true },
+                ]);
+            }
+
             // --- Existing / Default ---
             else if (id === 'currency-converter') {
                 // Mock rates relative to USD
@@ -396,6 +486,62 @@ export const CalculatorDetail: React.FC = () => {
                 const toFactor = LENGTH_UNITS.find(u => u.name === toUnit)?.factor || 1;
                 const valInMeters = Number(amount) * fromFactor;
                 const result = valInMeters / toFactor;
+                setResults([
+                    { label: 'Input', value: `${amount} ${fromUnit}` },
+                    { label: 'Result', value: `${result.toFixed(4)} ${toUnit}`, isTotal: true },
+                ]);
+            } else if (id === 'weight-converter') {
+                const fromFactor = WEIGHT_UNITS.find(u => u.name === fromUnit)?.factor || 1;
+                const toFactor = WEIGHT_UNITS.find(u => u.name === toUnit)?.factor || 1;
+                const valInKg = Number(amount) * fromFactor;
+                const result = valInKg / toFactor;
+                setResults([
+                    { label: 'Input', value: `${amount} ${fromUnit}` },
+                    { label: 'Result', value: `${result.toFixed(4)} ${toUnit}`, isTotal: true },
+                ]);
+            } else if (id === 'temperature-converter') {
+                let result = 0;
+                const temp = Number(amount);
+                const from = TEMPERATURE_UNITS.find(u => u.name === fromUnit)?.type || 'C';
+                const to = TEMPERATURE_UNITS.find(u => u.name === toUnit)?.type || 'F';
+                
+                // Convert to Celsius first
+                let celsius = temp;
+                if (from === 'F') celsius = (temp - 32) * 5/9;
+                else if (from === 'K') celsius = temp - 273.15;
+                
+                // Convert from Celsius to target
+                if (to === 'C') result = celsius;
+                else if (to === 'F') result = (celsius * 9/5) + 32;
+                else if (to === 'K') result = celsius + 273.15;
+                
+                setResults([
+                    { label: 'Input', value: `${amount}° ${fromUnit}` },
+                    { label: 'Result', value: `${result.toFixed(2)}° ${toUnit}`, isTotal: true },
+                ]);
+            } else if (id === 'speed-converter') {
+                const fromFactor = SPEED_UNITS.find(u => u.name === fromUnit)?.factor || 1;
+                const toFactor = SPEED_UNITS.find(u => u.name === toUnit)?.factor || 1;
+                const valInMph = Number(amount) / fromFactor;
+                const result = valInMph * toFactor;
+                setResults([
+                    { label: 'Input', value: `${amount} ${fromUnit}` },
+                    { label: 'Result', value: `${result.toFixed(4)} ${toUnit}`, isTotal: true },
+                ]);
+            } else if (id === 'volume-converter') {
+                const fromFactor = VOLUME_UNITS.find(u => u.name === fromUnit)?.factor || 1;
+                const toFactor = VOLUME_UNITS.find(u => u.name === toUnit)?.factor || 1;
+                const valInLiters = Number(amount) * fromFactor;
+                const result = valInLiters / toFactor;
+                setResults([
+                    { label: 'Input', value: `${amount} ${fromUnit}` },
+                    { label: 'Result', value: `${result.toFixed(4)} ${toUnit}`, isTotal: true },
+                ]);
+            } else if (id === 'area-converter') {
+                const fromFactor = AREA_UNITS.find(u => u.name === fromUnit)?.factor || 1;
+                const toFactor = AREA_UNITS.find(u => u.name === toUnit)?.factor || 1;
+                const valInSqMeters = Number(amount) * fromFactor;
+                const result = valInSqMeters / toFactor;
                 setResults([
                     { label: 'Input', value: `${amount} ${fromUnit}` },
                     { label: 'Result', value: `${result.toFixed(4)} ${toUnit}`, isTotal: true },
@@ -467,10 +613,19 @@ export const CalculatorDetail: React.FC = () => {
                     { label: 'Annual Salary', value: `$${annual.toLocaleString()}`, isTotal: true },
                 ]);
             } else if (id === 'calorie-calculator') {
+                const age = Number(input1) || 30;
+                const heightCm = Number(input2) || 175;
+                const weightKg = Number(input3) || 75;
+                // Mifflin-St Jeor Equation for Male (default)
+                const bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5;
+                const sedentary = bmr * 1.2;
+                const moderate = bmr * 1.55;
+                const active = bmr * 1.725;
                 setResults([
-                    { label: 'BMR', value: '1,650 kcal' },
-                    { label: 'Maintenance', value: '2,200 kcal', isTotal: true },
-                    { label: 'Weight Loss', value: '1,700 kcal' },
+                    { label: 'BMR (Basal)', value: `${Math.round(bmr)} kcal` },
+                    { label: 'Sedentary', value: `${Math.round(sedentary)} kcal` },
+                    { label: 'Moderate Activity', value: `${Math.round(moderate)} kcal`, isTotal: true },
+                    { label: 'Very Active', value: `${Math.round(active)} kcal` },
                 ]);
             } else if (id === 'random-number') {
                 const min = Number(input1) || 1;
@@ -481,34 +636,87 @@ export const CalculatorDetail: React.FC = () => {
                     { label: 'Random Number', value: `${rnd}`, isTotal: true },
                 ]);
             } else if (id === 'mortgage-calculator') {
+                const homePrice = Number(input1) || 300000;
+                const downPayment = Number(input2) || 60000;
+                const rate = Number(input3) || 6.5;
+                const years = 30;
+                const principal = homePrice - downPayment;
+                const monthlyRate = (rate / 100) / 12;
+                const numPayments = years * 12;
+                const monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+                const totalPaid = monthlyPayment * numPayments;
+                const totalInterest = totalPaid - principal;
                 setResults([
-                    { label: 'Principal & Interest', value: '$2,100' },
-                    { label: 'Property Tax', value: '$400' },
-                    { label: 'Home Insurance', value: '$100' },
-                    { label: 'Total Monthly', value: '$2,600', isTotal: true },
+                    { label: 'Loan Amount', value: `$${principal.toLocaleString()}` },
+                    { label: 'Monthly Payment', value: `$${monthlyPayment.toFixed(2)}`, isTotal: true },
+                    { label: 'Total Interest', value: `$${totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'Total Cost', value: `$${totalPaid.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
                 ]);
             } else if (id === 'auto-loan-calculator') {
+                const carPrice = Number(input1) || 35000;
+                const downPayment = Number(input2) || 5000;
+                const rate = Number(input3) || 5.9;
+                const months = 60;
+                const principal = carPrice - downPayment;
+                const monthlyRate = (rate / 100) / 12;
+                const monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+                const totalPaid = monthlyPayment * months;
+                const totalInterest = totalPaid - principal;
                 setResults([
-                    { label: 'Monthly Payment', value: '$550', isTotal: true },
-                    { label: 'Total Interest', value: '$3,200' },
-                    { label: 'Total Cost', value: '$38,200' },
+                    { label: 'Loan Amount', value: `$${principal.toLocaleString()}` },
+                    { label: 'Monthly Payment', value: `$${monthlyPayment.toFixed(2)}`, isTotal: true },
+                    { label: 'Total Interest', value: `$${totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'Total Cost', value: `$${totalPaid.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
                 ]);
             } else if (id === 'compound-interest-calculator') {
+                const principal = Number(input1) || 5000;
+                const monthlyContrib = Number(input2) || 500;
+                const rate = Number(input3) || 7;
+                const years = 10;
+                const monthlyRate = (rate / 100) / 12;
+                const months = years * 12;
+                // Future value of initial principal
+                const fvPrincipal = principal * Math.pow(1 + monthlyRate, months);
+                // Future value of monthly contributions (annuity)
+                const fvContribs = monthlyContrib * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+                const totalFV = fvPrincipal + fvContribs;
+                const totalContributed = principal + (monthlyContrib * months);
+                const totalInterest = totalFV - totalContributed;
                 setResults([
-                    { label: 'Total Principal', value: '$12,000' },
-                    { label: 'Total Interest', value: '$3,450' },
-                    { label: 'Future Value', value: '$15,450', isTotal: true },
+                    { label: 'Initial Investment', value: `$${principal.toLocaleString()}` },
+                    { label: 'Total Contributions', value: `$${totalContributed.toLocaleString()}` },
+                    { label: 'Total Interest Earned', value: `$${totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: 'Future Value', value: `$${totalFV.toLocaleString(undefined, { maximumFractionDigits: 0 })}`, isTotal: true },
                 ]);
             } else if (id === 'bmi-calculator') {
+                const heightCm = Number(input1) || 175;
+                const weightKg = Number(input2) || 70;
+                const heightM = heightCm / 100;
+                const bmi = weightKg / (heightM * heightM);
+                let category = 'Underweight';
+                if (bmi >= 18.5 && bmi < 25) category = 'Normal Weight';
+                else if (bmi >= 25 && bmi < 30) category = 'Overweight';
+                else if (bmi >= 30) category = 'Obese';
                 setResults([
-                    { label: 'BMI Score', value: '22.5', isTotal: true },
-                    { label: 'Category', value: 'Normal Weight' },
+                    { label: 'Height', value: `${heightCm} cm` },
+                    { label: 'Weight', value: `${weightKg} kg` },
+                    { label: 'BMI Score', value: bmi.toFixed(1), isTotal: true },
+                    { label: 'Category', value: category },
                 ]);
             } else if (id === 'inflation-calculator') {
+                const amount = Number(input1) || 100;
+                const startYear = Number(input2) || 2000;
+                const currentYear = new Date().getFullYear();
+                const years = currentYear - startYear;
+                // Average US inflation ~3% per year
+                const avgInflation = 0.03;
+                const adjustedValue = amount * Math.pow(1 + avgInflation, years);
+                const cumulativeInflation = ((adjustedValue - amount) / amount) * 100;
                 setResults([
-                    { label: 'Value Then', value: '$100.00' },
-                    { label: 'Value Now', value: '$154.32', isTotal: true },
-                    { label: 'Cumulative Inflation', value: '54.3%' },
+                    { label: 'Original Value', value: `$${amount.toFixed(2)}` },
+                    { label: 'Years', value: `${years}` },
+                    { label: 'Adjusted Value', value: `$${adjustedValue.toFixed(2)}`, isTotal: true },
+                    { label: 'Cumulative Inflation', value: `${cumulativeInflation.toFixed(1)}%` },
                 ]);
             } else if (id?.includes('salary')) {
                 const stateData = US_STATES.find(s => s.code === selectedState) || US_STATES[0];
@@ -990,10 +1198,9 @@ export const CalculatorDetail: React.FC = () => {
         } else if (id === 'calorie-calculator') {
             return (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Age</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={30} /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Gender</label><select className="block w-full p-2 border border-gray-300 rounded-md"><option>Male</option><option>Female</option></select></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Height (cm)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={175} /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={75} /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Age</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="30" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Height (cm)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="175" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="75" /></div>
                 </div>
             );
         } else if (id === 'random-number') {
@@ -1006,42 +1213,39 @@ export const CalculatorDetail: React.FC = () => {
         } else if (id === 'mortgage-calculator') {
             return (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Home Price</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={300000} /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Down Payment</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={60000} /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Interest Rate (%)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={6.5} /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Loan Term (Years)</label><select className="block w-full p-2 border border-gray-300 rounded-md"><option>30</option><option>15</option></select></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Home Price ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="300000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Down Payment ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="60000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Interest Rate (%)</label><input type="number" step="0.1" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="6.5" /></div>
                 </div>
             );
         } else if (id === 'auto-loan-calculator') {
             return (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Vehicle Price</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={35000} /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Down Payment</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={5000} /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Interest Rate (%)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={5.9} /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Term (Months)</label><select className="block w-full p-2 border border-gray-300 rounded-md"><option>60</option><option>48</option><option>72</option></select></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Vehicle Price ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="35000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Down Payment ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="5000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Interest Rate (%)</label><input type="number" step="0.1" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="5.9" /></div>
                 </div>
             );
         } else if (id === 'compound-interest-calculator') {
             return (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Initial Investment</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={5000} /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Monthly Contribution</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={500} /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Interest Rate (%)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={7} /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Years to Grow</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={10} /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Initial Investment ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="5000" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Monthly Contribution ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="500" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Interest Rate (%)</label><input type="number" step="0.1" className="block w-full p-2 border border-gray-300 rounded-md" value={input3} onChange={(e) => setInput3(Number(e.target.value))} placeholder="7" /></div>
                 </div>
             );
         } else if (id === 'bmi-calculator') {
             return (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Height (cm)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={175} /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={70} /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Height (cm)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="175" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="70" /></div>
                 </div>
             );
         } else if (id === 'inflation-calculator') {
             return (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Amount ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={100} /></div>
-                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Start Year</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" defaultValue={2000} /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Amount ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="100" /></div>
+                    <div><label className="block text-sm font-medium text-gray-700 mb-1">Start Year</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input2} onChange={(e) => setInput2(Number(e.target.value))} placeholder="2000" /></div>
                 </div>
             );
         } else if (id?.includes('salary')) {

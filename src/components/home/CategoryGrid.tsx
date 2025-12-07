@@ -19,31 +19,58 @@ const categories = [
         link: '/category/salary-tax'
     },
     {
-        id: 'biology',
-        name: 'Biology',
-        icon: BiologyAIIcon,
-        description: 'Genetics, cell biology, and evolution calculators.',
-        color: 'bg-teal-100 text-teal-600',
-        tools: ['DNA Replication', 'Allele Frequency', 'Cell Doubling'],
-        link: '/category/biology'
-    },
-    {
-        id: 'chemistry',
-        name: 'Chemistry',
-        icon: ChemistryAIIcon,
-        description: 'Molarity, pH, periodic table, and reactions.',
+        id: 'finance',
+        name: 'Business',
+        icon: FinanceAIIcon,
+        description: 'ROI, margin, break-even, and business calculators.',
         color: 'bg-indigo-100 text-indigo-600',
-        tools: ['Molarity Calc', 'pH Calculator', 'Half-life'],
-        link: '/category/chemistry'
+        tools: ['ROI Calculator', 'Margin Calc', 'Break-Even'],
+        link: '/category/finance'
     },
     {
-        id: 'construction',
-        name: 'Construction',
-        icon: ConstructionAIIcon,
-        description: 'Concrete, flooring, roofing, and material estimation.',
+        id: 'loans-debt',
+        name: 'Loans & Debt',
+        icon: FinanceAIIcon,
+        description: 'Mortgage, auto loans, and amortization calculators.',
         color: 'bg-orange-100 text-orange-600',
-        tools: ['Concrete Slab', 'Drywall Calc', 'Paint Calculator'],
-        link: '/category/construction'
+        tools: ['Mortgage Calc', 'Auto Loan', 'Amortization'],
+        link: '/category/loans-debt'
+    },
+    {
+        id: 'investment',
+        name: 'Investment',
+        icon: FinanceAIIcon,
+        description: 'Compound interest, 401k, and inflation calculators.',
+        color: 'bg-emerald-100 text-emerald-600',
+        tools: ['Compound Interest', '401k Calc', 'Inflation'],
+        link: '/category/investment'
+    },
+    {
+        id: 'health',
+        name: 'Health',
+        icon: HealthAIIcon,
+        description: 'BMI, BMR, pregnancy, and fitness trackers.',
+        color: 'bg-rose-100 text-rose-600',
+        tools: ['BMI Calculator', 'Calorie Calc', 'Due Date'],
+        link: '/category/health'
+    },
+    {
+        id: 'math',
+        name: 'Math',
+        icon: MathAIIcon,
+        description: 'Algebra, geometry, statistics, and matrices.',
+        color: 'bg-cyan-100 text-cyan-600',
+        tools: ['Percentage Calc', 'Binary Calc', 'Prime Numbers'],
+        link: '/category/math'
+    },
+    {
+        id: 'geometry',
+        name: 'Geometry',
+        icon: MathAIIcon,
+        description: 'Calculate areas, volumes, and construction needs.',
+        color: 'bg-teal-100 text-teal-600',
+        tools: ['Circle Calc', 'Triangle Calc', 'Paint Calculator'],
+        link: '/category/geometry'
     },
     {
         id: 'conversion',
@@ -55,15 +82,6 @@ const categories = [
         link: '/category/conversion'
     },
     {
-        id: 'ecology',
-        name: 'Ecology',
-        icon: EcologyAIIcon,
-        description: 'Carbon footprint, population growth, and environment.',
-        color: 'bg-green-100 text-green-600',
-        tools: ['Carbon Footprint', 'Population Growth', 'Water Usage'],
-        link: '/category/ecology'
-    },
-    {
         id: 'everyday-life',
         name: 'Everyday Life',
         icon: EverydayLifeAIIcon,
@@ -73,31 +91,22 @@ const categories = [
         link: '/category/everyday-life'
     },
     {
-        id: 'food',
-        name: 'Food',
-        icon: FoodAIIcon,
-        description: 'Cooking conversions, nutrition, and baking.',
-        color: 'bg-red-100 text-red-600',
-        tools: ['Recipe Scaler', 'Calories Calc', 'Baking Ratio'],
-        link: '/category/food'
+        id: 'biology',
+        name: 'Biology',
+        icon: BiologyAIIcon,
+        description: 'Genetics, cell biology, and evolution calculators.',
+        color: 'bg-green-100 text-green-600',
+        tools: ['DNA Replication', 'Allele Frequency'],
+        link: '/category/biology'
     },
     {
-        id: 'health',
-        name: 'Health',
-        icon: HealthAIIcon,
-        description: 'BMI, BMR, pregnancy, and fitness trackers.',
-        color: 'bg-rose-100 text-rose-600',
-        tools: ['BMI Calculator', 'Body Fat', 'Due Date'],
-        link: '/category/health'
-    },
-    {
-        id: 'math',
-        name: 'Math',
-        icon: MathAIIcon,
-        description: 'Algebra, geometry, statistics, and matrices.',
-        color: 'bg-cyan-100 text-cyan-600',
-        tools: ['Percentage Calc', 'Fraction Calc', 'Triangle Calc'],
-        link: '/category/math'
+        id: 'chemistry',
+        name: 'Chemistry',
+        icon: ChemistryAIIcon,
+        description: 'Molarity, pH, periodic table, and reactions.',
+        color: 'bg-purple-100 text-purple-600',
+        tools: ['Molarity Calc', 'pH Calculator'],
+        link: '/category/chemistry'
     },
     {
         id: 'physics',
@@ -105,7 +114,7 @@ const categories = [
         icon: PhysicsAIIcon,
         description: 'Mechanics, thermodynamics, electricity, and waves.',
         color: 'bg-violet-100 text-violet-600',
-        tools: ['Velocity Calc', 'Force Calc', 'Ohm\'s Law'],
+        tools: ['Velocity Calc', 'Force Calc'],
         link: '/category/physics'
     },
     {
@@ -113,8 +122,8 @@ const categories = [
         name: 'Sports',
         icon: SportsAIIcon,
         description: 'Running pace, cycling power, and scoreboards.',
-        color: 'bg-emerald-100 text-emerald-600',
-        tools: ['Pace Calculator', 'Race Time', 'One Rep Max'],
+        color: 'bg-lime-100 text-lime-600',
+        tools: ['Pace Calculator', 'Race Time'],
         link: '/category/sports'
     },
     {
@@ -123,7 +132,7 @@ const categories = [
         icon: StatisticsAIIcon,
         description: 'Probability, distributions, and data analysis.',
         color: 'bg-slate-100 text-slate-600',
-        tools: ['Standard Deviation', 'Probability', 'Sample Size'],
+        tools: ['Standard Deviation', 'Probability'],
         link: '/category/statistics'
     },
     {
@@ -132,7 +141,7 @@ const categories = [
         icon: OtherAIIcon,
         description: 'Miscellaneous tools and fun calculators.',
         color: 'bg-pink-100 text-pink-600',
-        tools: ['Random Number', 'Password Gen', 'Dice Roller'],
+        tools: ['Random Number', 'Password Gen'],
         link: '/category/other'
     }
 ];

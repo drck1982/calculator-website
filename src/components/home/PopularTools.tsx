@@ -4,12 +4,12 @@ import { Star, Calculator, Home, TrendingUp, Car, Activity, Coins, ArrowRight } 
 
 const popularTools = [
     {
-        name: 'US Salary Tax Calculator',
+        name: 'NY Salary Tax Calculator',
         description: 'Estimate your take-home pay after federal, state, and local taxes.',
         category: 'Salary',
         icon: Calculator,
         color: 'text-blue-600 bg-blue-50',
-        link: '/tools/us-salary-tax-calculator'
+        link: '/tools/ny-salary-tax-calculator'
     },
     {
         name: 'Mortgage Payment Calculator',
