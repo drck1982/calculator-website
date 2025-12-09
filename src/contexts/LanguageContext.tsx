@@ -154,6 +154,13 @@ const translations: Record<Language, Record<string, string>> = {
         'calc.howItWorks': 'How It Works',
         'calc.formula': 'Formula',
         'calc.faq': 'FAQ',
+        'calc.printResults': 'Print Results',
+        'calc.popularCalculators': 'Popular Calculators',
+        'calc.whatItDoes': 'What this calculator does',
+        'calc.howToUse': 'How to use the calculator',
+        'calc.formulaMethodology': 'Formula & Methodology',
+        'calc.pregnancyCalculator': 'Pregnancy Calculator',
+        'calc.dateCalculator': 'Date Calculator',
         
         // Footer
         'footer.disclaimer': 'This website does not provide tax, legal, or investment advice. All calculations are estimates and should be used for informational purposes only.',
@@ -484,6 +491,13 @@ const translations: Record<Language, Record<string, string>> = {
         'calc.howItWorks': '工作原理',
         'calc.formula': '公式',
         'calc.faq': '常见问题',
+        'calc.printResults': '打印结果',
+        'calc.popularCalculators': '热门计算器',
+        'calc.whatItDoes': '此计算器的功能',
+        'calc.howToUse': '如何使用此计算器',
+        'calc.formulaMethodology': '公式和方法',
+        'calc.pregnancyCalculator': '孕期计算器',
+        'calc.dateCalculator': '日期计算器',
         
         // Footer
         'footer.disclaimer': '本网站不提供税务、法律或投资建议。所有计算仅为估算，仅供参考。',
@@ -814,6 +828,13 @@ const translations: Record<Language, Record<string, string>> = {
         'calc.howItWorks': 'Cómo Funciona',
         'calc.formula': 'Fórmula',
         'calc.faq': 'Preguntas Frecuentes',
+        'calc.printResults': 'Imprimir Resultados',
+        'calc.popularCalculators': 'Calculadoras Populares',
+        'calc.whatItDoes': 'Qué hace esta calculadora',
+        'calc.howToUse': 'Cómo usar la calculadora',
+        'calc.formulaMethodology': 'Fórmula y Metodología',
+        'calc.pregnancyCalculator': 'Calculadora de Embarazo',
+        'calc.dateCalculator': 'Calculadora de Fechas',
         
         // Footer
         'footer.disclaimer': 'Este sitio web no proporciona asesoramiento fiscal, legal o de inversión. Todos los cálculos son estimaciones y solo deben usarse con fines informativos.',
@@ -1144,6 +1165,13 @@ const translations: Record<Language, Record<string, string>> = {
         'calc.howItWorks': '仕組み',
         'calc.formula': '計算式',
         'calc.faq': 'よくある質問',
+        'calc.printResults': '結果を印刷',
+        'calc.popularCalculators': '人気の計算機',
+        'calc.whatItDoes': 'この計算機の機能',
+        'calc.howToUse': '計算機の使い方',
+        'calc.formulaMethodology': '公式と方法論',
+        'calc.pregnancyCalculator': '妊娠計算機',
+        'calc.dateCalculator': '日付計算機',
         
         // Footer
         'footer.disclaimer': 'このウェブサイトは税務、法律、投資のアドバイスを提供するものではありません。すべての計算は推定値であり、情報提供のみを目的としています。',
@@ -1474,6 +1502,13 @@ const translations: Record<Language, Record<string, string>> = {
         'calc.howItWorks': 'Comment ça marche',
         'calc.formula': 'Formule',
         'calc.faq': 'FAQ',
+        'calc.printResults': 'Imprimer les Résultats',
+        'calc.popularCalculators': 'Calculatrices Populaires',
+        'calc.whatItDoes': 'Ce que fait cette calculatrice',
+        'calc.howToUse': 'Comment utiliser la calculatrice',
+        'calc.formulaMethodology': 'Formule et Méthodologie',
+        'calc.pregnancyCalculator': 'Calculatrice de Grossesse',
+        'calc.dateCalculator': 'Calculatrice de Dates',
         
         // Footer
         'footer.disclaimer': 'Ce site ne fournit pas de conseils fiscaux, juridiques ou d\'investissement. Tous les calculs sont des estimations à titre informatif uniquement.',

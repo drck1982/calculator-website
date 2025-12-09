@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface FAQItemProps {
     question: string;
@@ -32,9 +33,11 @@ interface FAQSectionProps {
 }
 
 export const FAQSection: React.FC<FAQSectionProps> = ({ items }) => {
+    const { t } = useLanguage();
+    
     return (
         <section className="mb-12 bg-gray-50 p-6 rounded-xl border border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('calc.faq')}</h2>
             <div>
                 {items.map((item, index) => (
                     <FAQItem key={index} {...item} />

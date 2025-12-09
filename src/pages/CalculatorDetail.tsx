@@ -17,6 +17,7 @@ import { toolConfigs } from '../data/tools';
 import { US_STATES } from '../data/us_states';
 import { SEO } from '../components/common/SEO';
 import { Helmet } from 'react-helmet-async';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const CURRENCIES = [
     { code: 'USD', name: 'US Dollar' },
@@ -87,6 +88,7 @@ const AREA_UNITS = [
 
 export const CalculatorDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
+    const { t } = useLanguage();
     const config = toolConfigs[id || ''] || toolConfigs['default'];
 
     // JSON-LD Structured Data
@@ -2427,7 +2429,7 @@ export const CalculatorDetail: React.FC = () => {
 
             <div className="container mx-auto px-4 py-8">
                 <Breadcrumbs items={[
-                    { label: 'Categories', href: '/all-tools' },
+                    { label: t('nav.categories'), href: '/all-tools' },
                     { label: config.category },
                     { label: config.title }
                 ]} />
@@ -2457,7 +2459,7 @@ export const CalculatorDetail: React.FC = () => {
                                     onClick={() => window.print()}
                                     className="flex items-center text-sm text-gray-500 hover:text-blue-600 transition-colors"
                                 >
-                                    <Printer className="w-4 h-4 mr-1" /> Print Results
+                                    <Printer className="w-4 h-4 mr-1" /> {t('calc.printResults')}
                                 </button>
                             </div>
                         </div>
@@ -2465,17 +2467,17 @@ export const CalculatorDetail: React.FC = () => {
                         <div className="mt-8 bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
                             <h3 className="font-bold text-gray-900 mb-4 flex items-center">
                                 <CalcIcon className="w-5 h-5 mr-2 text-blue-600" />
-                                Popular Calculators
+                                {t('calc.popularCalculators')}
                             </h3>
                             <ul className="space-y-3">
                                 <li>
                                     <Link to="/tools/pregnancy-calculator" className="flex items-center text-gray-600 hover:text-blue-600">
-                                        <Baby className="w-4 h-4 mr-2 text-pink-400" /> Pregnancy Calculator
+                                        <Baby className="w-4 h-4 mr-2 text-pink-400" /> {t('calc.pregnancyCalculator')}
                                     </Link>
                                 </li>
                                 <li>
                                     <Link to="/tools/date-calculator" className="flex items-center text-gray-600 hover:text-blue-600">
-                                        <Calendar className="w-4 h-4 mr-2 text-blue-400" /> Date Calculator
+                                        <Calendar className="w-4 h-4 mr-2 text-blue-400" /> {t('calc.dateCalculator')}
                                     </Link>
                                 </li>
                             </ul>
@@ -2486,17 +2488,17 @@ export const CalculatorDetail: React.FC = () => {
 
                     {/* Content sections - Third on mobile, second on desktop (order-3 lg:order-2) */}
                     <div className="order-3 lg:order-2 lg:col-span-2 mt-8 lg:mt-0">
-                        <ContentSection id="what-it-does" title="What this calculator does">
+                        <ContentSection id="what-it-does" title={t('calc.whatItDoes')}>
                             {config.content.what}
                         </ContentSection>
 
                         <AdSlot id="in-content-1" />
 
-                        <ContentSection id="how-to-use" title="How to use the calculator">
+                        <ContentSection id="how-to-use" title={t('calc.howToUse')}>
                             {config.content.how}
                         </ContentSection>
 
-                        <ContentSection id="formula" title="Formula & Methodology">
+                        <ContentSection id="formula" title={t('calc.formulaMethodology')}>
                             {config.content.formula}
                         </ContentSection>
 
