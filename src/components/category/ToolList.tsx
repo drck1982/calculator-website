@@ -135,14 +135,18 @@ const tagTranslationKeys: Record<string, string> = {
 };
 
 export const ToolList: React.FC<ToolListProps> = ({ tools }) => {
-    const { t, language } = useLanguage();
+    const { t } = useLanguage();
     
     const getToolName = (tool: Tool): string => {
         const keys = toolTranslationKeys[tool.id];
         if (keys) {
             const translated = t(keys.nameKey);
-            if (translated && translated !== keys.nameKey) return translated;
+            // Return translation if it exists and is not the same as the key
+            if (translated && translated !== keys.nameKey) {
+                return translated;
+            }
         }
+        // Fallback to original name
         return tool.name;
     };
     
@@ -150,8 +154,12 @@ export const ToolList: React.FC<ToolListProps> = ({ tools }) => {
         const keys = toolTranslationKeys[tool.id];
         if (keys) {
             const translated = t(keys.descKey);
-            if (translated && translated !== keys.descKey) return translated;
+            // Return translation if it exists and is not the same as the key
+            if (translated && translated !== keys.descKey) {
+                return translated;
+            }
         }
+        // Fallback to original description
         return tool.description;
     };
     
@@ -159,8 +167,12 @@ export const ToolList: React.FC<ToolListProps> = ({ tools }) => {
         const key = tagTranslationKeys[tag.toLowerCase()];
         if (key) {
             const translated = t(key);
-            if (translated && translated !== key) return translated;
+            // Return translation if it exists and is not the same as the key
+            if (translated && translated !== key) {
+                return translated;
+            }
         }
+        // Fallback to original tag
         return tag;
     };
 
