@@ -140,7 +140,7 @@ const tagTranslationKeys: Record<string, string> = {
 };
 
 export const AllTools: React.FC = () => {
-    const { t, language } = useLanguage();
+    const { t } = useLanguage();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -170,9 +170,9 @@ export const AllTools: React.FC = () => {
 
     const getCategoryTitle = (categoryId: string) => {
         const key = categoryKeyMap[categoryId];
-        if (key && language !== 'en') {
+        if (key) {
             const translated = t(key);
-            if (translated !== key) return translated;
+            if (translated) return translated;
         }
         return toolsByCategory[categoryId]?.title || categoryId;
     };
@@ -182,7 +182,8 @@ export const AllTools: React.FC = () => {
         const keys = toolTranslationKeys[toolId];
         if (keys) {
             const translated = t(keys.nameKey);
-            if (translated && translated !== keys.nameKey) {
+            // Always return translation if it exists and is not empty
+            if (translated) {
                 return translated;
             }
         }
@@ -194,7 +195,8 @@ export const AllTools: React.FC = () => {
         const keys = toolTranslationKeys[toolId];
         if (keys) {
             const translated = t(keys.descKey);
-            if (translated && translated !== keys.descKey) {
+            // Always return translation if it exists and is not empty
+            if (translated) {
                 return translated;
             }
         }
@@ -206,7 +208,8 @@ export const AllTools: React.FC = () => {
         const key = tagTranslationKeys[tag.toLowerCase()];
         if (key) {
             const translated = t(key);
-            if (translated && translated !== key) {
+            // Always return translation if it exists and is not empty
+            if (translated) {
                 return translated;
             }
         }

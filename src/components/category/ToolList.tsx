@@ -141,8 +141,8 @@ export const ToolList: React.FC<ToolListProps> = ({ tools }) => {
         const keys = toolTranslationKeys[tool.id];
         if (keys) {
             const translated = t(keys.nameKey);
-            // Return translation if it exists and is not the same as the key
-            if (translated && translated !== keys.nameKey) {
+            // Always return translation if it exists
+            if (translated) {
                 return translated;
             }
         }
@@ -154,8 +154,8 @@ export const ToolList: React.FC<ToolListProps> = ({ tools }) => {
         const keys = toolTranslationKeys[tool.id];
         if (keys) {
             const translated = t(keys.descKey);
-            // Return translation if it exists and is not the same as the key
-            if (translated && translated !== keys.descKey) {
+            // Always return translation if it exists
+            if (translated) {
                 return translated;
             }
         }
@@ -167,8 +167,8 @@ export const ToolList: React.FC<ToolListProps> = ({ tools }) => {
         const key = tagTranslationKeys[tag.toLowerCase()];
         if (key) {
             const translated = t(key);
-            // Return translation if it exists and is not the same as the key
-            if (translated && translated !== key) {
+            // Always return translation if it exists
+            if (translated) {
                 return translated;
             }
         }
