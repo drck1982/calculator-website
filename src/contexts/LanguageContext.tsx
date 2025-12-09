@@ -569,6 +569,12 @@ const translations: Record<Language, Record<string, string>> = {
         'calc.paycheck.semimonthly': '半月',
         'calc.paycheck.monthly': '每月',
         'calc.paycheck.annual': '每年',
+
+        'calc.paycheck.formTitle': '输入工资详情',
+        'calc.paycheck.resultTitle': '您的实发工资',
+        'calc.paycheck.content.what': '计算扣除联邦税、州税、社会保障税和医疗保险税后的净工资。',
+        'calc.paycheck.content.how': '输入您的税前工资、发薪频率和所在州，即可查看您的到手工资。',
+        'calc.paycheck.content.formula': '净工资 = 税前工资 - 联邦税 - 州税 - 社会保障税 (6.2%) - 医疗保险税 (1.45%)',
         'tool.federalTaxCalculator': '联邦所得税计算器',
         'tool.federalTaxCalculator.desc': '估算您的联邦税负。',
         'tool.bonusTaxCalculator': '奖金税计算器',
@@ -1543,6 +1549,12 @@ const translations: Record<Language, Record<string, string>> = {
         'calc.paycheck.semimonthly': '月2回',
         'calc.paycheck.monthly': '毎月',
         'calc.paycheck.annual': '毎年',
+
+        'calc.paycheck.formTitle': '給与の詳細を入力',
+        'calc.paycheck.resultTitle': '手取り給与',
+        'calc.paycheck.content.what': '連邦税、州税、社会保障、メディケア控除後の純給与を計算します。',
+        'calc.paycheck.content.how': '総給与、支払い頻度、州を入力して、手取り額を確認してください。',
+        'calc.paycheck.content.formula': '純給与 = 総給与 - 連邦税 - 州税 - 社会保障 (6.2%) - メディケア (1.45%)',
         'tool.federalTaxCalculator': '連邦所得税計算機',
         'tool.federalTaxCalculator.desc': '連邦税負担を見積もります。',
         'tool.bonusTaxCalculator': 'ボーナス税計算機',
@@ -2030,6 +2042,12 @@ const translations: Record<Language, Record<string, string>> = {
         'calc.paycheck.semimonthly': 'Semi-Mensuel',
         'calc.paycheck.monthly': 'Mensuel',
         'calc.paycheck.annual': 'Annuel',
+
+        'calc.paycheck.formTitle': 'Entrez les Détails de la Paie',
+        'calc.paycheck.resultTitle': 'Votre Salaire Net',
+        'calc.paycheck.content.what': 'Calcule votre salaire net après déduction des impôts fédéraux, d\'État, de la sécurité sociale et de l\'assurance-maladie.',
+        'calc.paycheck.content.how': 'Entrez votre salaire brut, la fréquence de paie et l\'état pour voir votre salaire net.',
+        'calc.paycheck.content.formula': 'Salaire Net = Salaire Brut - Impôt Fédéral - Impôt d\'État - Sécurité Sociale (6.2%) - Medicare (1.45%)',
 
         'tool.federalTaxCalculator': 'Calculatrice Impôt Fédéral',
         'tool.federalTaxCalculator.desc': 'Estimez votre obligation fiscale fédérale.',
