@@ -137,48 +137,32 @@ const tagTranslationKeys: Record<string, string> = {
 export const ToolList: React.FC<ToolListProps> = ({ tools }) => {
     const { t } = useLanguage();
     
-    const getToolName = (tool: Tool): string => {
+    // Pre-translate tools to ensure re-render on language change
+    const translatedTools = tools.map((tool) => {
         const keys = toolTranslationKeys[tool.id];
-        if (keys) {
-            const translated = t(keys.nameKey);
-            // Always return translation if it exists
-            if (translated) {
-                return translated;
+        const translatedName = keys ? t(keys.nameKey) || tool.name : tool.name;
+        const translatedDesc = keys ? t(keys.descKey) || tool.description : tool.description;
+
+        const translatedTags = tool.tags.map((tag) => {
+            const key = tagTranslationKeys[tag.toLowerCase()];
+            if (key) {
+                const translated = t(key);
+                if (translated) return translated;
             }
-        }
-        // Fallback to original name
-        return tool.name;
-    };
-    
-    const getToolDesc = (tool: Tool): string => {
-        const keys = toolTranslationKeys[tool.id];
-        if (keys) {
-            const translated = t(keys.descKey);
-            // Always return translation if it exists
-            if (translated) {
-                return translated;
-            }
-        }
-        // Fallback to original description
-        return tool.description;
-    };
-    
-    const getTagName = (tag: string): string => {
-        const key = tagTranslationKeys[tag.toLowerCase()];
-        if (key) {
-            const translated = t(key);
-            // Always return translation if it exists
-            if (translated) {
-                return translated;
-            }
-        }
-        // Fallback to original tag
-        return tag;
-    };
+            return tag;
+        });
+
+        return {
+            ...tool,
+            translatedName,
+            translatedDesc,
+            translatedTags,
+        };
+    });
 
     return (
         <div className="space-y-4">
-            {tools.map((tool, index) => (
+            {translatedTools.map((tool, index) => (
                 <React.Fragment key={tool.id}>
                     <Link
                         to={tool.link}
@@ -193,20 +177,20 @@ export const ToolList: React.FC<ToolListProps> = ({ tools }) => {
                             <div className="flex-1">
                                 <div className="flex items-center justify-between mb-2">
                                     <div className="flex gap-2">
-                                        {tool.tags.map(tag => (
+                                        {tool.translatedTags.map(tag => (
                                             <span key={tag} className="px-2.5 py-0.5 bg-gray-100 text-gray-600 text-xs font-bold uppercase tracking-wide rounded-full group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
-                                                {getTagName(tag)}
+                                                {tag}
                                             </span>
                                         ))}
                                     </div>
                                 </div>
 
                                 <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                                    {getToolName(tool)}
+                                    {tool.translatedName}
                                 </h3>
 
                                 <p className="text-gray-500 leading-relaxed">
-                                    {getToolDesc(tool)}
+                                    {tool.translatedDesc}
                                 </p>
                             </div>
 

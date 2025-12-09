@@ -168,6 +168,16 @@ export const AllTools: React.FC = () => {
         return tools;
     }, [allTools, selectedCategory, searchQuery]);
 
+    // Translate tools (name, description, tags) based on current language
+    const translatedTools = useMemo(() => {
+        return filteredTools.map((tool) => ({
+            ...tool,
+            translatedName: getToolName(tool.id, tool.name),
+            translatedDesc: getToolDesc(tool.id, tool.description),
+            translatedTags: tool.tags.map(getTagName),
+        }));
+    }, [filteredTools, language, t]);
+
     const getCategoryTitle = (categoryId: string) => {
         const key = categoryKeyMap[categoryId];
         if (key) {
@@ -285,7 +295,7 @@ export const AllTools: React.FC = () => {
                 <div className="max-w-6xl mx-auto">
                     {filteredTools.length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {filteredTools.map((tool, index) => (
+                            {translatedTools.map((tool, index) => (
                                 <React.Fragment key={tool.id}>
                                     <Link
                                         to={tool.link}
@@ -297,17 +307,17 @@ export const AllTools: React.FC = () => {
                                             </div>
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex flex-wrap gap-1 mb-2">
-                                                    {tool.tags.slice(0, 2).map(tag => (
+                                                    {tool.translatedTags.slice(0, 2).map(tag => (
                                                         <span key={tag} className="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
-                                                            {getTagName(tag)}
+                                                            {tag}
                                                         </span>
                                                     ))}
                                                 </div>
                                                 <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate">
-                                                    {getToolName(tool.id, tool.name)}
+                                                    {tool.translatedName}
                                                 </h3>
                                                 <p className="text-sm text-gray-500 mt-1 line-clamp-2">
-                                                    {getToolDesc(tool.id, tool.description)}
+                                                    {tool.translatedDesc}
                                                 </p>
                                             </div>
                                             <ArrowRight className="h-5 w-5 text-gray-300 group-hover:text-blue-500 transition-colors shrink-0" />
