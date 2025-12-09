@@ -147,7 +147,7 @@ const tagTranslationKeys: Record<string, string> = {
 };
 
 export const AllTools: React.FC = () => {
-    const { t, language } = useLanguage();
+    const { t } = useLanguage();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -183,7 +183,7 @@ export const AllTools: React.FC = () => {
             translatedDesc: getToolDesc(tool.id, tool.description),
             translatedTags: tool.tags.map(getTagName),
         }));
-    }, [filteredTools, language, t]);
+    }, [filteredTools, t]);
 
     const getCategoryTitle = (categoryId: string) => {
         const key = categoryKeyMap[categoryId];
