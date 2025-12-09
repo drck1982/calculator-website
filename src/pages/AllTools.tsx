@@ -175,15 +175,13 @@ export const AllTools: React.FC = () => {
         return tools;
     }, [allTools, selectedCategory, searchQuery]);
 
-    // Translate tools (name, description, tags) based on current language
-    const translatedTools = useMemo(() => {
-        return filteredTools.map((tool) => ({
-            ...tool,
-            translatedName: getToolName(tool.id, tool.name),
-            translatedDesc: getToolDesc(tool.id, tool.description),
-            translatedTags: tool.tags.map(getTagName),
-        }));
-    }, [filteredTools, t]);
+    // Translate tools (name, description, tags) on each render
+    const translatedTools = filteredTools.map((tool) => ({
+        ...tool,
+        translatedName: getToolName(tool.id, tool.name),
+        translatedDesc: getToolDesc(tool.id, tool.description),
+        translatedTags: tool.tags.map(getTagName),
+    }));
 
     const getCategoryTitle = (categoryId: string) => {
         const key = categoryKeyMap[categoryId];
