@@ -207,7 +207,7 @@ export const ToolList: React.FC<ToolListProps> = ({ tools }) => {
                     </Link>
 
                     {/* Insert Ad after 4th item */}
-                    {index === 3 && <AdSlot id="category-list-ad" className="my-8" label="Sponsored" />}
+                    {index === 3 && <AdSlot id="category-list-ad" className="my-8" label={t('common.sponsored')} />}
                 </React.Fragment>
             ))}
         </div>

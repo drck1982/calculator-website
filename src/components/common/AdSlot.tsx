@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '../../utils/cn';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface AdSlotProps {
     id: string;
@@ -7,7 +8,9 @@ interface AdSlotProps {
     label?: string;
 }
 
-export const AdSlot: React.FC<AdSlotProps> = ({ id, className, label = 'Advertisement' }) => {
+export const AdSlot: React.FC<AdSlotProps> = ({ id, className, label }) => {
+    const { t } = useLanguage();
+    const displayLabel = label || t('common.advertisement');
     React.useEffect(() => {
         try {
             // @ts-ignore
@@ -19,7 +22,7 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, className, label = 'Advertis
 
     return (
         <div className={cn("w-full my-6 flex flex-col items-center justify-center overflow-hidden", className)}>
-            {label && <div className="text-xs text-gray-400 mb-1 uppercase tracking-wider">{label}</div>}
+            {displayLabel && <div className="text-xs text-gray-400 mb-1 uppercase tracking-wider">{displayLabel}</div>}
             <ins className="adsbygoogle"
                 style={{ display: 'block', width: '100%' }}
                 data-ad-client="ca-pub-2390350078302655"

@@ -82,8 +82,8 @@ export const Category: React.FC = () => {
                     <div className="hidden lg:block space-y-8">
                         {/* Sidebar Ad */}
                         <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 sticky top-24">
-                            <h4 className="text-sm font-bold text-gray-400 uppercase mb-4">Advertisement</h4>
-                            <AdSlot id="sidebar-ad" className="h-[600px]" label="Advertisement" />
+                            <h4 className="text-sm font-bold text-gray-400 uppercase mb-4">{t('common.advertisement')}</h4>
+                            <AdSlot id="sidebar-ad" className="h-[600px]" label={t('common.advertisement')} />
                         </div>
                     </div>
                 </div>
