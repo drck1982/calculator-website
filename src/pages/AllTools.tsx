@@ -26,6 +26,13 @@ const categoryKeyMap: Record<string, string> = {
     'other': 'cat.other',
 };
 
+// Helper: convert kebab-case id to camelCase key (paycheck-calculator -> paycheckCalculator)
+const toCamelKey = (id: string) =>
+    id
+        .split('-')
+        .map((part, idx) => (idx === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
+        .join('');
+
 // Tool translation key mapping (same as ToolList.tsx)
 const toolTranslationKeys: Record<string, { nameKey: string; descKey: string }> = {
     'paycheck-calculator': { nameKey: 'tool.paycheckCalculator', descKey: 'tool.paycheckCalculator.desc' },
@@ -140,7 +147,7 @@ const tagTranslationKeys: Record<string, string> = {
 };
 
 export const AllTools: React.FC = () => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -190,39 +197,57 @@ export const AllTools: React.FC = () => {
     // Get translated tool name
     const getToolName = (toolId: string, originalName: string): string => {
         const keys = toolTranslationKeys[toolId];
+        const derivedKey = `tool.${toCamelKey(toolId)}`;
+
+        // 1) Prefer explicit mapping
         if (keys) {
             const translated = t(keys.nameKey);
-            // Always return translation if it exists and is not empty
-            if (translated) {
-                return translated;
-            }
+            if (translated && translated !== keys.nameKey) return translated;
         }
+
+        // 2) Try derived key from tool id
+        const derived = t(derivedKey);
+        if (derived && derived !== derivedKey) return derived;
+
+        // 3) Fallback original
         return originalName;
     };
 
     // Get translated tool description
     const getToolDesc = (toolId: string, originalDesc: string): string => {
         const keys = toolTranslationKeys[toolId];
+        const derivedKey = `tool.${toCamelKey(toolId)}.desc`;
+
+        // 1) Prefer explicit mapping
         if (keys) {
             const translated = t(keys.descKey);
-            // Always return translation if it exists and is not empty
-            if (translated) {
-                return translated;
-            }
+            if (translated && translated !== keys.descKey) return translated;
         }
+
+        // 2) Try derived key from tool id
+        const derived = t(derivedKey);
+        if (derived && derived !== derivedKey) return derived;
+
+        // 3) Fallback original
         return originalDesc;
     };
 
     // Get translated tag
     const getTagName = (tag: string): string => {
         const key = tagTranslationKeys[tag.toLowerCase()];
+        const derivedKey = `tag.${tag.toLowerCase()}`;
+
+        // 1) Prefer explicit mapping
         if (key) {
             const translated = t(key);
-            // Always return translation if it exists and is not empty
-            if (translated) {
-                return translated;
-            }
+            if (translated && translated !== key) return translated;
         }
+
+        // 2) Try derived key
+        const derived = t(derivedKey);
+        if (derived && derived !== derivedKey) return derived;
+
+        // 3) Fallback original
         return tag;
     };
 

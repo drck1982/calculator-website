@@ -136,20 +136,47 @@ const tagTranslationKeys: Record<string, string> = {
 
 export const ToolList: React.FC<ToolListProps> = ({ tools }) => {
     const { t } = useLanguage();
-    
+
+    const toCamelKey = (id: string) =>
+        id
+            .split('-')
+            .map((part, idx) => (idx === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
+            .join('');
+
     // Pre-translate tools to ensure re-render on language change
     const translatedTools = tools.map((tool) => {
         const keys = toolTranslationKeys[tool.id];
-        const translatedName = keys ? t(keys.nameKey) || tool.name : tool.name;
-        const translatedDesc = keys ? t(keys.descKey) || tool.description : tool.description;
+        const derivedNameKey = `tool.${toCamelKey(tool.id)}`;
+        const derivedDescKey = `tool.${toCamelKey(tool.id)}.desc`;
+
+        // Name
+        const mappedName = keys ? t(keys.nameKey) : undefined;
+        const derivedName = t(derivedNameKey);
+        const translatedName =
+            (mappedName && mappedName !== keys?.nameKey && mappedName) ||
+            (derivedName && derivedName !== derivedNameKey && derivedName) ||
+            tool.name;
+
+        // Desc
+        const mappedDesc = keys ? t(keys.descKey) : undefined;
+        const derivedDesc = t(derivedDescKey);
+        const translatedDesc =
+            (mappedDesc && mappedDesc !== keys?.descKey && mappedDesc) ||
+            (derivedDesc && derivedDesc !== derivedDescKey && derivedDesc) ||
+            tool.description;
 
         const translatedTags = tool.tags.map((tag) => {
             const key = tagTranslationKeys[tag.toLowerCase()];
-            if (key) {
-                const translated = t(key);
-                if (translated) return translated;
-            }
-            return tag;
+            const derivedTagKey = `tag.${tag.toLowerCase()}`;
+
+            const mappedTag = key ? t(key) : undefined;
+            const derivedTag = t(derivedTagKey);
+
+            return (
+                (mappedTag && mappedTag !== key && mappedTag) ||
+                (derivedTag && derivedTag !== derivedTagKey && derivedTag) ||
+                tag
+            );
         });
 
         return {
