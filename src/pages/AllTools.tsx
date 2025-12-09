@@ -6,6 +6,7 @@ import { Breadcrumbs } from '../components/common/Breadcrumbs';
 import { AdSlot } from '../components/common/AdSlot';
 import { toolsByCategory, getAllTools } from '../data/tools';
 import { useLanguage } from '../contexts/LanguageContext';
+import { toolTranslationKeys, tagTranslationKeys } from '../data/translationKeys';
 
 // Category translation key mapping
 const categoryKeyMap: Record<string, string> = {
@@ -33,121 +34,15 @@ const toCamelKey = (id: string) =>
         .map((part, idx) => (idx === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
         .join('');
 
-// Tool translation key mapping (same as ToolList.tsx)
-const toolTranslationKeys: Record<string, { nameKey: string; descKey: string }> = {
-    'paycheck-calculator': { nameKey: 'tool.paycheckCalculator', descKey: 'tool.paycheckCalculator.desc' },
-    'federal-tax-calculator': { nameKey: 'tool.federalTaxCalculator', descKey: 'tool.federalTaxCalculator.desc' },
-    'bonus-tax-calculator': { nameKey: 'tool.bonusTaxCalculator', descKey: 'tool.bonusTaxCalculator.desc' },
-    'hourly-to-salary': { nameKey: 'tool.hourlyToSalary', descKey: 'tool.hourlyToSalary.desc' },
-    'ny-salary-tax-calculator': { nameKey: 'tool.nySalaryTaxCalculator', descKey: 'tool.nySalaryTaxCalculator.desc' },
-    'mortgage-calculator': { nameKey: 'tool.mortgageCalculator', descKey: 'tool.mortgageCalculator.desc' },
-    'student-loan-calculator': { nameKey: 'tool.studentLoanCalculator', descKey: 'tool.studentLoanCalculator.desc' },
-    'auto-loan-calculator': { nameKey: 'tool.autoLoanCalculator', descKey: 'tool.autoLoanCalculator.desc' },
-    'credit-card-payoff': { nameKey: 'tool.creditCardPayoff', descKey: 'tool.creditCardPayoff.desc' },
-    'debt-payoff-calculator': { nameKey: 'tool.debtPayoffCalculator', descKey: 'tool.debtPayoffCalculator.desc' },
-    'refinance-calculator': { nameKey: 'tool.refinanceCalculator', descKey: 'tool.refinanceCalculator.desc' },
-    'lease-vs-buy-car': { nameKey: 'tool.leaseVsBuyCar', descKey: 'tool.leaseVsBuyCar.desc' },
-    'amortization-calculator': { nameKey: 'tool.amortizationCalculator', descKey: 'tool.amortizationCalculator.desc' },
-    'compound-interest-calculator': { nameKey: 'tool.compoundInterestCalculator', descKey: 'tool.compoundInterestCalculator.desc' },
-    '401k-calculator': { nameKey: 'tool.401kCalculator', descKey: 'tool.401kCalculator.desc' },
-    'inflation-calculator': { nameKey: 'tool.inflationCalculator', descKey: 'tool.inflationCalculator.desc' },
-    'bmi-calculator': { nameKey: 'tool.bmiCalculator', descKey: 'tool.bmiCalculator.desc' },
-    'calorie-calculator': { nameKey: 'tool.calorieCalculator', descKey: 'tool.calorieCalculator.desc' },
-    'body-fat-calculator': { nameKey: 'tool.bodyFatCalculator', descKey: 'tool.bodyFatCalculator.desc' },
-    'sleep-calculator': { nameKey: 'tool.sleepCalculator', descKey: 'tool.sleepCalculator.desc' },
-    'pregnancy-calculator': { nameKey: 'tool.pregnancyCalculator', descKey: 'tool.pregnancyCalculator.desc' },
-    'ideal-weight-calculator': { nameKey: 'tool.idealWeightCalculator', descKey: 'tool.idealWeightCalculator.desc' },
-    'tdee-calculator': { nameKey: 'tool.tdeeCalculator', descKey: 'tool.tdeeCalculator.desc' },
-    'water-intake-calculator': { nameKey: 'tool.waterIntakeCalculator', descKey: 'tool.waterIntakeCalculator.desc' },
-    'macro-calculator': { nameKey: 'tool.macroCalculator', descKey: 'tool.macroCalculator.desc' },
-    'one-rep-max-calculator': { nameKey: 'tool.oneRepMaxCalculator', descKey: 'tool.oneRepMaxCalculator.desc' },
-    'bac-calculator': { nameKey: 'tool.bacCalculator', descKey: 'tool.bacCalculator.desc' },
-    'smoking-cost-calculator': { nameKey: 'tool.smokingCostCalculator', descKey: 'tool.smokingCostCalculator.desc' },
-    'age-calculator': { nameKey: 'tool.ageCalculator', descKey: 'tool.ageCalculator.desc' },
-    'percentage-calculator': { nameKey: 'tool.percentageCalculator', descKey: 'tool.percentageCalculator.desc' },
-    'binary-calculator': { nameKey: 'tool.binaryCalculator', descKey: 'tool.binaryCalculator.desc' },
-    'hex-calculator': { nameKey: 'tool.hexCalculator', descKey: 'tool.hexCalculator.desc' },
-    'prime-calculator': { nameKey: 'tool.primeCalculator', descKey: 'tool.primeCalculator.desc' },
-    'gcf-lcm-calculator': { nameKey: 'tool.gcfLcmCalculator', descKey: 'tool.gcfLcmCalculator.desc' },
-    'slope-calculator': { nameKey: 'tool.slopeCalculator', descKey: 'tool.slopeCalculator.desc' },
-    'circle-calculator': { nameKey: 'tool.circleCalculator', descKey: 'tool.circleCalculator.desc' },
-    'triangle-calculator': { nameKey: 'tool.triangleCalculator', descKey: 'tool.triangleCalculator.desc' },
-    'pythagorean-calculator': { nameKey: 'tool.pythagoreanCalculator', descKey: 'tool.pythagoreanCalculator.desc' },
-    'tile-calculator': { nameKey: 'tool.tileCalculator', descKey: 'tool.tileCalculator.desc' },
-    'paint-calculator': { nameKey: 'tool.paintCalculator', descKey: 'tool.paintCalculator.desc' },
-    'wallpaper-calculator': { nameKey: 'tool.wallpaperCalculator', descKey: 'tool.wallpaperCalculator.desc' },
-    'concrete-calculator': { nameKey: 'tool.concreteCalculator', descKey: 'tool.concreteCalculator.desc' },
-    'currency-converter': { nameKey: 'tool.currencyConverter', descKey: 'tool.currencyConverter.desc' },
-    'length-converter': { nameKey: 'tool.lengthConverter', descKey: 'tool.lengthConverter.desc' },
-    'weight-converter': { nameKey: 'tool.weightConverter', descKey: 'tool.weightConverter.desc' },
-    'temperature-converter': { nameKey: 'tool.temperatureConverter', descKey: 'tool.temperatureConverter.desc' },
-    'speed-converter': { nameKey: 'tool.speedConverter', descKey: 'tool.speedConverter.desc' },
-    'volume-converter': { nameKey: 'tool.volumeConverter', descKey: 'tool.volumeConverter.desc' },
-    'area-converter': { nameKey: 'tool.areaConverter', descKey: 'tool.areaConverter.desc' },
-    'date-calculator': { nameKey: 'tool.dateCalculator', descKey: 'tool.dateCalculator.desc' },
-    'tip-calculator': { nameKey: 'tool.tipCalculator', descKey: 'tool.tipCalculator.desc' },
-    'gas-mileage-calculator': { nameKey: 'tool.gasMileageCalculator', descKey: 'tool.gasMileageCalculator.desc' },
-    'travel-time-calculator': { nameKey: 'tool.travelTimeCalculator', descKey: 'tool.travelTimeCalculator.desc' },
-    'time-zone-converter': { nameKey: 'tool.timeZoneConverter', descKey: 'tool.timeZoneConverter.desc' },
-    'grade-calculator': { nameKey: 'tool.gradeCalculator', descKey: 'tool.gradeCalculator.desc' },
-    'gpa-calculator': { nameKey: 'tool.gpaCalculator', descKey: 'tool.gpaCalculator.desc' },
-    'password-generator': { nameKey: 'tool.passwordGenerator', descKey: 'tool.passwordGenerator.desc' },
-    'qr-code-generator': { nameKey: 'tool.qrCodeGenerator', descKey: 'tool.qrCodeGenerator.desc' },
-    'word-counter': { nameKey: 'tool.wordCounter', descKey: 'tool.wordCounter.desc' },
-    'unit-price-calculator': { nameKey: 'tool.unitPriceCalculator', descKey: 'tool.unitPriceCalculator.desc' },
-    'random-number': { nameKey: 'tool.randomNumber', descKey: 'tool.randomNumber.desc' },
-    'home-affordability': { nameKey: 'tool.homeAffordability', descKey: 'tool.homeAffordability.desc' },
-    'net-worth-calculator': { nameKey: 'tool.netWorthCalculator', descKey: 'tool.netWorthCalculator.desc' },
-    'rent-vs-buy-calculator': { nameKey: 'tool.rentVsBuyCalculator', descKey: 'tool.rentVsBuyCalculator.desc' },
-    'savings-goal-calculator': { nameKey: 'tool.savingsGoalCalculator', descKey: 'tool.savingsGoalCalculator.desc' },
-    'emergency-fund-calculator': { nameKey: 'tool.emergencyFundCalculator', descKey: 'tool.emergencyFundCalculator.desc' },
-    'roi-calculator': { nameKey: 'tool.roiCalculator', descKey: 'tool.roiCalculator.desc' },
-    'down-payment-calculator': { nameKey: 'tool.downPaymentCalculator', descKey: 'tool.downPaymentCalculator.desc' },
-    'simple-interest-calculator': { nameKey: 'tool.simpleInterestCalculator', descKey: 'tool.simpleInterestCalculator.desc' },
-    'apy-calculator': { nameKey: 'tool.apyCalculator', descKey: 'tool.apyCalculator.desc' },
-    'margin-calculator': { nameKey: 'tool.marginCalculator', descKey: 'tool.marginCalculator.desc' },
-    'break-even-calculator': { nameKey: 'tool.breakEvenCalculator', descKey: 'tool.breakEvenCalculator.desc' },
-    'vat-calculator': { nameKey: 'tool.vatCalculator', descKey: 'tool.vatCalculator.desc' },
-    'dna-replication': { nameKey: 'tool.dnaReplication', descKey: 'tool.dnaReplication.desc' },
-    'allele-frequency': { nameKey: 'tool.alleleFrequency', descKey: 'tool.alleleFrequency.desc' },
-    'molarity-calculator': { nameKey: 'tool.molarityCalculator', descKey: 'tool.molarityCalculator.desc' },
-    'ph-calculator': { nameKey: 'tool.phCalculator', descKey: 'tool.phCalculator.desc' },
-    'velocity-calculator': { nameKey: 'tool.velocityCalculator', descKey: 'tool.velocityCalculator.desc' },
-    'pace-calculator': { nameKey: 'tool.paceCalculator', descKey: 'tool.paceCalculator.desc' },
-    'standard-deviation': { nameKey: 'tool.standardDeviation', descKey: 'tool.standardDeviation.desc' },
-};
 
-// Tag translation keys
-const tagTranslationKeys: Record<string, string> = {
-    'salary': 'popular.cat.salary',
-    'paycheck': 'popular.cat.salary',
-    'tax': 'tag.tax',
-    'loans': 'popular.cat.loans',
-    'loan': 'tag.loan',
-    'mortgage': 'tag.mortgage',
-    'debt': 'tag.debt',
-    'student': 'popular.cat.education',
-    'health': 'popular.cat.health',
-    'fitness': 'popular.cat.fitness',
-    'education': 'popular.cat.education',
-    'investment': 'popular.cat.investment',
-    'finance': 'popular.cat.finance',
-    'business': 'cat.business',
-    'savings': 'popular.cat.finance',
-    'planning': 'popular.cat.finance',
-    'wealth': 'popular.cat.finance',
-    'math': 'cat.math',
-    'geometry': 'cat.geometry',
-    'conversion': 'cat.conversion',
-    'everyday': 'popular.cat.everyday',
-    'security': 'popular.cat.security',
-    'tools': 'popular.cat.tools',
-    'money': 'popular.cat.finance',
-    'real estate': 'cat.finance',
-};
 
 export const AllTools: React.FC = () => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
+
+    // Debug logging
+    React.useEffect(() => {
+        console.log('[AllTools Debug] Language changed to:', language);
+    }, [language]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -197,14 +92,23 @@ export const AllTools: React.FC = () => {
         const keys = toolTranslationKeys[toolId];
         const derivedKey = `tool.${toCamelKey(toolId)}`;
 
+        // Debug log for specific tool to avoid spamming
+        if (toolId === 'paycheck-calculator') {
+            console.log(`[AllTools Debug] Translating ${toolId} to ${language}`);
+            console.log(`[AllTools Debug] Keys:`, keys);
+            console.log(`[AllTools Debug] Derived Key:`, derivedKey);
+        }
+
         // 1) Prefer explicit mapping
         if (keys) {
             const translated = t(keys.nameKey);
+            if (toolId === 'paycheck-calculator') console.log(`[AllTools Debug] Explicit translation: ${translated}`);
             if (translated && translated !== keys.nameKey) return translated;
         }
 
         // 2) Try derived key from tool id
         const derived = t(derivedKey);
+        if (toolId === 'paycheck-calculator') console.log(`[AllTools Debug] Derived translation: ${derived}`);
         if (derived && derived !== derivedKey) return derived;
 
         // 3) Fallback original
@@ -388,11 +292,10 @@ export const AllTools: React.FC = () => {
                                     setSearchQuery('');
                                     window.scrollTo({ top: 0, behavior: 'smooth' });
                                 }}
-                                className={`p-4 rounded-xl border text-left transition-all ${
-                                    selectedCategory === cat
+                                className={`p-4 rounded-xl border text-left transition-all ${selectedCategory === cat
                                         ? 'bg-blue-50 border-blue-200 text-blue-700'
                                         : 'bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50'
-                                }`}
+                                    }`}
                             >
                                 <div className="font-medium text-sm truncate">
                                     {getCategoryTitle(cat)}
