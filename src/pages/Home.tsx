@@ -5,14 +5,17 @@ import { PopularTools } from '../components/home/PopularTools';
 import { SeoTextBlock } from '../components/home/SeoTextBlock';
 import { AdSlot } from '../components/common/AdSlot';
 import { SEO } from '../components/common/SEO';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export const Home: React.FC = () => {
+    const { t } = useLanguage();
+    
     return (
         <div className="flex flex-col">
             <SEO
-                title="80+ Free Online Calculators - Finance, Health, Math & More"
-                description="Access 80+ free, accurate online calculators for paycheck, mortgage, BMI, tip, GPA, student loans, and more. Smart tools trusted by millions for daily financial and mathematical needs."
-                keywords="online calculator, free calculator, paycheck calculator, mortgage calculator, bmi calculator, tip calculator, gpa calculator, student loan calculator, finance tools"
+                title={t('seo.home.title')}
+                description={t('seo.home.description')}
+                keywords={t('seo.home.keywords')}
                 canonicalUrl="/"
             />
             <Hero />
