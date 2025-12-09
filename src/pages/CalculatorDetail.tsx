@@ -148,8 +148,8 @@ export const CalculatorDetail: React.FC = () => {
     // Effect to reset state when tool changes
     useEffect(() => {
         setResults([
-            { label: 'Result', value: '-' },
-            { label: 'Total', value: '-', isTotal: true },
+            { label: t('calc.result'), value: '-' },
+            { label: t('calc.total'), value: '-', isTotal: true },
         ]);
         // Reset defaults
         if (id === 'length-converter') {
@@ -1476,19 +1476,19 @@ export const CalculatorDetail: React.FC = () => {
                 const effectiveRate = (totalTax / salary) * 100;
 
                 setResults([
-                    { label: 'Gross Salary', value: `$${salary.toLocaleString()}` },
-                    { label: 'Federal Tax', value: `$${fedTax.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
-                    { label: 'Social Security (6.2%)', value: `$${socialSecurity.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
-                    { label: 'Medicare (1.45%)', value: `$${medicare.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
-                    { label: `State Tax (${stateData.code} ${(stateTaxRate * 100).toFixed(2)}%)`, value: stateTaxRate === 0 ? '$0 (No State Tax)' : `$${stateTax.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
-                    { label: 'Total Taxes', value: `$${totalTax.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
-                    { label: 'Effective Tax Rate', value: `${effectiveRate.toFixed(1)}%` },
-                    { label: 'Net Pay (Take Home)', value: `$${netPay.toLocaleString(undefined, { maximumFractionDigits: 0 })}`, isTotal: true },
+                    { label: t('calc.paycheck.grossPay'), value: `$${salary.toLocaleString()}` },
+                    { label: t('calc.paycheck.federalTax'), value: `$${fedTax.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: t('calc.paycheck.socialSecurity'), value: `$${socialSecurity.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: t('calc.paycheck.medicare'), value: `$${medicare.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: `${t('calc.paycheck.stateTax')} (${stateData.code} ${(stateTaxRate * 100).toFixed(2)}%)`, value: stateTaxRate === 0 ? '$0 (No State Tax)' : `$${stateTax.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: t('calc.totalTaxes'), value: `$${totalTax.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+                    { label: t('calc.effectiveRate'), value: `${effectiveRate.toFixed(1)}%` },
+                    { label: t('calc.paycheck.netPay'), value: `$${netPay.toLocaleString(undefined, { maximumFractionDigits: 0 })}`, isTotal: true },
                 ]);
             } else {
                 setResults([
-                    { label: 'Result', value: '100' },
-                    { label: 'Total', value: '100', isTotal: true },
+                    { label: t('calc.result'), value: '100' },
+                    { label: t('calc.total'), value: '100', isTotal: true },
                 ]);
             }
             setIsCalculating(false);
