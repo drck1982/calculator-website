@@ -139,27 +139,27 @@ export const ToolList: React.FC<ToolListProps> = ({ tools }) => {
     
     const getToolName = (tool: Tool): string => {
         const keys = toolTranslationKeys[tool.id];
-        if (keys && language !== 'en') {
+        if (keys) {
             const translated = t(keys.nameKey);
-            if (translated !== keys.nameKey) return translated;
+            if (translated && translated !== keys.nameKey) return translated;
         }
         return tool.name;
     };
     
     const getToolDesc = (tool: Tool): string => {
         const keys = toolTranslationKeys[tool.id];
-        if (keys && language !== 'en') {
+        if (keys) {
             const translated = t(keys.descKey);
-            if (translated !== keys.descKey) return translated;
+            if (translated && translated !== keys.descKey) return translated;
         }
         return tool.description;
     };
     
     const getTagName = (tag: string): string => {
         const key = tagTranslationKeys[tag.toLowerCase()];
-        if (key && language !== 'en') {
+        if (key) {
             const translated = t(key);
-            if (translated !== key) return translated;
+            if (translated && translated !== key) return translated;
         }
         return tag;
     };
