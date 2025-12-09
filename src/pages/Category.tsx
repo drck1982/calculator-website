@@ -37,7 +37,7 @@ export const Category: React.FC = () => {
     if (!data) {
         return (
             <div className="container mx-auto px-4 py-20 text-center">
-                <SEO title="Category Not Found" description="The requested category could not be found." />
+                <SEO title={t('common.categoryNotFound')} description={t('common.categoryNotFoundDesc')} />
                 <h1 className="text-4xl font-bold text-gray-900 mb-4">{t('common.error')}</h1>
                 <Link to="/" className="text-blue-600 hover:underline">{t('nav.home')}</Link>
             </div>
@@ -50,8 +50,8 @@ export const Category: React.FC = () => {
     return (
         <div className="bg-white min-h-screen pb-20">
             <SEO
-                title={`${displayTitle} ${t('nav.calculators')} - Free Online Tools`}
-                description={`Free ${displayTitle.toLowerCase()} calculators and tools. ${displayDesc} Accurate, easy-to-use, no signup required.`}
+                title={`${displayTitle} ${t('nav.calculators')} - ${t('common.freeOnlineTools')}`}
+                description={`${displayTitle} calculators and tools. ${displayDesc} ${t('common.accurate')}`}
                 keywords={`${displayTitle.toLowerCase()} calculator, ${displayTitle.toLowerCase()} tools, free online calculators`}
                 canonicalUrl={`/category/${id}`}
             />

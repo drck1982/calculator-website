@@ -105,7 +105,7 @@ export const Contact: React.FC = () => {
                                                 onChange={handleChange}
                                                 required
                                                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                                                placeholder="John Doe"
+                                                placeholder={t('contact.namePlaceholder')}
                                             />
                                         </div>
                                         <div>
@@ -119,7 +119,7 @@ export const Contact: React.FC = () => {
                                                 onChange={handleChange}
                                                 required
                                                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                                                placeholder="john@example.com"
+                                                placeholder={t('contact.emailPlaceholder')}
                                             />
                                         </div>
                                     </div>
