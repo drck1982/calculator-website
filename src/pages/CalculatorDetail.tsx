@@ -14,6 +14,7 @@ import {
     Printer
 } from 'lucide-react';
 import { toolConfigs } from '../data/tools';
+import { toolTranslationKeys } from '../data/translationKeys';
 import { US_STATES } from '../data/us_states';
 import { SEO } from '../components/common/SEO';
 import { Helmet } from 'react-helmet-async';
@@ -89,7 +90,28 @@ const AREA_UNITS = [
 export const CalculatorDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const { t } = useLanguage();
-    const config = toolConfigs[id || ''] || toolConfigs['default'];
+    const rawConfig = toolConfigs[id || ''] || toolConfigs['default'];
+
+    const translationKey = toolTranslationKeys[id || ''];
+    const translatedName = translationKey ? t(translationKey.nameKey) : rawConfig.title;
+    const translatedDesc = translationKey ? t(translationKey.descKey) : rawConfig.description;
+
+    const config = {
+        ...rawConfig,
+        title: (translatedName && translatedName !== translationKey?.nameKey) ? translatedName : rawConfig.title,
+        description: (translatedDesc && translatedDesc !== translationKey?.descKey) ? translatedDesc : rawConfig.description
+    };
+
+    // Pilot: Paycheck Calculator Specific Translations
+    if (id === 'paycheck-calculator') {
+        config.formTitle = t('calc.paycheck.formTitle');
+        config.resultTitle = t('calc.paycheck.resultTitle');
+        config.content = {
+            what: t('calc.paycheck.content.what'),
+            how: t('calc.paycheck.content.how'),
+            formula: t('calc.paycheck.content.formula')
+        };
+    }
 
     // JSON-LD Structured Data
     const jsonLd = {
@@ -506,17 +528,17 @@ export const CalculatorDetail: React.FC = () => {
                 const temp = Number(amount);
                 const from = TEMPERATURE_UNITS.find(u => u.name === fromUnit)?.type || 'C';
                 const to = TEMPERATURE_UNITS.find(u => u.name === toUnit)?.type || 'F';
-                
+
                 // Convert to Celsius first
                 let celsius = temp;
-                if (from === 'F') celsius = (temp - 32) * 5/9;
+                if (from === 'F') celsius = (temp - 32) * 5 / 9;
                 else if (from === 'K') celsius = temp - 273.15;
-                
+
                 // Convert from Celsius to target
                 if (to === 'C') result = celsius;
-                else if (to === 'F') result = (celsius * 9/5) + 32;
+                else if (to === 'F') result = (celsius * 9 / 5) + 32;
                 else if (to === 'K') result = celsius + 273.15;
-                
+
                 setResults([
                     { label: 'Input', value: `${amount}° ${fromUnit}` },
                     { label: 'Result', value: `${result.toFixed(2)}° ${toUnit}`, isTotal: true },
@@ -794,18 +816,18 @@ export const CalculatorDetail: React.FC = () => {
                     { label: `Total Buy Cost (${years} yrs)`, value: `$${totalBuy.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
                     { label: 'Recommendation', value: savings > 0 ? 'Buying may be better' : 'Renting may be better', isTotal: true },
                 ]);
-            } 
+            }
             // NEW CALCULATORS
             else if (id === 'paycheck-calculator') {
                 const grossPay = Number(input1) || 5000;
                 const payFrequency = (input2 as string) || 'biweekly';
                 const stateCode = (input3 as string) || 'NY';
                 const stateData = US_STATES.find(s => s.code === stateCode) || US_STATES[0];
-                
+
                 // Annualize for tax calculation
                 const multipliers: Record<string, number> = { weekly: 52, biweekly: 26, semimonthly: 24, monthly: 12 };
                 const annualGross = grossPay * (multipliers[payFrequency] || 26);
-                
+
                 // Federal tax (2025 brackets)
                 let fedTaxAnnual = 0;
                 if (annualGross <= 11925) fedTaxAnnual = annualGross * 0.10;
@@ -813,22 +835,22 @@ export const CalculatorDetail: React.FC = () => {
                 else if (annualGross <= 103350) fedTaxAnnual = 5570.50 + (annualGross - 48475) * 0.22;
                 else if (annualGross <= 197300) fedTaxAnnual = 17633.50 + (annualGross - 103350) * 0.24;
                 else fedTaxAnnual = 40180.50 + (annualGross - 197300) * 0.32;
-                
+
                 const fedTax = fedTaxAnnual / (multipliers[payFrequency] || 26);
                 const stateTax = grossPay * (stateData.incomeTaxRate || 0);
                 const socialSecurity = Math.min(grossPay, 176100 / (multipliers[payFrequency] || 26)) * 0.062;
                 const medicare = grossPay * 0.0145;
                 const totalDeductions = fedTax + stateTax + socialSecurity + medicare;
                 const netPay = grossPay - totalDeductions;
-                
+
                 setResults([
-                    { label: 'Gross Pay', value: `$${grossPay.toLocaleString()}` },
-                    { label: 'Federal Tax', value: `$${fedTax.toFixed(2)}` },
-                    { label: `State Tax (${stateCode})`, value: stateData.incomeTaxRate === 0 ? '$0.00' : `$${stateTax.toFixed(2)}` },
-                    { label: 'Social Security', value: `$${socialSecurity.toFixed(2)}` },
-                    { label: 'Medicare', value: `$${medicare.toFixed(2)}` },
-                    { label: 'Total Deductions', value: `$${totalDeductions.toFixed(2)}` },
-                    { label: 'Net Pay (Take Home)', value: `$${netPay.toFixed(2)}`, isTotal: true },
+                    { label: t('calc.paycheck.grossPay'), value: `$${grossPay.toLocaleString()}` },
+                    { label: t('calc.paycheck.federalTax'), value: `$${fedTax.toFixed(2)}` },
+                    { label: `${t('calc.paycheck.stateTax')} (${stateCode})`, value: stateData.incomeTaxRate === 0 ? '$0.00' : `$${stateTax.toFixed(2)}` },
+                    { label: t('calc.paycheck.socialSecurity'), value: `$${socialSecurity.toFixed(2)}` },
+                    { label: t('calc.paycheck.medicare'), value: `$${medicare.toFixed(2)}` },
+                    { label: t('calc.paycheck.totalDeductions'), value: `$${totalDeductions.toFixed(2)}` },
+                    { label: t('calc.paycheck.netPay'), value: `$${netPay.toFixed(2)}`, isTotal: true },
                 ]);
             } else if (id === 'student-loan-calculator') {
                 const balance = Number(input1) || 30000;
@@ -839,7 +861,7 @@ export const CalculatorDetail: React.FC = () => {
                 const monthlyPayment = balance * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
                 const totalPaid = monthlyPayment * numPayments;
                 const totalInterest = totalPaid - balance;
-                
+
                 setResults([
                     { label: 'Loan Balance', value: `$${balance.toLocaleString()}` },
                     { label: 'Interest Rate', value: `${rate}%` },
@@ -853,7 +875,7 @@ export const CalculatorDetail: React.FC = () => {
                 const apr = Number(input2) || 20;
                 const payment = Number(input3) || 200;
                 const monthlyRate = (apr / 100) / 12;
-                
+
                 if (payment <= balance * monthlyRate) {
                     setResults([{ label: 'Error', value: 'Payment too low to pay off debt!' }]);
                 } else {
@@ -868,7 +890,7 @@ export const CalculatorDetail: React.FC = () => {
                     }
                     const years = Math.floor(months / 12);
                     const remainingMonths = months % 12;
-                    
+
                     setResults([
                         { label: 'Starting Balance', value: `$${balance.toLocaleString()}` },
                         { label: 'APR', value: `${apr}%` },
@@ -884,7 +906,7 @@ export const CalculatorDetail: React.FC = () => {
                 const neck = Number(input3) || 15; // inches
                 const hip = Number(salaryInput) || 0; // inches (for women)
                 const gender = (selectedState as string) || 'male';
-                
+
                 let bodyFat: number;
                 if (gender === 'female' && hip > 0) {
                     bodyFat = 163.205 * Math.log10(waist + hip - neck) - 97.684 * Math.log10(height) - 78.387;
@@ -892,7 +914,7 @@ export const CalculatorDetail: React.FC = () => {
                     bodyFat = 86.010 * Math.log10(waist - neck) - 70.041 * Math.log10(height) + 36.76;
                 }
                 bodyFat = Math.max(0, Math.min(60, bodyFat));
-                
+
                 let category = '';
                 if (gender === 'male') {
                     if (bodyFat < 6) category = 'Essential Fat';
@@ -907,7 +929,7 @@ export const CalculatorDetail: React.FC = () => {
                     else if (bodyFat < 32) category = 'Average';
                     else category = 'Obese';
                 }
-                
+
                 setResults([
                     { label: 'Body Fat %', value: `${bodyFat.toFixed(1)}%`, isTotal: true },
                     { label: 'Category', value: category },
@@ -920,7 +942,7 @@ export const CalculatorDetail: React.FC = () => {
                 const feet = Math.floor(heightInches / 12);
                 const inches = heightInches % 12;
                 const inchesOver5ft = heightInches - 60;
-                
+
                 let devine, robinson, miller, hamwi;
                 if (gender === 'male') {
                     devine = 50 + 2.3 * inchesOver5ft;
@@ -935,7 +957,7 @@ export const CalculatorDetail: React.FC = () => {
                 }
                 const avgKg = (devine + robinson + miller + hamwi) / 4;
                 const avgLbs = avgKg * 2.205;
-                
+
                 setResults([
                     { label: 'Height', value: `${feet}'${inches}"` },
                     { label: 'Devine Formula', value: `${(devine * 2.205).toFixed(0)} lbs` },
@@ -949,20 +971,20 @@ export const CalculatorDetail: React.FC = () => {
                 const includeLower = true;
                 const includeNumbers = true;
                 const includeSymbols = (input2 as string) !== 'no';
-                
+
                 let chars = '';
                 if (includeLower) chars += 'abcdefghijklmnopqrstuvwxyz';
                 if (includeUpper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
                 if (includeNumbers) chars += '0123456789';
                 if (includeSymbols) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
-                
+
                 let password = '';
                 const array = new Uint32Array(length);
                 crypto.getRandomValues(array);
                 for (let i = 0; i < length; i++) {
                     password += chars[array[i] % chars.length];
                 }
-                
+
                 // Strength calculation
                 const poolSize = chars.length;
                 const entropy = Math.log2(Math.pow(poolSize, length));
@@ -970,7 +992,7 @@ export const CalculatorDetail: React.FC = () => {
                 if (entropy >= 128) strength = 'Very Strong';
                 else if (entropy >= 60) strength = 'Strong';
                 else if (entropy >= 36) strength = 'Moderate';
-                
+
                 setResults([
                     { label: 'Password', value: password, isTotal: true },
                     { label: 'Length', value: `${length} characters` },
@@ -985,7 +1007,7 @@ export const CalculatorDetail: React.FC = () => {
                 const sentences = text.split(/[.!?]+/).filter(s => s.trim()).length;
                 const paragraphs = text.split(/\n\n+/).filter(p => p.trim()).length;
                 const readingTime = Math.ceil(words / 200);
-                
+
                 setResults([
                     { label: 'Words', value: words, isTotal: true },
                     { label: 'Characters', value: chars },
@@ -1009,17 +1031,17 @@ export const CalculatorDetail: React.FC = () => {
                 const monthlyDebts = Number(input2) || 500;
                 const downPayment = Number(input3) || 60000;
                 const interestRate = Number(salaryInput) || 6.5;
-                
+
                 const monthlyIncome = annualIncome / 12;
                 const maxHousingPayment = monthlyIncome * 0.28; // 28% rule
                 const maxTotalDebt = monthlyIncome * 0.36; // 36% rule
                 const availableForHousing = Math.min(maxHousingPayment, maxTotalDebt - monthlyDebts);
-                
+
                 const monthlyRate = (interestRate / 100) / 12;
                 const numPayments = 30 * 12;
                 const maxLoan = availableForHousing * (Math.pow(1 + monthlyRate, numPayments) - 1) / (monthlyRate * Math.pow(1 + monthlyRate, numPayments));
                 const maxHomePrice = maxLoan + downPayment;
-                
+
                 setResults([
                     { label: 'Annual Income', value: `$${annualIncome.toLocaleString()}` },
                     { label: 'Max Monthly Payment', value: `$${availableForHousing.toFixed(0)}` },
@@ -1030,7 +1052,7 @@ export const CalculatorDetail: React.FC = () => {
                 const assets = Number(input1) || 100000;
                 const liabilities = Number(input2) || 50000;
                 const netWorth = assets - liabilities;
-                
+
                 setResults([
                     { label: 'Total Assets', value: `$${assets.toLocaleString()}` },
                     { label: 'Total Liabilities', value: `$${liabilities.toLocaleString()}` },
@@ -1041,10 +1063,10 @@ export const CalculatorDetail: React.FC = () => {
                 const monthlyExpenses = Number(input1) || 4000;
                 const months = Number(input2) || 6;
                 const currentSavings = Number(input3) || 5000;
-                
+
                 const targetFund = monthlyExpenses * months;
                 const needed = Math.max(0, targetFund - currentSavings);
-                
+
                 setResults([
                     { label: 'Monthly Expenses', value: `$${monthlyExpenses.toLocaleString()}` },
                     { label: `Target (${months} months)`, value: `$${targetFund.toLocaleString()}`, isTotal: true },
@@ -1056,12 +1078,12 @@ export const CalculatorDetail: React.FC = () => {
                 const currentSavings = Number(input2) || 1000;
                 const monthsToGoal = Number(input3) || 12;
                 const annualRate = Number(salaryInput) || 4;
-                
+
                 const monthlyRate = (annualRate / 100) / 12;
                 const futureCurrentValue = currentSavings * Math.pow(1 + monthlyRate, monthsToGoal);
                 const remaining = goalAmount - futureCurrentValue;
                 const monthlySavings = remaining > 0 ? remaining * monthlyRate / (Math.pow(1 + monthlyRate, monthsToGoal) - 1) : 0;
-                
+
                 setResults([
                     { label: 'Goal Amount', value: `$${goalAmount.toLocaleString()}` },
                     { label: 'Timeline', value: `${monthsToGoal} months` },
@@ -1072,7 +1094,7 @@ export const CalculatorDetail: React.FC = () => {
                 const wakeTime = (input1 as string) || '07:00';
                 const [hours, minutes] = wakeTime.split(':').map(Number);
                 const wakeMinutes = hours * 60 + minutes;
-                
+
                 // Calculate bedtimes (going back 5-6 cycles + 15 min to fall asleep)
                 const cycles = [6, 5, 4, 3];
                 const bedtimes = cycles.map(c => {
@@ -1082,7 +1104,7 @@ export const CalculatorDetail: React.FC = () => {
                     const m = bedMinutes % 60;
                     return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
                 });
-                
+
                 setResults([
                     { label: 'Wake Time', value: wakeTime },
                     { label: '6 cycles (9h)', value: bedtimes[0], isTotal: true },
@@ -1093,7 +1115,7 @@ export const CalculatorDetail: React.FC = () => {
             } else if (id === 'water-intake-calculator') {
                 const weightLbs = Number(input1) || 150;
                 const activityLevel = (input2 as string) || 'moderate';
-                
+
                 const activityMultipliers: Record<string, number> = {
                     sedentary: 0.5,
                     light: 0.6,
@@ -1101,11 +1123,11 @@ export const CalculatorDetail: React.FC = () => {
                     active: 0.8,
                     athlete: 1.0
                 };
-                
+
                 const baseOz = weightLbs * (activityMultipliers[activityLevel] || 0.7);
                 const liters = baseOz * 0.0296;
                 const glasses = Math.ceil(baseOz / 8);
-                
+
                 setResults([
                     { label: 'Weight', value: `${weightLbs} lbs` },
                     { label: 'Activity', value: activityLevel.charAt(0).toUpperCase() + activityLevel.slice(1) },
@@ -1116,11 +1138,11 @@ export const CalculatorDetail: React.FC = () => {
             } else if (id === 'age-calculator') {
                 const birthDate = new Date((input1 as string) || '1990-01-01');
                 const today = new Date();
-                
+
                 let years = today.getFullYear() - birthDate.getFullYear();
                 let months = today.getMonth() - birthDate.getMonth();
                 let days = today.getDate() - birthDate.getDate();
-                
+
                 if (days < 0) {
                     months--;
                     days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
@@ -1129,12 +1151,12 @@ export const CalculatorDetail: React.FC = () => {
                     years--;
                     months += 12;
                 }
-                
+
                 const totalDays = Math.floor((today.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24));
                 const nextBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
                 if (nextBirthday < today) nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
                 const daysUntilBirthday = Math.ceil((nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-                
+
                 setResults([
                     { label: 'Age', value: `${years} years, ${months} months, ${days} days`, isTotal: true },
                     { label: 'Total Days', value: totalDays.toLocaleString() },
@@ -1146,10 +1168,10 @@ export const CalculatorDetail: React.FC = () => {
                 const leaseMonthly = Number(input2) || 350;
                 const leaseTerm = Number(input3) || 36;
                 const loanRate = 6.5;
-                
+
                 // Lease total cost
                 const leaseTotal = leaseMonthly * leaseTerm + 2000; // + fees
-                
+
                 // Buy cost (5 year loan, keep same term for comparison)
                 const monthlyRate = (loanRate / 100) / 12;
                 const loanTerm = 60;
@@ -1158,7 +1180,7 @@ export const CalculatorDetail: React.FC = () => {
                 const depreciationRate = 0.15 + 0.12 + 0.10; // First 3 years ~37%
                 const residualValue = carPrice * (1 - depreciationRate);
                 const buyCost = buyTotalPayments - (residualValue * (leaseTerm / loanTerm));
-                
+
                 setResults([
                     { label: 'Lease Total', value: `$${leaseTotal.toLocaleString()}` },
                     { label: 'Buy Monthly Payment', value: `$${loanPayment.toFixed(0)}` },
@@ -1170,17 +1192,17 @@ export const CalculatorDetail: React.FC = () => {
                 const currentRate = Number(input2) || 6.5;
                 const newRate = Number(input3) || 5.5;
                 const closingCosts = Number(salaryInput) || 5000;
-                
+
                 const monthlyRateOld = (currentRate / 100) / 12;
                 const monthlyRateNew = (newRate / 100) / 12;
                 const term = 30 * 12;
-                
+
                 const oldPayment = currentBalance * (monthlyRateOld * Math.pow(1 + monthlyRateOld, term)) / (Math.pow(1 + monthlyRateOld, term) - 1);
                 const newPayment = currentBalance * (monthlyRateNew * Math.pow(1 + monthlyRateNew, term)) / (Math.pow(1 + monthlyRateNew, term) - 1);
                 const monthlySavings = oldPayment - newPayment;
                 const breakEvenMonths = closingCosts / monthlySavings;
                 const totalSavings = monthlySavings * term - closingCosts;
-                
+
                 setResults([
                     { label: 'Current Payment', value: `$${oldPayment.toFixed(2)}` },
                     { label: 'New Payment', value: `$${newPayment.toFixed(2)}` },
@@ -1193,13 +1215,13 @@ export const CalculatorDetail: React.FC = () => {
                 const gradePoints = Number(input1) || 45;
                 const creditHours = Number(input2) || 15;
                 const gpa = creditHours > 0 ? gradePoints / creditHours : 0;
-                
+
                 let standing = 'Academic Probation';
                 if (gpa >= 3.7) standing = 'Summa Cum Laude';
                 else if (gpa >= 3.5) standing = 'Magna Cum Laude';
                 else if (gpa >= 3.0) standing = 'Cum Laude';
                 else if (gpa >= 2.0) standing = 'Good Standing';
-                
+
                 setResults([
                     { label: 'Total Grade Points', value: gradePoints },
                     { label: 'Credit Hours', value: creditHours },
@@ -1210,11 +1232,11 @@ export const CalculatorDetail: React.FC = () => {
                 const billAmount = Number(input1) || 50;
                 const tipPercent = Number(input2) || 18;
                 const numPeople = Number(input3) || 1;
-                
+
                 const tipAmount = billAmount * (tipPercent / 100);
                 const totalBill = billAmount + tipAmount;
                 const perPerson = totalBill / numPeople;
-                
+
                 setResults([
                     { label: 'Bill Amount', value: `$${billAmount.toFixed(2)}` },
                     { label: `Tip (${tipPercent}%)`, value: `$${tipAmount.toFixed(2)}` },
@@ -1224,13 +1246,13 @@ export const CalculatorDetail: React.FC = () => {
             } else if (id === 'date-calculator') {
                 const date1 = new Date((input1 as string) || new Date().toISOString().split('T')[0]);
                 const date2 = new Date((input2 as string) || new Date().toISOString().split('T')[0]);
-                
+
                 const diffTime = Math.abs(date2.getTime() - date1.getTime());
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                 const diffWeeks = Math.floor(diffDays / 7);
                 const diffMonths = Math.floor(diffDays / 30.44);
                 const diffYears = Math.floor(diffDays / 365.25);
-                
+
                 setResults([
                     { label: 'From', value: date1.toLocaleDateString() },
                     { label: 'To', value: date2.toLocaleDateString() },
@@ -1243,14 +1265,14 @@ export const CalculatorDetail: React.FC = () => {
                 const time = (input1 as string) || '12:00';
                 const fromZone = Number(input2) || -5; // EST
                 const toZone = Number(input3) || 0; // UTC
-                
+
                 const [hours, minutes] = time.split(':').map(Number);
                 let convertedHours = hours + (toZone - fromZone);
                 if (convertedHours < 0) convertedHours += 24;
                 if (convertedHours >= 24) convertedHours -= 24;
-                
+
                 const convertedTime = `${convertedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-                
+
                 setResults([
                     { label: 'Original Time', value: time },
                     { label: 'From UTC', value: `UTC${fromZone >= 0 ? '+' : ''}${fromZone}` },
@@ -1262,11 +1284,11 @@ export const CalculatorDetail: React.FC = () => {
                 const quantity1 = Number(input2) || 12;
                 const price2 = Number(input3) || 9.99;
                 const quantity2 = Number(salaryInput) || 24;
-                
+
                 const unitPrice1 = price1 / quantity1;
                 const unitPrice2 = price2 / quantity2;
                 const savings = Math.abs(unitPrice1 - unitPrice2) * Math.max(quantity1, quantity2);
-                
+
                 setResults([
                     { label: 'Item 1 Unit Price', value: `$${unitPrice1.toFixed(3)}/unit` },
                     { label: 'Item 2 Unit Price', value: `$${unitPrice2.toFixed(3)}/unit` },
@@ -1277,11 +1299,11 @@ export const CalculatorDetail: React.FC = () => {
                 const currentGrade = Number(input1) || 85;
                 const desiredGrade = Number(input2) || 90;
                 const finalWeight = Number(input3) || 20;
-                
+
                 const weightDecimal = finalWeight / 100;
                 const currentWeight = 1 - weightDecimal;
                 const requiredScore = (desiredGrade - currentGrade * currentWeight) / weightDecimal;
-                
+
                 setResults([
                     { label: 'Current Grade', value: `${currentGrade}%` },
                     { label: 'Desired Grade', value: `${desiredGrade}%` },
@@ -1429,7 +1451,7 @@ export const CalculatorDetail: React.FC = () => {
             } else if (id?.includes('salary')) {
                 const stateData = US_STATES.find(s => s.code === selectedState) || US_STATES[0];
                 const salary = salaryInput;
-                
+
                 // 2025 Federal Income Tax (simplified progressive brackets for single filer)
                 let fedTax = 0;
                 if (salary <= 11925) fedTax = salary * 0.10;
@@ -1439,16 +1461,16 @@ export const CalculatorDetail: React.FC = () => {
                 else if (salary <= 250500) fedTax = 40180.50 + (salary - 197300) * 0.32;
                 else if (salary <= 626350) fedTax = 57204.50 + (salary - 250500) * 0.35;
                 else fedTax = 188752 + (salary - 626350) * 0.37;
-                
+
                 // FICA (2025): SS 6.2% up to $176,100 + Medicare 1.45%
                 const socialSecurity = Math.min(salary, 176100) * 0.062;
                 const medicare = salary * 0.0145;
                 const ficaTax = socialSecurity + medicare;
-                
+
                 // State Income Tax (2025 rates)
                 const stateTaxRate = stateData.incomeTaxRate || 0;
                 const stateTax = salary * stateTaxRate;
-                
+
                 const totalTax = fedTax + ficaTax + stateTax;
                 const netPay = salary - totalTax;
                 const effectiveRate = (totalTax / salary) * 100;
@@ -1988,9 +2010,9 @@ export const CalculatorDetail: React.FC = () => {
                     <div><label className="block text-sm font-medium text-gray-700 mb-1">Bonus Amount ($)</label><input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="5000" /></div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
-                        <select 
-                            className="block w-full p-2 border border-gray-300 rounded-md" 
-                            value={(input2 as string) || 'NY'} 
+                        <select
+                            className="block w-full p-2 border border-gray-300 rounded-md"
+                            value={(input2 as string) || 'NY'}
                             onChange={(e) => setInput2(e.target.value)}
                         >
                             {US_STATES.map((state) => (
@@ -2128,20 +2150,20 @@ export const CalculatorDetail: React.FC = () => {
             return (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Gross Pay ($)</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('calc.paycheck.grossPay')}</label>
                         <input type="number" className="block w-full p-2 border border-gray-300 rounded-md" value={input1} onChange={(e) => setInput1(Number(e.target.value))} placeholder="5000" />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Pay Frequency</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('calc.paycheck.payFrequency')}</label>
                         <select className="block w-full p-2 border border-gray-300 rounded-md" value={input2 as string} onChange={(e) => setInput2(e.target.value)}>
-                            <option value="weekly">Weekly</option>
-                            <option value="biweekly">Bi-Weekly</option>
-                            <option value="semimonthly">Semi-Monthly</option>
-                            <option value="monthly">Monthly</option>
+                            <option value="weekly">{t('calc.paycheck.weekly')}</option>
+                            <option value="biweekly">{t('calc.paycheck.biweekly')}</option>
+                            <option value="semimonthly">{t('calc.paycheck.semimonthly')}</option>
+                            <option value="monthly">{t('calc.paycheck.monthly')}</option>
                         </select>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('calc.paycheck.state')}</label>
                         <select className="block w-full p-2 border border-gray-300 rounded-md" value={input3 as string} onChange={(e) => setInput3(e.target.value)}>
                             {US_STATES.map((state) => (
                                 <option key={state.code} value={state.code}>{state.name}</option>

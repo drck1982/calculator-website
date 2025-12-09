@@ -21,7 +21,7 @@ const translations: Record<Language, Record<string, string>> = {
         'nav.contact': 'Contact',
         'nav.allTools': 'All Tools',
         'nav.search': 'Search calculators...',
-        
+
         // Hero
         'hero.badge': 'New Tools Added',
         'hero.title1': 'Smart calculators for your',
@@ -29,16 +29,16 @@ const translations: Record<Language, Record<string, string>> = {
         'hero.subtitle': 'Make better decisions with our free, accurate, and easy-to-use tools. From salary taxes to investment growth, we\'ve got you covered.',
         'hero.searchPlaceholder': 'Search calculators... e.g. mortgage, tax, interest',
         'hero.trending': 'Trending:',
-        
+
         // Popular Tools
         'popular.title': 'Popular Calculators',
         'popular.subtitle': 'Most used tools by our community',
-        
+
         // Categories Section
         'categories.title': 'Browse by Category',
         'categories.subtitle': 'Find the right calculator for your needs',
         'categories.viewAll': 'View All',
-        
+
         // Category Names
         'cat.finance': 'Finance',
         'cat.business': 'Business',
@@ -55,7 +55,7 @@ const translations: Record<Language, Record<string, string>> = {
         'cat.sports': 'Sports',
         'cat.statistics': 'Statistics',
         'cat.other': 'Other',
-        
+
         // Category Descriptions
         'cat.finance.desc': 'Salary, tax, investments, and retirement planning.',
         'cat.business.desc': 'ROI, margin, break-even, and business calculators.',
@@ -72,10 +72,32 @@ const translations: Record<Language, Record<string, string>> = {
         'cat.sports.desc': 'Running pace, cycling power, and scoreboards.',
         'cat.statistics.desc': 'Probability, distributions, and data analysis.',
         'cat.other.desc': 'Miscellaneous tools and fun calculators.',
-        
+
         // Tools Names & Descriptions
         'tool.paycheckCalculator': 'Paycheck Calculator',
         'tool.paycheckCalculator.desc': 'Calculate your net pay for any pay period.',
+
+        // Paycheck Calculator Specific
+        'calc.paycheck.grossPay': 'Gross Pay ($)',
+        'calc.paycheck.payFrequency': 'Pay Frequency',
+        'calc.paycheck.state': 'State',
+        'calc.paycheck.federalTax': 'Federal Tax',
+        'calc.paycheck.stateTax': 'State Tax',
+        'calc.paycheck.socialSecurity': 'Social Security',
+        'calc.paycheck.medicare': 'Medicare',
+        'calc.paycheck.totalDeductions': 'Total Deductions',
+        'calc.paycheck.netPay': 'Net Pay (Take Home)',
+        'calc.paycheck.weekly': 'Weekly',
+        'calc.paycheck.biweekly': 'Bi-Weekly',
+        'calc.paycheck.semimonthly': 'Semi-Monthly',
+        'calc.paycheck.monthly': 'Monthly',
+        'calc.paycheck.annual': 'Annual',
+
+        'calc.paycheck.formTitle': 'Enter Paycheck Details',
+        'calc.paycheck.resultTitle': 'Your Take-Home Pay',
+        'calc.paycheck.content.what': 'Calculates your net paycheck after federal tax, state tax, Social Security, and Medicare deductions.',
+        'calc.paycheck.content.how': 'Enter your gross pay, pay frequency, and state to see your take-home pay.',
+        'calc.paycheck.content.formula': 'Net Pay = Gross Pay - Federal Tax - State Tax - Social Security (6.2%) - Medicare (1.45%)',
         'tool.federalTaxCalculator': 'Federal Income Tax Calculator',
         'tool.federalTaxCalculator.desc': 'Estimate your federal tax liability.',
         'tool.bonusTaxCalculator': 'Bonus Tax Calculator',
@@ -234,7 +256,7 @@ const translations: Record<Language, Record<string, string>> = {
         'tool.paceCalculator.desc': 'Calculate running pace.',
         'tool.standardDeviation': 'Standard Deviation Calculator',
         'tool.standardDeviation.desc': 'Calculate variance and standard deviation.',
-        
+
         // Popular Tool Categories
         'popular.cat.salary': 'Salary',
         'popular.cat.loans': 'Loans',
@@ -246,7 +268,7 @@ const translations: Record<Language, Record<string, string>> = {
         'popular.cat.investment': 'Investment',
         'popular.cat.fitness': 'Fitness',
         'popular.cat.finance': 'Finance',
-        
+
         // Calculator Page
         'calc.calculate': 'Calculate',
         'calc.reset': 'Reset',
@@ -261,7 +283,7 @@ const translations: Record<Language, Record<string, string>> = {
         'calc.formulaMethodology': 'Formula & Methodology',
         'calc.pregnancyCalculator': 'Pregnancy Calculator',
         'calc.dateCalculator': 'Date Calculator',
-        
+
         // Footer
         'footer.disclaimer': 'This website does not provide tax, legal, or investment advice. All calculations are estimates and should be used for informational purposes only.',
         'footer.copyright': 'All rights reserved.',
@@ -273,7 +295,7 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.aboutUs': 'About Us',
         'footer.privacy': 'Privacy Policy',
         'footer.terms': 'Terms of Service',
-        
+
         // Tags
         'tag.tax': 'Tax',
         'tag.mortgage': 'Mortgage',
@@ -285,7 +307,7 @@ const translations: Record<Language, Record<string, string>> = {
         'tag.binary': 'Binary',
         'tag.circle': 'Circle',
         'tag.triangle': 'Triangle',
-        
+
         // About Page
         'about.title': 'About WorkMoney Tools',
         'about.subtitle': 'We provide free, accurate, and easy-to-use online calculators to help you make better financial decisions and solve everyday problems.',
@@ -304,7 +326,7 @@ const translations: Record<Language, Record<string, string>> = {
         'about.dataCollected': 'Data Collected',
         'about.disclaimer': 'Disclaimer',
         'about.disclaimerText': 'The calculators provided on this website are for informational purposes only. They are not intended to provide tax, legal, financial, or investment advice.',
-        
+
         // All Tools Page
         'allTools.title': 'All Calculators',
         'allTools.subtitle': 'Browse our complete collection of free calculators',
@@ -320,7 +342,7 @@ const translations: Record<Language, Record<string, string>> = {
         'allTools.clearFilters': 'Clear Filters',
         'allTools.browseByCategory': 'Browse by Category',
         'allTools.tools': 'tools',
-        
+
         // Contact Page
         'contact.title': 'Contact Us',
         'contact.subtitle': 'Have a question, suggestion, or found a bug? We\'d love to hear from you!',
@@ -344,20 +366,20 @@ const translations: Record<Language, Record<string, string>> = {
         'contact.messageSent': 'Message Sent!',
         'contact.thankYou': 'Thank you for reaching out. We\'ll get back to you as soon as possible.',
         'contact.sendAnother': 'Send Another Message',
-        
+
         // 404 Page
         'notFound.title': 'Page Not Found',
         'notFound.message': 'Oops! The page you\'re looking for doesn\'t exist or has been moved. Let\'s get you back on track.',
         'notFound.goHome': 'Go Home',
         'notFound.browseCalc': 'Browse Calculators',
         'notFound.popularCalc': 'Popular Calculators',
-        
+
         // Breadcrumbs
         'breadcrumb.home': 'Home',
-        
+
         // Related Categories
         'related.title': 'Related Categories',
-        
+
         // Common
         'common.loading': 'Loading...',
         'common.error': 'Error',
@@ -370,7 +392,7 @@ const translations: Record<Language, Record<string, string>> = {
         'common.categoryNotFoundDesc': 'The requested category could not be found.',
         'common.freeOnlineTools': 'Free Online Tools',
         'common.accurate': 'Accurate, easy-to-use, no signup required.',
-        
+
         // SEO Text Block
         'seo.whyUse': 'Why use WorkMoney Tools?',
         'seo.whyUseDesc': 'We provide free, accurate, and easy-to-use calculators to help you make smarter financial decisions.',
@@ -380,12 +402,12 @@ const translations: Record<Language, Record<string, string>> = {
         'seo.salaryTaxDesc': 'Understand your paycheck with our precise salary calculators. We factor in federal, state, and local taxes to give you a clear picture of your net income. Perfect for job offers, raises, or moving to a new city.',
         'seo.loanTitle': 'Loan & Debt Management',
         'seo.loanDesc': 'Planning to buy a house or car? Use our loan calculators to estimate monthly payments, total interest, and amortization schedules. See how extra payments can shorten your loan term and save you money.',
-        
+
         // SEO Meta
         'seo.home.title': '80+ Free Online Calculators - Finance, Health, Math & More',
         'seo.home.description': 'Access 80+ free, accurate online calculators for paycheck, mortgage, BMI, tip, GPA, student loans, and more. Smart tools trusted by millions for daily financial and mathematical needs.',
         'seo.home.keywords': 'online calculator, free calculator, paycheck calculator, mortgage calculator, bmi calculator, tip calculator, gpa calculator, student loan calculator, finance tools',
-        
+
         // Privacy Page
         'privacy.title': 'Privacy Policy',
         'privacy.lastUpdated': 'Last updated: December 2024',
@@ -425,7 +447,7 @@ const translations: Record<Language, Record<string, string>> = {
         'privacy.changesDesc': 'We may update this privacy policy from time to time. We will notify users of any material changes by updating the "Last updated" date at the top of this page.',
         'privacy.contact': 'Contact Us',
         'privacy.contactDesc': 'If you have questions about this privacy policy, please contact us at',
-        
+
         // Terms Page
         'terms.title': 'Terms of Service',
         'terms.lastUpdated': 'Last updated: December 2024',
@@ -476,7 +498,7 @@ const translations: Record<Language, Record<string, string>> = {
         'nav.contact': '联系我们',
         'nav.allTools': '所有工具',
         'nav.search': '搜索计算器...',
-        
+
         // Hero
         'hero.badge': '新工具上线',
         'hero.title1': '智能计算器，助力',
@@ -484,16 +506,16 @@ const translations: Record<Language, Record<string, string>> = {
         'hero.subtitle': '使用我们免费、准确且易用的工具做出更明智的决策。从工资税到投资增长，我们为您提供全方位服务。',
         'hero.searchPlaceholder': '搜索计算器... 例如：房贷、税务、利息',
         'hero.trending': '热门：',
-        
+
         // Popular Tools
         'popular.title': '热门计算器',
         'popular.subtitle': '社区最常用的工具',
-        
+
         // Categories Section
         'categories.title': '按类别浏览',
         'categories.subtitle': '找到适合您需求的计算器',
         'categories.viewAll': '查看全部',
-        
+
         // Category Names
         'cat.finance': '财务',
         'cat.business': '商业',
@@ -510,7 +532,7 @@ const translations: Record<Language, Record<string, string>> = {
         'cat.sports': '运动',
         'cat.statistics': '统计',
         'cat.other': '其他',
-        
+
         // Category Descriptions
         'cat.finance.desc': '工资、税务、投资和退休规划。',
         'cat.business.desc': '投资回报率、利润率、盈亏平衡点等商业计算。',
@@ -527,10 +549,26 @@ const translations: Record<Language, Record<string, string>> = {
         'cat.sports.desc': '跑步配速、骑行功率和计分板。',
         'cat.statistics.desc': '概率、分布和数据分析。',
         'cat.other.desc': '杂项工具和趣味计算器。',
-        
+
         // Tools Names & Descriptions  
         'tool.paycheckCalculator': '工资单计算器',
         'tool.paycheckCalculator.desc': '计算任何工资周期的净工资。',
+
+        // Paycheck Calculator Specific
+        'calc.paycheck.grossPay': '税前工资 ($)',
+        'calc.paycheck.payFrequency': '发薪频率',
+        'calc.paycheck.state': '州',
+        'calc.paycheck.federalTax': '联邦税',
+        'calc.paycheck.stateTax': '州税',
+        'calc.paycheck.socialSecurity': '社会保障税',
+        'calc.paycheck.medicare': '医疗保险税',
+        'calc.paycheck.totalDeductions': '扣除总额',
+        'calc.paycheck.netPay': '净工资 (实发)',
+        'calc.paycheck.weekly': '每周',
+        'calc.paycheck.biweekly': '每两周',
+        'calc.paycheck.semimonthly': '半月',
+        'calc.paycheck.monthly': '每月',
+        'calc.paycheck.annual': '每年',
         'tool.federalTaxCalculator': '联邦所得税计算器',
         'tool.federalTaxCalculator.desc': '估算您的联邦税负。',
         'tool.bonusTaxCalculator': '奖金税计算器',
@@ -689,7 +727,7 @@ const translations: Record<Language, Record<string, string>> = {
         'tool.paceCalculator.desc': '计算跑步配速。',
         'tool.standardDeviation': '标准差计算器',
         'tool.standardDeviation.desc': '计算方差和标准差。',
-        
+
         // Popular Tool Categories
         'popular.cat.salary': '工资',
         'popular.cat.loans': '贷款',
@@ -701,7 +739,7 @@ const translations: Record<Language, Record<string, string>> = {
         'popular.cat.investment': '投资',
         'popular.cat.fitness': '健身',
         'popular.cat.finance': '财务',
-        
+
         // Calculator Page
         'calc.calculate': '计算',
         'calc.reset': '重置',
@@ -716,7 +754,7 @@ const translations: Record<Language, Record<string, string>> = {
         'calc.formulaMethodology': '公式和方法',
         'calc.pregnancyCalculator': '孕期计算器',
         'calc.dateCalculator': '日期计算器',
-        
+
         // Footer
         'footer.disclaimer': '本网站不提供税务、法律或投资建议。所有计算仅为估算，仅供参考。',
         'footer.copyright': '版权所有',
@@ -728,7 +766,7 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.aboutUs': '关于我们',
         'footer.privacy': '隐私政策',
         'footer.terms': '服务条款',
-        
+
         // Tags
         'tag.tax': '税务',
         'tag.mortgage': '房贷',
@@ -740,7 +778,7 @@ const translations: Record<Language, Record<string, string>> = {
         'tag.binary': '二进制',
         'tag.circle': '圆形',
         'tag.triangle': '三角形',
-        
+
         // About Page
         'about.title': '关于 WorkMoney Tools',
         'about.subtitle': '我们提供免费、准确、易用的在线计算器，帮助您做出更好的财务决策，解决日常问题。',
@@ -759,7 +797,7 @@ const translations: Record<Language, Record<string, string>> = {
         'about.dataCollected': '数据收集',
         'about.disclaimer': '免责声明',
         'about.disclaimerText': '本网站提供的计算器仅供参考。它们不构成税务、法律、财务或投资建议。',
-        
+
         // All Tools Page
         'allTools.title': '所有计算器',
         'allTools.subtitle': '浏览我们的完整免费计算器集合',
@@ -775,7 +813,7 @@ const translations: Record<Language, Record<string, string>> = {
         'allTools.clearFilters': '清除筛选',
         'allTools.browseByCategory': '按类别浏览',
         'allTools.tools': '个工具',
-        
+
         // Contact Page
         'contact.title': '联系我们',
         'contact.subtitle': '有问题、建议或发现错误？我们很乐意听取您的意见！',
@@ -799,20 +837,20 @@ const translations: Record<Language, Record<string, string>> = {
         'contact.messageSent': '消息已发送！',
         'contact.thankYou': '感谢您的联系。我们会尽快回复您。',
         'contact.sendAnother': '发送另一条消息',
-        
+
         // 404 Page
         'notFound.title': '页面未找到',
         'notFound.message': '抱歉！您要找的页面不存在或已被移动。让我们帮您回到正轨。',
         'notFound.goHome': '返回首页',
         'notFound.browseCalc': '浏览计算器',
         'notFound.popularCalc': '热门计算器',
-        
+
         // Breadcrumbs
         'breadcrumb.home': '首页',
-        
+
         // Related Categories
         'related.title': '相关分类',
-        
+
         // Common
         'common.loading': '加载中...',
         'common.error': '错误',
@@ -825,7 +863,7 @@ const translations: Record<Language, Record<string, string>> = {
         'common.categoryNotFoundDesc': '请求的分类未找到。',
         'common.freeOnlineTools': '免费在线工具',
         'common.accurate': '准确、易用、无需注册。',
-        
+
         // SEO Text Block
         'seo.whyUse': '为什么使用WorkMoney工具？',
         'seo.whyUseDesc': '我们提供免费、准确且易于使用的计算器，帮助您做出更明智的财务决策。',
@@ -835,12 +873,12 @@ const translations: Record<Language, Record<string, string>> = {
         'seo.salaryTaxDesc': '使用我们精确的工资计算器了解您的工资单。我们考虑联邦、州和地方税，为您提供清晰的净收入图景。非常适合工作机会、加薪或搬到新城市。',
         'seo.loanTitle': '贷款和债务管理',
         'seo.loanDesc': '计划买房或买车？使用我们的贷款计算器估算每月还款额、总利息和摊销计划。了解额外还款如何缩短您的贷款期限并为您省钱。',
-        
+
         // SEO Meta
         'seo.home.title': '80+ 免费在线计算器 - 财务、健康、数学等',
         'seo.home.description': '访问80多个免费、准确的在线计算器，包括工资、房贷、BMI、小费、GPA、学生贷款等。数百万用户信赖的日常财务和数学智能工具。',
         'seo.home.keywords': '在线计算器, 免费计算器, 工资计算器, 房贷计算器, BMI计算器, 小费计算器, GPA计算器, 学生贷款计算器, 财务工具',
-        
+
         // Privacy Page
         'privacy.title': '隐私政策',
         'privacy.lastUpdated': '最后更新：2024年12月',
@@ -880,7 +918,7 @@ const translations: Record<Language, Record<string, string>> = {
         'privacy.changesDesc': '我们可能会不时更新此隐私政策。我们将通过更新此页面顶部的"最后更新"日期来通知用户任何重大变更。',
         'privacy.contact': '联系我们',
         'privacy.contactDesc': '如果您对此隐私政策有任何疑问，请通过以下方式联系我们',
-        
+
         // Terms Page
         'terms.title': '服务条款',
         'terms.lastUpdated': '最后更新：2024年12月',
@@ -931,7 +969,7 @@ const translations: Record<Language, Record<string, string>> = {
         'nav.contact': 'Contacto',
         'nav.allTools': 'Todas las Herramientas',
         'nav.search': 'Buscar calculadoras...',
-        
+
         // Hero
         'hero.badge': 'Nuevas Herramientas',
         'hero.title1': 'Calculadoras inteligentes para tu',
@@ -939,16 +977,16 @@ const translations: Record<Language, Record<string, string>> = {
         'hero.subtitle': 'Toma mejores decisiones con nuestras herramientas gratuitas, precisas y fáciles de usar. Desde impuestos salariales hasta crecimiento de inversiones.',
         'hero.searchPlaceholder': 'Buscar calculadoras... ej. hipoteca, impuestos',
         'hero.trending': 'Tendencias:',
-        
+
         // Popular Tools
         'popular.title': 'Calculadoras Populares',
         'popular.subtitle': 'Herramientas más utilizadas por nuestra comunidad',
-        
+
         // Categories Section
         'categories.title': 'Explorar por Categoría',
         'categories.subtitle': 'Encuentra la calculadora adecuada para tus necesidades',
         'categories.viewAll': 'Ver Todo',
-        
+
         // Category Names
         'cat.finance': 'Finanzas',
         'cat.business': 'Negocios',
@@ -965,7 +1003,7 @@ const translations: Record<Language, Record<string, string>> = {
         'cat.sports': 'Deportes',
         'cat.statistics': 'Estadística',
         'cat.other': 'Otros',
-        
+
         // Category Descriptions
         'cat.finance.desc': 'Salario, impuestos, inversiones y planificación de jubilación.',
         'cat.business.desc': 'ROI, margen, punto de equilibrio y calculadoras empresariales.',
@@ -982,10 +1020,32 @@ const translations: Record<Language, Record<string, string>> = {
         'cat.sports.desc': 'Ritmo de carrera, potencia de ciclismo y marcadores.',
         'cat.statistics.desc': 'Probabilidad, distribuciones y análisis de datos.',
         'cat.other.desc': 'Herramientas misceláneas y calculadoras divertidas.',
-        
+
         // Tools Names & Descriptions
         'tool.paycheckCalculator': 'Calculadora de Nómina',
         'tool.paycheckCalculator.desc': 'Calcula tu pago neto para cualquier período de pago.',
+
+        // Paycheck Calculator Specific
+        'calc.paycheck.grossPay': 'Salario Bruto ($)',
+        'calc.paycheck.payFrequency': 'Frecuencia de Pago',
+        'calc.paycheck.state': 'Estado',
+        'calc.paycheck.federalTax': 'Impuesto Federal',
+        'calc.paycheck.stateTax': 'Impuesto Estatal',
+        'calc.paycheck.socialSecurity': 'Seguro Social',
+        'calc.paycheck.medicare': 'Medicare',
+        'calc.paycheck.totalDeductions': 'Deducciones Totales',
+        'calc.paycheck.netPay': 'Pago Neto',
+        'calc.paycheck.weekly': 'Semanal',
+        'calc.paycheck.biweekly': 'Quincenal',
+        'calc.paycheck.semimonthly': 'Semimensual',
+        'calc.paycheck.monthly': 'Mensual',
+        'calc.paycheck.annual': 'Anual',
+
+        'calc.paycheck.formTitle': 'Ingrese los Detalles del Cheque de Pago',
+        'calc.paycheck.resultTitle': 'Su Pago Neto',
+        'calc.paycheck.content.what': 'Calcula tu cheque de pago neto después de impuestos federales, estatales, Seguro Social y Medicare.',
+        'calc.paycheck.content.how': 'Ingrese su salario bruto, frecuencia de pago y estado para ver su pago neto.',
+        'calc.paycheck.content.formula': 'Pago Neto = Salario Bruto - Impuestos - Deducciones',
         'tool.federalTaxCalculator': 'Calculadora de Impuestos Federales',
         'tool.federalTaxCalculator.desc': 'Estima tu obligación tributaria federal.',
         'tool.bonusTaxCalculator': 'Calculadora de Impuestos sobre Bonos',
@@ -1144,7 +1204,7 @@ const translations: Record<Language, Record<string, string>> = {
         'tool.paceCalculator.desc': 'Calcula ritmo de carrera.',
         'tool.standardDeviation': 'Calculadora de Desviación Estándar',
         'tool.standardDeviation.desc': 'Calcula varianza y desviación estándar.',
-        
+
         // Popular Tools Names & Descriptions (deprecated, use tool.* keys)
         'popular.paycheck': 'Calculadora de Nómina',
         'popular.paycheck.desc': 'Calcula tu salario neto después de impuestos.',
@@ -1170,7 +1230,7 @@ const translations: Record<Language, Record<string, string>> = {
         'popular.homeAfford.desc': '¿Cuánta casa puedes permitirte según tus ingresos?',
         'popular.studentLoan': 'Calculadora de Préstamo Estudiantil',
         'popular.studentLoan.desc': 'Planifica tu estrategia de pago de préstamos estudiantiles.',
-        
+
         // Popular Tool Categories
         'popular.cat.salary': 'Salario',
         'popular.cat.loans': 'Préstamos',
@@ -1182,7 +1242,7 @@ const translations: Record<Language, Record<string, string>> = {
         'popular.cat.investment': 'Inversión',
         'popular.cat.fitness': 'Fitness',
         'popular.cat.finance': 'Finanzas',
-        
+
         // Calculator Page
         'calc.calculate': 'Calcular',
         'calc.reset': 'Reiniciar',
@@ -1197,7 +1257,7 @@ const translations: Record<Language, Record<string, string>> = {
         'calc.formulaMethodology': 'Fórmula y Metodología',
         'calc.pregnancyCalculator': 'Calculadora de Embarazo',
         'calc.dateCalculator': 'Calculadora de Fechas',
-        
+
         // Footer
         'footer.disclaimer': 'Este sitio web no proporciona asesoramiento fiscal, legal o de inversión. Todos los cálculos son estimaciones y solo deben usarse con fines informativos.',
         'footer.copyright': 'Todos los derechos reservados.',
@@ -1209,7 +1269,7 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.aboutUs': 'Sobre Nosotros',
         'footer.privacy': 'Política de Privacidad',
         'footer.terms': 'Términos de Servicio',
-        
+
         // Tags
         'tag.tax': 'Impuestos',
         'tag.mortgage': 'Hipoteca',
@@ -1221,7 +1281,7 @@ const translations: Record<Language, Record<string, string>> = {
         'tag.binary': 'Binario',
         'tag.circle': 'Círculo',
         'tag.triangle': 'Triángulo',
-        
+
         // About Page
         'about.title': 'Acerca de WorkMoney Tools',
         'about.subtitle': 'Proporcionamos calculadoras en línea gratuitas, precisas y fáciles de usar para ayudarte a tomar mejores decisiones financieras.',
@@ -1240,7 +1300,7 @@ const translations: Record<Language, Record<string, string>> = {
         'about.dataCollected': 'Datos Recopilados',
         'about.disclaimer': 'Descargo',
         'about.disclaimerText': 'Las calculadoras son solo para fines informativos. No constituyen asesoramiento fiscal, legal o de inversión.',
-        
+
         // All Tools Page
         'allTools.title': 'Todas las Calculadoras',
         'allTools.subtitle': 'Explora nuestra colección completa de calculadoras gratuitas',
@@ -1256,7 +1316,7 @@ const translations: Record<Language, Record<string, string>> = {
         'allTools.clearFilters': 'Limpiar Filtros',
         'allTools.browseByCategory': 'Explorar por Categoría',
         'allTools.tools': 'herramientas',
-        
+
         // Contact Page
         'contact.title': 'Contáctanos',
         'contact.subtitle': '¿Tienes una pregunta, sugerencia o encontraste un error? ¡Nos encantaría saber de ti!',
@@ -1280,20 +1340,20 @@ const translations: Record<Language, Record<string, string>> = {
         'contact.messageSent': '¡Mensaje Enviado!',
         'contact.thankYou': 'Gracias por contactarnos. Te responderemos lo antes posible.',
         'contact.sendAnother': 'Enviar Otro Mensaje',
-        
+
         // 404 Page
         'notFound.title': 'Página No Encontrada',
         'notFound.message': '¡Ups! La página que buscas no existe. Vamos a ayudarte a volver.',
         'notFound.goHome': 'Ir a Inicio',
         'notFound.browseCalc': 'Explorar Calculadoras',
         'notFound.popularCalc': 'Calculadoras Populares',
-        
+
         // Breadcrumbs
         'breadcrumb.home': 'Inicio',
-        
+
         // Related Categories
         'related.title': 'Categorías Relacionadas',
-        
+
         // Common
         'common.loading': 'Cargando...',
         'common.error': 'Error',
@@ -1306,7 +1366,7 @@ const translations: Record<Language, Record<string, string>> = {
         'common.categoryNotFoundDesc': 'La categoría solicitada no se pudo encontrar.',
         'common.freeOnlineTools': 'Herramientas Online Gratis',
         'common.accurate': 'Preciso, fácil de usar, sin registro.',
-        
+
         // SEO Text Block
         'seo.whyUse': '¿Por qué usar WorkMoney Tools?',
         'seo.whyUseDesc': 'Proporcionamos calculadoras gratuitas, precisas y fáciles de usar para ayudarte a tomar decisiones financieras más inteligentes.',
@@ -1316,12 +1376,12 @@ const translations: Record<Language, Record<string, string>> = {
         'seo.salaryTaxDesc': 'Comprende tu nómina con nuestras precisas calculadoras de salario. Consideramos los impuestos federales, estatales y locales para darte una imagen clara de tus ingresos netos. Perfecto para ofertas de trabajo, aumentos o mudarse a una nueva ciudad.',
         'seo.loanTitle': 'Gestión de Préstamos y Deudas',
         'seo.loanDesc': '¿Planeas comprar una casa o un auto? Usa nuestras calculadoras de préstamos para estimar pagos mensuales, interés total y calendarios de amortización. Ve cómo los pagos adicionales pueden acortar tu plazo de préstamo y ahorrarte dinero.',
-        
+
         // SEO Meta
         'seo.home.title': '80+ Calculadoras Gratis en Línea - Finanzas, Salud, Matemáticas y Más',
         'seo.home.description': 'Accede a más de 80 calculadoras en línea gratuitas y precisas para nómina, hipoteca, IMC, propina, GPA, préstamos estudiantiles y más. Herramientas inteligentes confiables para necesidades financieras y matemáticas diarias.',
         'seo.home.keywords': 'calculadora en línea, calculadora gratis, calculadora de nómina, calculadora de hipoteca, calculadora IMC, calculadora de propina, calculadora GPA, calculadora de préstamos estudiantiles, herramientas financieras',
-        
+
         // Privacy Page
         'privacy.title': 'Política de Privacidad',
         'privacy.lastUpdated': 'Última actualización: Diciembre 2024',
@@ -1361,7 +1421,7 @@ const translations: Record<Language, Record<string, string>> = {
         'privacy.changesDesc': 'Podemos actualizar esta política de privacidad de vez en cuando. Notificaremos a los usuarios de cualquier cambio material actualizando la fecha de "Última actualización" en la parte superior de esta página.',
         'privacy.contact': 'Contáctenos',
         'privacy.contactDesc': 'Si tiene preguntas sobre esta política de privacidad, contáctenos en',
-        
+
         // Terms Page
         'terms.title': 'Términos de Servicio',
         'terms.lastUpdated': 'Última actualización: Diciembre 2024',
@@ -1412,7 +1472,7 @@ const translations: Record<Language, Record<string, string>> = {
         'nav.contact': 'お問い合わせ',
         'nav.allTools': 'すべてのツール',
         'nav.search': '電卓を検索...',
-        
+
         // Hero
         'hero.badge': '新ツール追加',
         'hero.title1': 'あなたの',
@@ -1420,16 +1480,16 @@ const translations: Record<Language, Record<string, string>> = {
         'hero.subtitle': '無料で正確、使いやすいツールでより良い決断を。給与税から投資成長まで、すべてお任せください。',
         'hero.searchPlaceholder': '電卓を検索... 例：住宅ローン、税金、利息',
         'hero.trending': 'トレンド：',
-        
+
         // Popular Tools
         'popular.title': '人気の電卓',
         'popular.subtitle': 'コミュニティで最も使用されているツール',
-        
+
         // Categories Section
         'categories.title': 'カテゴリで探す',
         'categories.subtitle': 'ニーズに合った電卓を見つけてください',
         'categories.viewAll': 'すべて見る',
-        
+
         // Category Names
         'cat.finance': '財務',
         'cat.business': 'ビジネス',
@@ -1446,7 +1506,7 @@ const translations: Record<Language, Record<string, string>> = {
         'cat.sports': 'スポーツ',
         'cat.statistics': '統計',
         'cat.other': 'その他',
-        
+
         // Category Descriptions
         'cat.finance.desc': '給与、税金、投資、退職計画。',
         'cat.business.desc': 'ROI、利益率、損益分岐点などのビジネス計算。',
@@ -1463,10 +1523,26 @@ const translations: Record<Language, Record<string, string>> = {
         'cat.sports.desc': 'ランニングペース、サイクリングパワー、スコアボード。',
         'cat.statistics.desc': '確率、分布、データ分析。',
         'cat.other.desc': 'その他のツールと楽しい電卓。',
-        
+
         // Tools Names & Descriptions
         'tool.paycheckCalculator': '給与計算機',
         'tool.paycheckCalculator.desc': '任意の給与期間の純給与を計算します。',
+
+        // Paycheck Calculator Specific
+        'calc.paycheck.grossPay': '総支給額 ($)',
+        'calc.paycheck.payFrequency': '給与支払い頻度',
+        'calc.paycheck.state': '州',
+        'calc.paycheck.federalTax': '連邦税',
+        'calc.paycheck.stateTax': '州税',
+        'calc.paycheck.socialSecurity': '社会保障',
+        'calc.paycheck.medicare': 'メディケア',
+        'calc.paycheck.totalDeductions': '控除合計',
+        'calc.paycheck.netPay': '純給与（手取り）',
+        'calc.paycheck.weekly': '毎週',
+        'calc.paycheck.biweekly': '隔週',
+        'calc.paycheck.semimonthly': '月2回',
+        'calc.paycheck.monthly': '毎月',
+        'calc.paycheck.annual': '毎年',
         'tool.federalTaxCalculator': '連邦所得税計算機',
         'tool.federalTaxCalculator.desc': '連邦税負担を見積もります。',
         'tool.bonusTaxCalculator': 'ボーナス税計算機',
@@ -1625,7 +1701,7 @@ const translations: Record<Language, Record<string, string>> = {
         'tool.paceCalculator.desc': 'ランニングペースを計算します。',
         'tool.standardDeviation': '標準偏差計算機',
         'tool.standardDeviation.desc': '分散と標準偏差を計算します。',
-        
+
         // Popular Tools Names & Descriptions (deprecated, use tool.* keys)
         'popular.paycheck': '給与計算機',
         'popular.paycheck.desc': '税引き後の手取り給与を計算します。',
@@ -1651,7 +1727,7 @@ const translations: Record<Language, Record<string, string>> = {
         'popular.homeAfford.desc': '収入に基づいていくらの家を買えるか？',
         'popular.studentLoan': '学生ローン計算機',
         'popular.studentLoan.desc': '学生ローンの返済戦略を計画。',
-        
+
         // Popular Tool Categories
         'popular.cat.salary': '給与',
         'popular.cat.loans': 'ローン',
@@ -1663,7 +1739,7 @@ const translations: Record<Language, Record<string, string>> = {
         'popular.cat.investment': '投資',
         'popular.cat.fitness': 'フィットネス',
         'popular.cat.finance': '財務',
-        
+
         // Calculator Page
         'calc.calculate': '計算する',
         'calc.reset': 'リセット',
@@ -1678,7 +1754,7 @@ const translations: Record<Language, Record<string, string>> = {
         'calc.formulaMethodology': '公式と方法論',
         'calc.pregnancyCalculator': '妊娠計算機',
         'calc.dateCalculator': '日付計算機',
-        
+
         // Footer
         'footer.disclaimer': 'このウェブサイトは税務、法律、投資のアドバイスを提供するものではありません。すべての計算は推定値であり、情報提供のみを目的としています。',
         'footer.copyright': '無断複写・転載を禁じます。',
@@ -1690,7 +1766,7 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.aboutUs': '会社概要',
         'footer.privacy': 'プライバシーポリシー',
         'footer.terms': '利用規約',
-        
+
         // Tags
         'tag.tax': '税金',
         'tag.mortgage': '住宅ローン',
@@ -1702,7 +1778,7 @@ const translations: Record<Language, Record<string, string>> = {
         'tag.binary': '2進数',
         'tag.circle': '円',
         'tag.triangle': '三角形',
-        
+
         // About Page
         'about.title': 'WorkMoney Toolsについて',
         'about.subtitle': '無料で正確で使いやすいオンライン計算機を提供し、より良い財務決定を支援します。',
@@ -1721,7 +1797,7 @@ const translations: Record<Language, Record<string, string>> = {
         'about.dataCollected': 'データ収集',
         'about.disclaimer': '免責事項',
         'about.disclaimerText': '本サイトの計算機は情報提供のみを目的としています。税務・法律・投資アドバイスではありません。',
-        
+
         // All Tools Page
         'allTools.title': 'すべての計算機',
         'allTools.subtitle': '無料計算機の完全なコレクションを閲覧',
@@ -1737,7 +1813,7 @@ const translations: Record<Language, Record<string, string>> = {
         'allTools.clearFilters': 'フィルターをクリア',
         'allTools.browseByCategory': 'カテゴリで閲覧',
         'allTools.tools': '件のツール',
-        
+
         // Contact Page
         'contact.title': 'お問い合わせ',
         'contact.subtitle': '質問、提案、バグ報告がありますか？ご連絡お待ちしています！',
@@ -1761,20 +1837,20 @@ const translations: Record<Language, Record<string, string>> = {
         'contact.messageSent': '送信完了！',
         'contact.thankYou': 'お問い合わせありがとうございます。できるだけ早くご返信いたします。',
         'contact.sendAnother': '別のメッセージを送信',
-        
+
         // 404 Page
         'notFound.title': 'ページが見つかりません',
         'notFound.message': 'お探しのページは存在しないか、移動された可能性があります。',
         'notFound.goHome': 'ホームへ',
         'notFound.browseCalc': '計算機を閲覧',
         'notFound.popularCalc': '人気の計算機',
-        
+
         // Breadcrumbs
         'breadcrumb.home': 'ホーム',
-        
+
         // Related Categories
         'related.title': '関連カテゴリ',
-        
+
         // Common
         'common.loading': '読み込み中...',
         'common.error': 'エラー',
@@ -1787,12 +1863,12 @@ const translations: Record<Language, Record<string, string>> = {
         'common.categoryNotFoundDesc': 'リクエストされたカテゴリーが見つかりませんでした。',
         'common.freeOnlineTools': '無料オンラインツール',
         'common.accurate': '正確で使いやすく、登録不要。',
-        
+
         // SEO Meta
         'seo.home.title': '80以上の無料オンライン計算機 - 財務、健康、数学など',
         'seo.home.description': '給与、住宅ローン、BMI、チップ、GPA、学生ローンなど、80以上の無料で正確なオンライン計算機にアクセスできます。日常の財務および数学のニーズに何百万人もの人々が信頼するスマートツール。',
         'seo.home.keywords': 'オンライン計算機, 無料計算機, 給与計算機, 住宅ローン計算機, BMI計算機, チップ計算機, GPA計算機, 学生ローン計算機, 財務ツール',
-        
+
         // Privacy Page
         'privacy.title': 'プライバシーポリシー',
         'privacy.lastUpdated': '最終更新：2024年12月',
@@ -1832,7 +1908,7 @@ const translations: Record<Language, Record<string, string>> = {
         'privacy.changesDesc': 'このプライバシーポリシーは随時更新される場合があります。重要な変更がある場合は、このページ上部の「最終更新」日付を更新してユーザーに通知します。',
         'privacy.contact': 'お問い合わせ',
         'privacy.contactDesc': 'このプライバシーポリシーに関するご質問は、以下までお問い合わせください',
-        
+
         // Terms Page
         'terms.title': '利用規約',
         'terms.lastUpdated': '最終更新：2024年12月',
@@ -1883,7 +1959,7 @@ const translations: Record<Language, Record<string, string>> = {
         'nav.contact': 'Contact',
         'nav.allTools': 'Tous les Outils',
         'nav.search': 'Rechercher des calculatrices...',
-        
+
         // Hero
         'hero.badge': 'Nouveaux Outils',
         'hero.title1': 'Des calculatrices intelligentes pour votre',
@@ -1891,16 +1967,16 @@ const translations: Record<Language, Record<string, string>> = {
         'hero.subtitle': 'Prenez de meilleures décisions avec nos outils gratuits, précis et faciles à utiliser. Des impôts sur les salaires à la croissance des investissements.',
         'hero.searchPlaceholder': 'Rechercher... ex. hypothèque, impôts',
         'hero.trending': 'Tendances :',
-        
+
         // Popular Tools
         'popular.title': 'Calculatrices Populaires',
         'popular.subtitle': 'Outils les plus utilisés par notre communauté',
-        
+
         // Categories Section
         'categories.title': 'Parcourir par Catégorie',
         'categories.subtitle': 'Trouvez la calculatrice adaptée à vos besoins',
         'categories.viewAll': 'Voir Tout',
-        
+
         // Category Names
         'cat.finance': 'Finance',
         'cat.business': 'Entreprise',
@@ -1917,7 +1993,7 @@ const translations: Record<Language, Record<string, string>> = {
         'cat.sports': 'Sports',
         'cat.statistics': 'Statistiques',
         'cat.other': 'Autres',
-        
+
         // Category Descriptions
         'cat.finance.desc': 'Salaire, impôts, investissements et planification retraite.',
         'cat.business.desc': 'ROI, marge, point mort et calculatrices entreprise.',
@@ -1934,10 +2010,27 @@ const translations: Record<Language, Record<string, string>> = {
         'cat.sports.desc': 'Allure course, puissance cyclisme et tableaux scores.',
         'cat.statistics.desc': 'Probabilité, distributions et analyse données.',
         'cat.other.desc': 'Outils divers et calculatrices amusantes.',
-        
+
         // Tools Names & Descriptions
-        'tool.paycheckCalculator': 'Calculatrice de Paie',
-        'tool.paycheckCalculator.desc': 'Calculez votre salaire net pour toute période de paie.',
+        'tool.paycheckCalculator': 'Calculateur de Salaire',
+        'tool.paycheckCalculator.desc': 'Calculez votre salaire net pour n\'importe quelle période de paie.',
+
+        // Paycheck Calculator Specific
+        'calc.paycheck.grossPay': 'Salaire Brut ($)',
+        'calc.paycheck.payFrequency': 'Fréquence de Paie',
+        'calc.paycheck.state': 'État',
+        'calc.paycheck.federalTax': 'Impôt Fédéral',
+        'calc.paycheck.stateTax': 'Impôt d\'État',
+        'calc.paycheck.socialSecurity': 'Sécurité Sociale',
+        'calc.paycheck.medicare': 'Medicare',
+        'calc.paycheck.totalDeductions': 'Total des Déductions',
+        'calc.paycheck.netPay': 'Salaire Net (À Emporter)',
+        'calc.paycheck.weekly': 'Hebdomadaire',
+        'calc.paycheck.biweekly': 'Bi-Hebdomadaire',
+        'calc.paycheck.semimonthly': 'Semi-Mensuel',
+        'calc.paycheck.monthly': 'Mensuel',
+        'calc.paycheck.annual': 'Annuel',
+
         'tool.federalTaxCalculator': 'Calculatrice Impôt Fédéral',
         'tool.federalTaxCalculator.desc': 'Estimez votre obligation fiscale fédérale.',
         'tool.bonusTaxCalculator': 'Calculatrice Impôt sur Prime',
@@ -2096,7 +2189,7 @@ const translations: Record<Language, Record<string, string>> = {
         'tool.paceCalculator.desc': 'Calculez l\'allure de course.',
         'tool.standardDeviation': 'Calculatrice Écart-type',
         'tool.standardDeviation.desc': 'Calculez la variance et l\'écart-type.',
-        
+
         // Popular Tools Names & Descriptions (deprecated, use tool.* keys)
         'popular.paycheck': 'Calculatrice Salaire',
         'popular.paycheck.desc': 'Calculez votre salaire net après impôts.',
@@ -2122,7 +2215,7 @@ const translations: Record<Language, Record<string, string>> = {
         'popular.homeAfford.desc': 'Quelle maison pouvez-vous vous permettre selon vos revenus?',
         'popular.studentLoan': 'Calculatrice Prêt Étudiant',
         'popular.studentLoan.desc': 'Planifiez votre stratégie de remboursement de prêt étudiant.',
-        
+
         // Popular Tool Categories
         'popular.cat.salary': 'Salaire',
         'popular.cat.loans': 'Prêts',
@@ -2134,7 +2227,7 @@ const translations: Record<Language, Record<string, string>> = {
         'popular.cat.investment': 'Investissement',
         'popular.cat.fitness': 'Fitness',
         'popular.cat.finance': 'Finance',
-        
+
         // Calculator Page
         'calc.calculate': 'Calculer',
         'calc.reset': 'Réinitialiser',
@@ -2149,7 +2242,7 @@ const translations: Record<Language, Record<string, string>> = {
         'calc.formulaMethodology': 'Formule et Méthodologie',
         'calc.pregnancyCalculator': 'Calculatrice de Grossesse',
         'calc.dateCalculator': 'Calculatrice de Dates',
-        
+
         // Footer
         'footer.disclaimer': 'Ce site ne fournit pas de conseils fiscaux, juridiques ou d\'investissement. Tous les calculs sont des estimations à titre informatif uniquement.',
         'footer.copyright': 'Tous droits réservés.',
@@ -2161,7 +2254,7 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.aboutUs': 'À propos',
         'footer.privacy': 'Politique de Confidentialité',
         'footer.terms': 'Conditions d\'Utilisation',
-        
+
         // Tags
         'tag.tax': 'Impôts',
         'tag.mortgage': 'Hypothèque',
@@ -2173,7 +2266,7 @@ const translations: Record<Language, Record<string, string>> = {
         'tag.binary': 'Binaire',
         'tag.circle': 'Cercle',
         'tag.triangle': 'Triangle',
-        
+
         // About Page
         'about.title': 'À Propos de WorkMoney Tools',
         'about.subtitle': 'Nous fournissons des calculatrices en ligne gratuites, précises et faciles à utiliser pour vous aider à prendre de meilleures décisions financières.',
@@ -2192,7 +2285,7 @@ const translations: Record<Language, Record<string, string>> = {
         'about.dataCollected': 'Données Collectées',
         'about.disclaimer': 'Avertissement',
         'about.disclaimerText': 'Les calculatrices sont fournies à titre informatif uniquement. Elles ne constituent pas des conseils fiscaux, juridiques ou d\'investissement.',
-        
+
         // All Tools Page
         'allTools.title': 'Toutes les Calculatrices',
         'allTools.subtitle': 'Parcourez notre collection complète de calculatrices gratuites',
@@ -2208,7 +2301,7 @@ const translations: Record<Language, Record<string, string>> = {
         'allTools.clearFilters': 'Effacer les Filtres',
         'allTools.browseByCategory': 'Parcourir par Catégorie',
         'allTools.tools': 'outils',
-        
+
         // Contact Page
         'contact.title': 'Contactez-Nous',
         'contact.subtitle': 'Une question, suggestion ou trouvé un bug? Nous aimerions avoir de vos nouvelles!',
@@ -2232,20 +2325,20 @@ const translations: Record<Language, Record<string, string>> = {
         'contact.messageSent': 'Message Envoyé!',
         'contact.thankYou': 'Merci de nous avoir contactés. Nous vous répondrons dès que possible.',
         'contact.sendAnother': 'Envoyer un Autre Message',
-        
+
         // 404 Page
         'notFound.title': 'Page Non Trouvée',
         'notFound.message': 'Oups! La page que vous cherchez n\'existe pas ou a été déplacée.',
         'notFound.goHome': 'Aller à l\'Accueil',
         'notFound.browseCalc': 'Parcourir les Calculatrices',
         'notFound.popularCalc': 'Calculatrices Populaires',
-        
+
         // Breadcrumbs
         'breadcrumb.home': 'Accueil',
-        
+
         // Related Categories
         'related.title': 'Catégories Connexes',
-        
+
         // Common
         'common.loading': 'Chargement...',
         'common.error': 'Erreur',
@@ -2258,12 +2351,12 @@ const translations: Record<Language, Record<string, string>> = {
         'common.categoryNotFoundDesc': 'La catégorie demandée est introuvable.',
         'common.freeOnlineTools': 'Outils Gratuits En Ligne',
         'common.accurate': 'Précis, facile à utiliser, sans inscription.',
-        
+
         // SEO Meta
         'seo.home.title': '80+ Calculatrices Gratuites en Ligne - Finance, Santé, Mathématiques et Plus',
         'seo.home.description': 'Accédez à plus de 80 calculatrices en ligne gratuites et précises pour salaire, hypothèque, IMC, pourboire, GPA, prêts étudiants et plus. Outils intelligents de confiance pour les besoins financiers et mathématiques quotidiens.',
         'seo.home.keywords': 'calculatrice en ligne, calculatrice gratuite, calculatrice de salaire, calculatrice hypothécaire, calculatrice IMC, calculatrice de pourboire, calculatrice GPA, calculatrice de prêts étudiants, outils financiers',
-        
+
         // Privacy Page
         'privacy.title': 'Politique de Confidentialité',
         'privacy.lastUpdated': 'Dernière mise à jour : Décembre 2024',
@@ -2303,7 +2396,7 @@ const translations: Record<Language, Record<string, string>> = {
         'privacy.changesDesc': 'Nous pouvons mettre à jour cette politique de confidentialité de temps en temps. Nous informerons les utilisateurs de tout changement important en mettant à jour la date "Dernière mise à jour" en haut de cette page.',
         'privacy.contact': 'Nous Contacter',
         'privacy.contactDesc': 'Si vous avez des questions sur cette politique de confidentialité, veuillez nous contacter à',
-        
+
         // Terms Page
         'terms.title': 'Conditions d\'Utilisation',
         'terms.lastUpdated': 'Dernière mise à jour : Décembre 2024',
@@ -2372,7 +2465,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         if (typeof window === 'undefined') return 'en';
         const saved = localStorage.getItem('language') as Language;
         if (saved && translations[saved]) return saved;
-        
+
         const browserLang = navigator.language.split('-')[0];
         if (browserLang === 'zh') return 'zh';
         if (browserLang === 'es') return 'es';

@@ -13,6 +13,8 @@ interface SEOProps {
     modifiedTime?: string;
 }
 
+import { useLanguage } from '../../contexts/LanguageContext';
+
 const SITE_NAME = 'WorkMoney Tools';
 const SITE_URL = 'https://calculator-website-puce.vercel.app';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.svg`;
@@ -28,9 +30,22 @@ export const SEO: React.FC<SEOProps> = ({
     publishedTime,
     modifiedTime
 }) => {
+    const { language } = useLanguage();
+
     const fullTitle = `${title} | ${SITE_NAME}`;
     const fullCanonicalUrl = canonicalUrl ? `${SITE_URL}${canonicalUrl}` : undefined;
     const fullImage = image.startsWith('http') ? image : `${SITE_URL}${image}`;
+
+    // Map language code to locale
+    const getLocale = (lang: string) => {
+        switch (lang) {
+            case 'zh': return 'zh_CN';
+            case 'es': return 'es_ES';
+            case 'ja': return 'ja_JP';
+            case 'fr': return 'fr_FR';
+            default: return 'en_US';
+        }
+    };
 
     return (
         <Helmet>
@@ -44,7 +59,7 @@ export const SEO: React.FC<SEOProps> = ({
             ) : (
                 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
             )}
-            
+
             {/* Canonical URL */}
             {fullCanonicalUrl && <link rel="canonical" href={fullCanonicalUrl} />}
 
@@ -58,8 +73,8 @@ export const SEO: React.FC<SEOProps> = ({
             <meta property="og:image:height" content="630" />
             <meta property="og:image:alt" content={title} />
             {fullCanonicalUrl && <meta property="og:url" content={fullCanonicalUrl} />}
-            <meta property="og:locale" content="en_US" />
-            
+            <meta property="og:locale" content={getLocale(language)} />
+
             {/* Article specific */}
             {type === 'article' && publishedTime && (
                 <meta property="article:published_time" content={publishedTime} />
@@ -74,12 +89,12 @@ export const SEO: React.FC<SEOProps> = ({
             <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
             <meta name="twitter:image" content={fullImage} />
-            
+
             {/* Additional SEO */}
             <meta name="author" content={SITE_NAME} />
             <meta name="publisher" content={SITE_NAME} />
             <meta name="copyright" content={`© ${new Date().getFullYear()} ${SITE_NAME}`} />
-            <meta name="language" content="en" />
+            <meta name="language" content={language} />
             <meta name="revisit-after" content="7 days" />
             <meta name="rating" content="general" />
         </Helmet>
