@@ -145,13 +145,8 @@ export const CalculatorDetail: React.FC = () => {
     const [results, setResults] = useState<{ label: string; value: string | number; isTotal?: boolean }[]>([]);
     const [isCalculating, setIsCalculating] = useState(false);
 
-    // Effect to reset state when tool changes
+    // Reset inputs when tool changes
     useEffect(() => {
-        setResults([
-            { label: t('calc.result'), value: '-' },
-            { label: t('calc.total'), value: '-', isTotal: true },
-        ]);
-        // Reset defaults
         if (id === 'length-converter') {
             setFromUnit('Meters');
             setToUnit('Feet');
@@ -183,6 +178,14 @@ export const CalculatorDetail: React.FC = () => {
             setInput3('');
         }
     }, [id]);
+
+    // Update results when tool or language changes
+    useEffect(() => {
+        setResults([
+            { label: t('calc.result'), value: '-' },
+            { label: t('calc.total'), value: '-', isTotal: true },
+        ]);
+    }, [id, t]);
 
     const handleCalculate = () => {
         setIsCalculating(true);
