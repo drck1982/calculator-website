@@ -21,7 +21,7 @@ export const toolsByCategory: Record<string, CategoryData> = {
             { id: 'federal-tax-calculator', name: 'Federal Income Tax Calculator', description: 'Estimate your federal tax liability.', link: '/tools/federal-tax-calculator', tags: ['Tax'] },
             { id: 'bonus-tax-calculator', name: 'Bonus Tax Calculator', description: 'Calculate taxes on your bonus.', link: '/tools/bonus-tax-calculator', tags: ['Tax'] },
             { id: 'hourly-to-salary', name: 'Hourly to Salary Converter', description: 'Convert hourly wage to annual salary.', link: '/tools/hourly-to-salary', tags: ['Salary'] },
-            { id: 'ny-salary-tax-calculator', name: 'New York Salary Tax Calculator', description: 'Estimate your take-home pay in NY.', link: '/tools/ny-salary-tax-calculator', tags: ['Salary', 'Tax'] },
+            { id: 'ny-salary-tax-calculator', name: 'US Salary Tax Calculator', description: 'Estimate your take-home pay in any state.', link: '/tools/ny-salary-tax-calculator', tags: ['Salary', 'Tax'] },
         ]
     },
     'finance': {
@@ -214,15 +214,15 @@ export const toolConfigs: Record<string, ToolConfig> = {
     // --- Finance ---
     'ny-salary-tax-calculator': {
         id: 'ny-salary-tax-calculator',
-        title: 'New York Salary Tax Calculator',
-        description: 'Calculate your net pay in New York.',
+        title: 'US Salary Tax Calculator',
+        description: 'Calculate your net pay in any US state.',
         category: 'Finance',
         categoryLink: '/category/salary-tax',
         formTitle: 'Enter Your Salary',
         resultTitle: 'Your Net Pay',
         content: {
             what: 'This calculator helps you estimate your take-home pay.',
-            how: 'Enter your gross salary and select your filing status.',
+            how: 'Enter your gross salary and select your state.',
             formula: 'Net Pay = Gross Pay - Taxes'
         },
         faq: [{ question: 'How accurate is this?', answer: 'It provides an estimate based on current tax brackets.' }]
