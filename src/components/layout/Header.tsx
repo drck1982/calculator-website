@@ -74,13 +74,16 @@ export const Header: React.FC = () => {
                     <Link to="/about" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
                         {t('nav.about')}
                     </Link>
+                    <Link to="/blog" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
+                        {t('nav.blog')}
+                    </Link>
                 </nav>
 
                 {/* Right Actions */}
                 <div className="flex items-center space-x-1">
                     {/* Language Switcher */}
                     <LanguageSwitcher />
-                    
+
                     {/* Search */}
                     <div className="relative" ref={searchRef}>
                         <button

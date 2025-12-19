@@ -37,6 +37,7 @@ export const Footer: React.FC = () => {
                         <h4 className="font-semibold text-gray-900 mb-4">{t('footer.company')}</h4>
                         <ul className="space-y-2 text-sm text-gray-600">
                             <li><Link to="/about" className="hover:text-blue-600">{t('footer.aboutUs')}</Link></li>
+                            <li><Link to="/blog" className="hover:text-blue-600">{t('nav.blog')}</Link></li>
                             <li><Link to="/contact" className="hover:text-blue-600">{t('nav.contact')}</Link></li>
                             <li><Link to="/privacy" className="hover:text-blue-600">{t('footer.privacy')}</Link></li>
                             <li><Link to="/terms" className="hover:text-blue-600">{t('footer.terms')}</Link></li>

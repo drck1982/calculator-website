@@ -15,6 +15,8 @@ const Contact = lazy(() => import('./pages/Contact').then(module => ({ default: 
 const Privacy = lazy(() => import('./pages/Privacy').then(module => ({ default: module.Privacy })));
 const Terms = lazy(() => import('./pages/Terms').then(module => ({ default: module.Terms })));
 const AllTools = lazy(() => import('./pages/AllTools').then(module => ({ default: module.AllTools })));
+const Blog = lazy(() => import('./pages/Blog').then(module => ({ default: module.Blog })));
+const ArticleDetail = lazy(() => import('./pages/ArticleDetail').then(module => ({ default: module.ArticleDetail })));
 const NotFound = lazy(() => import('./pages/NotFound').then(module => ({ default: module.NotFound })));
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
                 <Route path="/all-tools" element={<AllTools />} />
                 <Route path="/category/:id" element={<Category />} />
                 <Route path="/tools/:id" element={<CalculatorDetail />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<ArticleDetail />} />
                 <Route path="/icon-demo" element={<IconDemo />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />

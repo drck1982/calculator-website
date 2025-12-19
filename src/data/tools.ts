@@ -208,6 +208,13 @@ export interface ToolConfig {
         formula: string;
     };
     faq: { question: string; answer: string }[];
+    expandedContent?: {
+        introduction: string;
+        keyFeatures: string[];
+        useCases: string[];
+        detailedGuide: string;
+        expertTips: string[];
+    };
 }
 
 export const toolConfigs: Record<string, ToolConfig> = {
@@ -246,10 +253,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/salary-tax',
         formTitle: 'Enter Bonus Details',
         resultTitle: 'Tax Breakdown',
-        content: { 
-            what: 'Calculates taxes withheld from bonus payments including federal supplemental tax (22%), state income tax, Social Security (6.2%), and Medicare (1.45%).', 
-            how: 'Enter your bonus amount and select your state for accurate state income tax calculation.', 
-            formula: 'Total Tax = Federal (22%) + State Tax + Social Security (6.2% up to $176,100) + Medicare (1.45%)' 
+        content: {
+            what: 'Calculates taxes withheld from bonus payments including federal supplemental tax (22%), state income tax, Social Security (6.2%), and Medicare (1.45%).',
+            how: 'Enter your bonus amount and select your state for accurate state income tax calculation.',
+            formula: 'Total Tax = Federal (22%) + State Tax + Social Security (6.2% up to $176,100) + Medicare (1.45%)'
         },
         faq: [
             { question: 'Why is the federal tax rate 22%?', answer: 'The IRS requires employers to withhold a flat 22% federal tax on supplemental wages (like bonuses) under $1 million.' },
@@ -264,10 +271,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/salary-tax',
         formTitle: 'Enter Taxable Income',
         resultTitle: 'Tax Estimate',
-        content: { 
-            what: 'Calculates your federal income tax based on 2025 tax brackets for single filers.', 
-            how: 'Enter your taxable income to see your tax bracket and estimated federal tax.', 
-            formula: 'Progressive tax brackets: 10%, 12%, 22%, 24%, 32%, 35%, 37%' 
+        content: {
+            what: 'Calculates your federal income tax based on 2025 tax brackets for single filers.',
+            how: 'Enter your taxable income to see your tax bracket and estimated federal tax.',
+            formula: 'Progressive tax brackets: 10%, 12%, 22%, 24%, 32%, 35%, 37%'
         },
         faq: [
             { question: 'What are the 2025 tax brackets?', answer: '10% ($0-$11,925), 12% ($11,926-$48,475), 22% ($48,476-$103,350), 24% ($103,351-$197,300), 32% ($197,301-$250,500), 35% ($250,501-$626,350), 37% (over $626,350).' }
@@ -281,15 +288,36 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/salary-tax',
         formTitle: 'Enter Paycheck Details',
         resultTitle: 'Your Take-Home Pay',
-        content: { 
-            what: 'Calculates your net paycheck after federal tax, state tax, Social Security, and Medicare deductions.', 
-            how: 'Enter your gross pay, pay frequency, and state to see your take-home pay.', 
-            formula: 'Net Pay = Gross Pay - Federal Tax - State Tax - Social Security (6.2%) - Medicare (1.45%)' 
+        content: {
+            what: 'Our Paycheck Calculator is a comprehensive tool designed to help employees in the United States estimate their take-home pay after all mandatory deductions.',
+            how: 'Simply enter your gross annual salary or hourly wage, select your pay frequency (how often you get paid), and choose your state of residence.',
+            formula: 'The calculation follows the formula: Net Pay = Gross Pay - Federal Withholding - State Withholding - Social Security (6.2%) - Medicare (1.45%).'
         },
         faq: [
             { question: 'How often do most people get paid?', answer: 'Most Americans are paid bi-weekly (every two weeks), which means 26 paychecks per year.' },
             { question: 'What is the difference between gross and net pay?', answer: 'Gross pay is your total earnings before deductions. Net pay is what you take home after taxes and deductions.' }
-        ]
+        ],
+        expandedContent: {
+            introduction: 'Understanding your paycheck is vital for effective personal financial management. In 2025, tax brackets and standard deductions have been adjusted for inflation, meaning your take-home pay might look different even if your salary stayed the same. Our calculator provides a detailed breakdown of where your money goes.',
+            keyFeatures: [
+                'Accurate 2025 tax bracket calculations',
+                'Support for all 50 US states',
+                'FICA (Social Security & Medicare) estimation',
+                'Multiple pay frequency support (Weekly to Annual)'
+            ],
+            useCases: [
+                'Evaluating a new job offer',
+                'Planning for a raise or promotion',
+                'Estimating the impact of moving to a different state',
+                'Budgeting for monthly expenses'
+            ],
+            detailedGuide: 'To get the most accurate result, ensure you are using your "Gross Pay"—the amount before any taxes are taken out. If you are an hourly employee, multiply your hourly rate by the number of hours you work per period. Our tool also allows you to see the "Effective Tax Rate," which is the total percentage of your income that goes to taxes.',
+            expertTips: [
+                'Consider making pre-tax contributions to a 401(k) to lower your taxable income.',
+                'If you consistently get a large tax refund, you may be over-withholding. Consider adjusting your W-4.',
+                'Keep in mind that some cities have local income taxes in addition to state taxes.'
+            ]
+        }
     },
     'student-loan-calculator': {
         id: 'student-loan-calculator',
@@ -299,10 +327,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/loans-debt',
         formTitle: 'Loan Details',
         resultTitle: 'Repayment Summary',
-        content: { 
-            what: 'Calculates monthly payments, total interest, and payoff timeline for student loans.', 
-            how: 'Enter your loan balance, interest rate, and repayment term.', 
-            formula: 'M = P[r(1+r)^n]/[(1+r)^n-1]' 
+        content: {
+            what: 'Calculates monthly payments, total interest, and payoff timeline for student loans.',
+            how: 'Enter your loan balance, interest rate, and repayment term.',
+            formula: 'M = P[r(1+r)^n]/[(1+r)^n-1]'
         },
         faq: [
             { question: 'What is the average student loan interest rate?', answer: 'Federal student loan rates for 2024-25 range from 5.50% to 8.05% depending on the loan type.' },
@@ -317,10 +345,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/loans-debt',
         formTitle: 'Debt Information',
         resultTitle: 'Payoff Plan',
-        content: { 
-            what: 'Calculates how long it will take to pay off debt and how much interest you will pay.', 
-            how: 'Enter your debt balance, interest rate, and monthly payment amount.', 
-            formula: 'Uses amortization formula to calculate payoff timeline.' 
+        content: {
+            what: 'Calculates how long it will take to pay off debt and how much interest you will pay.',
+            how: 'Enter your debt balance, interest rate, and monthly payment amount.',
+            formula: 'Uses amortization formula to calculate payoff timeline.'
         },
         faq: [
             { question: 'What is the debt snowball method?', answer: 'Pay off smallest debts first for psychological wins, regardless of interest rate.' },
@@ -335,10 +363,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/loans-debt',
         formTitle: 'Credit Card Details',
         resultTitle: 'Payoff Timeline',
-        content: { 
-            what: 'Shows how long it takes to pay off credit card debt and total interest cost.', 
-            how: 'Enter your balance, APR, and monthly payment.', 
-            formula: 'Amortization calculation with compound interest.' 
+        content: {
+            what: 'Shows how long it takes to pay off credit card debt and total interest cost.',
+            how: 'Enter your balance, APR, and monthly payment.',
+            formula: 'Amortization calculation with compound interest.'
         },
         faq: [
             { question: 'Why does credit card debt take so long to pay off?', answer: 'Credit cards compound interest daily at high APRs (often 20%+). Minimum payments mostly cover interest, not principal.' }
@@ -352,10 +380,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/health',
         formTitle: 'Body Measurements',
         resultTitle: 'Body Fat Estimate',
-        content: { 
-            what: 'Estimates body fat percentage using the U.S. Navy circumference method.', 
-            how: 'Enter your height, waist, neck (and hip for women) measurements.', 
-            formula: 'Men: 86.010×log10(waist-neck) - 70.041×log10(height) + 36.76' 
+        content: {
+            what: 'Estimates body fat percentage using the U.S. Navy circumference method.',
+            how: 'Enter your height, waist, neck (and hip for women) measurements.',
+            formula: 'Men: 86.010×log10(waist-neck) - 70.041×log10(height) + 36.76'
         },
         faq: [
             { question: 'What is a healthy body fat percentage?', answer: 'For men: 10-20% is athletic to fit. For women: 18-28% is athletic to fit.' },
@@ -370,10 +398,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/health',
         formTitle: 'Your Information',
         resultTitle: 'Ideal Weight Range',
-        content: { 
-            what: 'Calculates ideal body weight using Devine, Robinson, Miller, and Hamwi formulas.', 
-            how: 'Enter your height and gender.', 
-            formula: 'Devine: Men = 50 + 2.3kg per inch over 5ft; Women = 45.5 + 2.3kg per inch over 5ft' 
+        content: {
+            what: 'Calculates ideal body weight using Devine, Robinson, Miller, and Hamwi formulas.',
+            how: 'Enter your height and gender.',
+            formula: 'Devine: Men = 50 + 2.3kg per inch over 5ft; Women = 45.5 + 2.3kg per inch over 5ft'
         },
         faq: []
     },
@@ -385,10 +413,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/finance',
         formTitle: 'Financial Information',
         resultTitle: 'Affordability Results',
-        content: { 
-            what: 'Calculates how much home you can afford based on income, debt, and down payment.', 
-            how: 'Enter your annual income, monthly debts, down payment, and interest rate.', 
-            formula: 'Uses 28/36 debt-to-income rule: housing costs ≤28% of gross income, total debt ≤36%.' 
+        content: {
+            what: 'Calculates how much home you can afford based on income, debt, and down payment.',
+            how: 'Enter your annual income, monthly debts, down payment, and interest rate.',
+            formula: 'Uses 28/36 debt-to-income rule: housing costs ≤28% of gross income, total debt ≤36%.'
         },
         faq: [
             { question: 'What is the 28/36 rule?', answer: 'Lenders typically require housing costs to be ≤28% of gross income, and total debt ≤36%.' },
@@ -403,10 +431,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/finance',
         formTitle: 'Assets & Liabilities',
         resultTitle: 'Your Net Worth',
-        content: { 
-            what: 'Calculates your net worth by subtracting liabilities from assets.', 
-            how: 'Enter your assets (cash, investments, property) and liabilities (debts, loans).', 
-            formula: 'Net Worth = Total Assets - Total Liabilities' 
+        content: {
+            what: 'Calculates your net worth by subtracting liabilities from assets.',
+            how: 'Enter your assets (cash, investments, property) and liabilities (debts, loans).',
+            formula: 'Net Worth = Total Assets - Total Liabilities'
         },
         faq: []
     },
@@ -418,10 +446,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/finance',
         formTitle: 'Monthly Expenses',
         resultTitle: 'Emergency Fund Goal',
-        content: { 
-            what: 'Calculates how much you should save for emergencies based on monthly expenses.', 
-            how: 'Enter your monthly expenses and choose 3-6 months coverage.', 
-            formula: 'Emergency Fund = Monthly Expenses × Months of Coverage (3-6 recommended)' 
+        content: {
+            what: 'Calculates how much you should save for emergencies based on monthly expenses.',
+            how: 'Enter your monthly expenses and choose 3-6 months coverage.',
+            formula: 'Emergency Fund = Monthly Expenses × Months of Coverage (3-6 recommended)'
         },
         faq: [
             { question: 'How many months should I save?', answer: 'Financial advisors recommend 3-6 months. Self-employed should aim for 6-12 months.' }
@@ -435,10 +463,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/finance',
         formTitle: 'Goal Details',
         resultTitle: 'Savings Plan',
-        content: { 
-            what: 'Calculates how much to save monthly to reach a financial goal.', 
-            how: 'Enter your goal amount, current savings, interest rate, and target date.', 
-            formula: 'Monthly Savings = (Goal - Current × (1+r)^n) / [((1+r)^n - 1) / r]' 
+        content: {
+            what: 'Calculates how much to save monthly to reach a financial goal.',
+            how: 'Enter your goal amount, current savings, interest rate, and target date.',
+            formula: 'Monthly Savings = (Goal - Current × (1+r)^n) / [((1+r)^n - 1) / r]'
         },
         faq: []
     },
@@ -450,10 +478,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/health',
         formTitle: 'Sleep Schedule',
         resultTitle: 'Optimal Wake/Sleep Times',
-        content: { 
-            what: 'Calculates optimal wake times based on 90-minute sleep cycles.', 
-            how: 'Enter when you need to wake up or when you plan to go to bed.', 
-            formula: 'One sleep cycle = 90 minutes. Optimal sleep = 5-6 complete cycles (7.5-9 hours).' 
+        content: {
+            what: 'Calculates optimal wake times based on 90-minute sleep cycles.',
+            how: 'Enter when you need to wake up or when you plan to go to bed.',
+            formula: 'One sleep cycle = 90 minutes. Optimal sleep = 5-6 complete cycles (7.5-9 hours).'
         },
         faq: [
             { question: 'Why 90-minute cycles?', answer: 'Sleep occurs in ~90 minute cycles through light, deep, and REM stages. Waking between cycles feels more refreshed.' }
@@ -467,10 +495,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/health',
         formTitle: 'Your Information',
         resultTitle: 'Daily Water Intake',
-        content: { 
-            what: 'Calculates recommended daily water intake based on weight and activity level.', 
-            how: 'Enter your weight and activity level.', 
-            formula: 'Base: 0.5-1 oz per pound of body weight, adjusted for activity.' 
+        content: {
+            what: 'Calculates recommended daily water intake based on weight and activity level.',
+            how: 'Enter your weight and activity level.',
+            formula: 'Base: 0.5-1 oz per pound of body weight, adjusted for activity.'
         },
         faq: []
     },
@@ -482,10 +510,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/health',
         formTitle: 'Birth Date',
         resultTitle: 'Your Age',
-        content: { 
-            what: 'Calculates your exact age and upcoming birthday.', 
-            how: 'Enter your date of birth.', 
-            formula: 'Age = Current Date - Birth Date' 
+        content: {
+            what: 'Calculates your exact age and upcoming birthday.',
+            how: 'Enter your date of birth.',
+            formula: 'Age = Current Date - Birth Date'
         },
         faq: []
     },
@@ -497,10 +525,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/loans-debt',
         formTitle: 'Vehicle Details',
         resultTitle: 'Cost Comparison',
-        content: { 
-            what: 'Compares the total cost of leasing vs buying a vehicle over time.', 
-            how: 'Enter vehicle price, down payment, interest rate, and lease terms.', 
-            formula: 'Includes depreciation, interest, fees, and opportunity cost.' 
+        content: {
+            what: 'Compares the total cost of leasing vs buying a vehicle over time.',
+            how: 'Enter vehicle price, down payment, interest rate, and lease terms.',
+            formula: 'Includes depreciation, interest, fees, and opportunity cost.'
         },
         faq: [
             { question: 'When is leasing better?', answer: 'Leasing can be better if you want lower monthly payments, always drive newer cars, and stay under mileage limits.' }
@@ -514,10 +542,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/loans-debt',
         formTitle: 'Loan Details',
         resultTitle: 'Refinance Analysis',
-        content: { 
-            what: 'Calculates potential savings from refinancing your mortgage.', 
-            how: 'Enter current loan details and new loan terms.', 
-            formula: 'Savings = Old Payment × Remaining Term - New Payment × New Term - Closing Costs' 
+        content: {
+            what: 'Calculates potential savings from refinancing your mortgage.',
+            how: 'Enter current loan details and new loan terms.',
+            formula: 'Savings = Old Payment × Remaining Term - New Payment × New Term - Closing Costs'
         },
         faq: []
     },
@@ -529,10 +557,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/other',
         formTitle: 'Your Grades',
         resultTitle: 'GPA Results',
-        content: { 
-            what: 'Calculates your GPA based on grades and credit hours.', 
-            how: 'Enter your grades and credit hours for each course.', 
-            formula: 'GPA = Σ(Grade Points × Credit Hours) / Σ(Credit Hours)' 
+        content: {
+            what: 'Calculates your GPA based on grades and credit hours.',
+            how: 'Enter your grades and credit hours for each course.',
+            formula: 'GPA = Σ(Grade Points × Credit Hours) / Σ(Credit Hours)'
         },
         faq: [
             { question: 'What is a good GPA?', answer: '3.0+ is good, 3.5+ is very good, 3.7+ is excellent for most purposes.' }
@@ -546,10 +574,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/other',
         formTitle: 'Bill Details',
         resultTitle: 'Tip & Total',
-        content: { 
-            what: 'Calculates tip amount and splits the bill among people.', 
-            how: 'Enter bill amount, tip percentage, and number of people.', 
-            formula: 'Tip = Bill × Tip%. Per Person = (Bill + Tip) / People' 
+        content: {
+            what: 'Calculates tip amount and splits the bill among people.',
+            how: 'Enter bill amount, tip percentage, and number of people.',
+            formula: 'Tip = Bill × Tip%. Per Person = (Bill + Tip) / People'
         },
         faq: []
     },
@@ -561,10 +589,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/other',
         formTitle: 'Date Information',
         resultTitle: 'Date Results',
-        content: { 
-            what: 'Calculates the difference between dates or a future/past date.', 
-            how: 'Enter two dates or a date and number of days to add/subtract.', 
-            formula: 'Days = |Date2 - Date1|' 
+        content: {
+            what: 'Calculates the difference between dates or a future/past date.',
+            how: 'Enter two dates or a date and number of days to add/subtract.',
+            formula: 'Days = |Date2 - Date1|'
         },
         faq: []
     },
@@ -576,10 +604,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/other',
         formTitle: 'Time & Zones',
         resultTitle: 'Converted Time',
-        content: { 
-            what: 'Converts time between any two time zones.', 
-            how: 'Enter the time and select source and destination time zones.', 
-            formula: 'Destination Time = Source Time + (Destination UTC Offset - Source UTC Offset)' 
+        content: {
+            what: 'Converts time between any two time zones.',
+            how: 'Enter the time and select source and destination time zones.',
+            formula: 'Destination Time = Source Time + (Destination UTC Offset - Source UTC Offset)'
         },
         faq: []
     },
@@ -591,10 +619,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/other',
         formTitle: 'Product Details',
         resultTitle: 'Price Comparison',
-        content: { 
-            what: 'Calculates and compares unit prices to find the best value.', 
-            how: 'Enter price and quantity for each item.', 
-            formula: 'Unit Price = Total Price / Quantity' 
+        content: {
+            what: 'Calculates and compares unit prices to find the best value.',
+            how: 'Enter price and quantity for each item.',
+            formula: 'Unit Price = Total Price / Quantity'
         },
         faq: []
     },
@@ -606,10 +634,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/other',
         formTitle: 'Grade Information',
         resultTitle: 'Grade Analysis',
-        content: { 
-            what: 'Calculates your current grade and what score you need on finals to reach your goal.', 
-            how: 'Enter your current grade, desired grade, and final exam weight.', 
-            formula: 'Required Score = (Desired - Current × (1 - Weight)) / Weight' 
+        content: {
+            what: 'Calculates your current grade and what score you need on finals to reach your goal.',
+            how: 'Enter your current grade, desired grade, and final exam weight.',
+            formula: 'Required Score = (Desired - Current × (1 - Weight)) / Weight'
         },
         faq: []
     },
@@ -621,10 +649,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/other',
         formTitle: 'Password Options',
         resultTitle: 'Your Password',
-        content: { 
-            what: 'Generates cryptographically secure random passwords.', 
-            how: 'Select password length and character types to include.', 
-            formula: 'Uses crypto.getRandomValues() for secure randomness.' 
+        content: {
+            what: 'Generates cryptographically secure random passwords.',
+            how: 'Select password length and character types to include.',
+            formula: 'Uses crypto.getRandomValues() for secure randomness.'
         },
         faq: [
             { question: 'How long should my password be?', answer: 'At least 12 characters. 16+ is recommended for important accounts.' },
@@ -639,10 +667,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/other',
         formTitle: 'Enter Content',
         resultTitle: 'Your QR Code',
-        content: { 
-            what: 'Creates scannable QR codes for any text or URL.', 
-            how: 'Enter the content you want to encode.', 
-            formula: 'Reed-Solomon error correction encoding.' 
+        content: {
+            what: 'Creates scannable QR codes for any text or URL.',
+            how: 'Enter the content you want to encode.',
+            formula: 'Reed-Solomon error correction encoding.'
         },
         faq: []
     },
@@ -654,10 +682,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/other',
         formTitle: 'Enter Text',
         resultTitle: 'Statistics',
-        content: { 
-            what: 'Counts words, characters, sentences, paragraphs, and estimates reading time.', 
-            how: 'Paste or type your text.', 
-            formula: 'Reading time = Words / 200 (average reading speed)' 
+        content: {
+            what: 'Counts words, characters, sentences, paragraphs, and estimates reading time.',
+            how: 'Paste or type your text.',
+            formula: 'Reading time = Words / 200 (average reading speed)'
         },
         faq: []
     },
@@ -759,8 +787,36 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/loans-debt',
         formTitle: 'Loan Details',
         resultTitle: 'Monthly Payment',
-        content: { what: 'Estimates monthly mortgage payments.', how: 'Enter loan amount, interest rate, and term.', formula: 'M = P[r(1+r)^n]/[(1+r)^n-1]' },
-        faq: []
+        content: {
+            what: 'Our Mortgage Calculator helps you estimate your monthly house payment, including principal and interest, taxes, and insurance.',
+            how: 'Enter the home price, down payment amount, loan term (years), and interest rate. You can also include estimates for property taxes and home insurance.',
+            formula: 'The basic monthly payment formula is: M = P[r(1+r)^n]/[(1+r)^n-1]'
+        },
+        faq: [
+            { question: 'What is PITI?', answer: 'PITI stands for Principal, Interest, Taxes, and Insurance—the four components of a monthly mortgage payment.' },
+            { question: 'Should I choose a 15-year or 30-year term?', answer: '30-year terms offer lower monthly payments, while 15-year terms save you a significant amount in total interest over the life of the loan.' }
+        ],
+        expandedContent: {
+            introduction: 'Buying a home is the largest financial decision most people ever make. Knowing your exact monthly commitment before you start house hunting puts you in a position of power and prevents "house fever" from overriding your budget.',
+            keyFeatures: [
+                'Principal & Interest calculation',
+                'Property Tax & Insurance estimation',
+                'Down payment impact analysis',
+                'Amortization awareness'
+            ],
+            useCases: [
+                'Determining home affordability',
+                'Comparing different loan offers',
+                'Calculating the impact of a larger down payment',
+                'Refinance analysis'
+            ],
+            detailedGuide: 'Start by entering the price of the home you are considering. Even a small 0.5% difference in interest rates can results in tens of thousands of dollars saved over 30 years, so be sure to check current market rates.',
+            expertTips: [
+                'Aim for a 20% down payment to avoid Private Mortgage Insurance (PMI).',
+                'Your total housing costs should ideally not exceed 28% of your gross monthly income.',
+                'Get pre-approved before you start looking at homes to know your real budget.'
+            ]
+        }
     },
     'auto-loan-calculator': {
         id: 'auto-loan-calculator',
@@ -794,8 +850,36 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/investment',
         formTitle: 'Investment Plan',
         resultTitle: 'Future Value',
-        content: { what: 'Calculates future value with compound interest.', how: 'Enter principal, rate, time, and contribution.', formula: 'A = P(1 + r/n)^(nt)' },
-        faq: []
+        content: {
+            what: 'Use our Compound Interest Calculator to see how your money can grow over time through the power of compounding.',
+            how: 'Enter your initial investment, the interest rate, the number of years, and any regular monthly contributions.',
+            formula: 'A = P(1 + r/n)^(nt)'
+        },
+        faq: [
+            { question: 'What is n in the formula?', answer: 'n represents the number of times that interest is compounded per unit t (usually per year).' },
+            { question: 'Why is compounding so powerful?', answer: 'Because you earn interest on your interest, creating an exponential growth curve over long periods.' }
+        ],
+        expandedContent: {
+            introduction: 'Compound interest has been called the "eighth wonder of the world" for good reason. It is the fundamental mechanism behind long-term wealth building, where your earnings start generating their own earnings.',
+            keyFeatures: [
+                'Recurring contribution support',
+                'Custom compounding frequency',
+                'Long-term growth visualization',
+                'Principal vs Interest breakdown'
+            ],
+            useCases: [
+                'Retirement planning',
+                'College fund estimation',
+                'General savings goals',
+                'Comparing investment products'
+            ],
+            detailedGuide: 'The most important variable in this calculator isn\'t the interest rate—it\'s the time. Starting even a few years earlier can lead to vastly different outcomes due to the exponential nature of compounding.',
+            expertTips: [
+                'Reinvest your dividends to maximize the compounding effect.',
+                'Consistency is key; even small monthly additions add up significantly over decades.',
+                'Understand the difference between APY and nominal interest rates.'
+            ]
+        }
     },
     '401k-calculator': {
         id: '401k-calculator',
@@ -829,8 +913,36 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/health',
         formTitle: 'Body Stats',
         resultTitle: 'Your BMI',
-        content: { what: 'Calculates Body Mass Index.', how: 'Enter height and weight.', formula: 'BMI = kg/m²' },
-        faq: []
+        content: {
+            what: 'Our BMI Calculator provides your Body Mass Index, a simple measurement using your height and weight to determine if you are in a healthy weight range.',
+            how: 'Enter your weight in pounds (lbs) or kilograms (kg) and your height in feet/inches or centimeters (cm).',
+            formula: 'BMI = kg/m² or (lb * 703) / in²'
+        },
+        faq: [
+            { question: 'What is a healthy BMI?', answer: 'For most adults, a healthy BMI is between 18.5 and 24.9.' },
+            { question: 'Are there limitations to BMI?', answer: 'Yes, BMI does not distinguish between muscle and fat. Athletes may have a "high" BMI due to muscle mass rather than body fat.' }
+        ],
+        expandedContent: {
+            introduction: 'Body Mass Index (BMI) is a widely used screening tool for weight categories that may lead to health problems. While not a direct measure of body fat, it is a convenient way to gauge if your weight is proportionate to your height.',
+            keyFeatures: [
+                'Adult and Child BMI support',
+                'Metric and Imperial unit options',
+                'Weight category classification',
+                'Instant results'
+            ],
+            useCases: [
+                'General health assessment',
+                'Tracking weight loss progress',
+                'Medical screening',
+                'Fitness goal setting'
+            ],
+            detailedGuide: 'Ensure you are standing straight when measuring height and weighing yourself ideally in the morning before eating for the most consistent results.',
+            expertTips: [
+                'Use BMI as a starting point, not a definitive diagnosis.',
+                'Combine BMI with waist circumference measurements for a better health picture.',
+                'Consult a doctor if your BMI falls into the Underweight or Obese categories.'
+            ]
+        }
     },
     'calorie-calculator': {
         id: 'calorie-calculator',
@@ -851,8 +963,36 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/health',
         formTitle: 'Last Period Date',
         resultTitle: 'Due Date',
-        content: { what: 'Estimates baby due date.', how: 'Enter the first day of your last period.', formula: 'LMP + 280 days' },
-        faq: []
+        content: {
+            what: 'Calculate your estimated due date (EDD) and track your pregnancy progress with our Pregnancy Due Date Calculator.',
+            how: 'Enter the first day of your last menstrual period (LMP) and your average cycle length.',
+            formula: 'Naegele\'s Rule: LMP + 7 days - 3 months + 1 year (approx. 280 days)'
+        },
+        faq: [
+            { question: 'How accurate is the due date?', answer: 'Only about 4-5% of babies are born exactly on their due date. It is an estimate intended to guide prenatal care.' },
+            { question: 'What if I don\'t know my LMP?', answer: 'An ultrasound performed early in the first trimester is generally considered the most accurate way to date a pregnancy.' }
+        ],
+        expandedContent: {
+            introduction: 'The moment you find out you\'re pregnant, the first question is always "When will the baby arrive?" Our calculator helps you estimate that special date so you can begin planning your journey into parenthood.',
+            keyFeatures: [
+                'Due date estimation',
+                'Conception date calculation',
+                'Pregnancy milestone tracking',
+                'Cycle length adjustments'
+            ],
+            useCases: [
+                'Predicting baby\'s arrival',
+                'Planning maternity leave',
+                'Scheduling prenatal appointments',
+                'Understanding fetal development stages'
+            ],
+            detailedGuide: 'Most healthcare providers use the last menstrual period (LMP) to date pregnancy, as many women don\'t know the exact date of conception.',
+            expertTips: [
+                'Start taking prenatal vitamins with folic acid as soon as possible.',
+                'Keep a record of your symptoms to share with your OB/GYN or midwife.',
+                'Remember that a full-term pregnancy is considered anywhere between 37 and 42 weeks.'
+            ]
+        }
     },
     'tdee-calculator': {
         id: 'tdee-calculator',
@@ -1053,10 +1193,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
         categoryLink: '/category/geometry',
         formTitle: 'Project Dimensions',
         resultTitle: 'Concrete Needed',
-        content: { 
-            what: 'Calculates the amount of concrete needed for slabs, footings, or other projects.', 
-            how: 'Enter length, width, and depth in feet.', 
-            formula: 'Volume (cu ft) = L × W × D; Bags = Volume / 0.45 (80lb bag coverage)' 
+        content: {
+            what: 'Calculates the amount of concrete needed for slabs, footings, or other projects.',
+            how: 'Enter length, width, and depth in feet.',
+            formula: 'Volume (cu ft) = L × W × D; Bags = Volume / 0.45 (80lb bag coverage)'
         },
         faq: [
             { question: 'How much does one bag of concrete cover?', answer: 'An 80-pound bag of concrete mix yields approximately 0.6 cubic feet when mixed.' }
