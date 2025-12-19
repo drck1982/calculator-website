@@ -47,37 +47,6 @@ export const AllTools: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
     const allTools = useMemo(() => getAllTools(), []);
-    const categories = useMemo(() => Object.keys(toolsByCategory), []);
-
-    const filteredTools = useMemo(() => {
-        let tools = allTools;
-
-        // Filter by category
-        if (selectedCategory !== 'all') {
-            tools = toolsByCategory[selectedCategory]?.tools || [];
-        }
-
-        // Filter by search query
-        if (searchQuery.trim()) {
-            const query = searchQuery.toLowerCase();
-            tools = tools.filter(tool =>
-                tool.name.toLowerCase().includes(query) ||
-                tool.description.toLowerCase().includes(query) ||
-                tool.tags.some(tag => tag.toLowerCase().includes(query))
-            );
-        }
-
-        return tools;
-    }, [allTools, selectedCategory, searchQuery]);
-
-    // Translate tools (name, description, tags) on each render
-    const translatedTools = filteredTools.map((tool) => ({
-        ...tool,
-        translatedName: getToolName(tool.id, tool.name),
-        translatedDesc: getToolDesc(tool.id, tool.description),
-        translatedTags: tool.tags.map(getTagName),
-    }));
-
     const getCategoryTitle = (categoryId: string) => {
         const key = categoryKeyMap[categoryId];
         if (key) {
@@ -152,6 +121,37 @@ export const AllTools: React.FC = () => {
         // 3) Fallback original
         return tag;
     };
+
+    const categories = useMemo(() => Object.keys(toolsByCategory), []);
+
+    const filteredTools = useMemo(() => {
+        let tools = allTools;
+
+        // Filter by category
+        if (selectedCategory !== 'all') {
+            tools = toolsByCategory[selectedCategory]?.tools || [];
+        }
+
+        // Filter by search query
+        if (searchQuery.trim()) {
+            const query = searchQuery.toLowerCase();
+            tools = tools.filter(tool =>
+                tool.name.toLowerCase().includes(query) ||
+                tool.description.toLowerCase().includes(query) ||
+                tool.tags.some(tag => tag.toLowerCase().includes(query))
+            );
+        }
+
+        return tools;
+    }, [allTools, selectedCategory, searchQuery]);
+
+    // Translate tools (name, description, tags) on each render
+    const translatedTools = filteredTools.map((tool) => ({
+        ...tool,
+        translatedName: getToolName(tool.id, tool.name),
+        translatedDesc: getToolDesc(tool.id, tool.description),
+        translatedTags: tool.tags.map(getTagName),
+    }));
 
     return (
         <div className="bg-gray-50 min-h-screen">
@@ -293,8 +293,8 @@ export const AllTools: React.FC = () => {
                                     window.scrollTo({ top: 0, behavior: 'smooth' });
                                 }}
                                 className={`p-4 rounded-xl border text-left transition-all ${selectedCategory === cat
-                                        ? 'bg-blue-50 border-blue-200 text-blue-700'
-                                        : 'bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50'
+                                    ? 'bg-blue-50 border-blue-200 text-blue-700'
+                                    : 'bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50'
                                     }`}
                             >
                                 <div className="font-medium text-sm truncate">
