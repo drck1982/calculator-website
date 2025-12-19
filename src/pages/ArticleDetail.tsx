@@ -3,7 +3,7 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import { SEO } from '../components/common/SEO';
 import { Breadcrumbs } from '../components/common/Breadcrumbs';
 import { articles } from '../data/articles';
-import { ArrowLeft, User, Calendar, Clock, Share2 } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Share2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 export const ArticleDetail: React.FC = () => {
@@ -22,58 +22,72 @@ export const ArticleDetail: React.FC = () => {
                 canonicalUrl={`/blog/${article.slug}`}
             />
 
-            <div className="container mx-auto px-4 py-8">
+            <div className="container mx-auto px-4 py-12">
                 <Breadcrumbs items={[
                     { label: 'Blog', href: '/blog' },
                     { label: article.category }
                 ]} />
 
-                <div className="max-w-4xl mx-auto mt-8">
-                    <Link to="/blog" className="inline-flex items-center text-sm text-gray-500 hover:text-blue-600 mb-8 transition-colors">
-                        <ArrowLeft className="w-4 h-4 mr-1" /> Back to Learning Center
+                <div className="max-w-3xl mx-auto mt-12">
+                    <Link to="/blog" className="inline-flex items-center text-sm font-bold text-blue-600 hover:text-blue-800 mb-10 transition-all group">
+                        <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" /> Back to Learning Center
                     </Link>
 
-                    <div className="mb-8">
-                        <span className="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    <header className="mb-12">
+                        <div className="inline-block bg-blue-600/10 text-blue-600 text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6">
                             {article.category}
-                        </span>
-                        <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mt-4 mb-6 leading-tight">
+                        </div>
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-8 leading-[1.1] tracking-tight">
                             {article.title}
                         </h1>
-                        <div className="flex flex-wrap items-center text-sm text-gray-500 gap-6 border-y border-gray-100 py-4">
-                            <div className="flex items-center">
-                                <User className="w-4 h-4 mr-2 text-blue-600" />
-                                <span className="font-medium text-gray-700">{article.author}</span>
+                        <div className="flex flex-wrap items-center text-sm text-gray-400 gap-y-4 gap-x-8 pb-10 border-b border-gray-100">
+                            <div className="flex items-center group">
+                                <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold mr-3 shadow-md group-hover:scale-110 transition-transform">
+                                    {article.author.charAt(0)}
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-0.5">Written by</p>
+                                    <p className="font-bold text-gray-900 leading-tight">{article.author}</p>
+                                </div>
                             </div>
-                            <div className="flex items-center">
-                                <Calendar className="w-4 h-4 mr-2" /> {article.date}
+                            <div className="flex flex-col">
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-0.5 whitespace-nowrap">Published on</p>
+                                <p className="font-bold text-gray-700 leading-tight flex items-center"><Calendar className="w-3.5 h-3.5 mr-1.5 text-blue-500" /> {article.date}</p>
                             </div>
-                            <div className="flex items-center">
-                                <Clock className="w-4 h-4 mr-2" /> {article.readingTime} read
+                            <div className="flex flex-col">
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-0.5 whitespace-nowrap">Reading time</p>
+                                <p className="font-bold text-gray-700 leading-tight flex items-center"><Clock className="w-3.5 h-3.5 mr-1.5 text-blue-500" /> {article.readingTime}</p>
                             </div>
-                            <button className="flex items-center ml-auto text-blue-600 hover:text-blue-800 transition-colors">
-                                <Share2 className="w-4 h-4 mr-1" /> Share
+                            <button className="flex items-center ml-auto bg-gray-50 hover:bg-blue-50 text-gray-900 hover:text-blue-600 font-bold py-2 px-5 rounded-xl transition-all border border-gray-100 shadow-sm whitespace-nowrap">
+                                <Share2 className="w-4 h-4 mr-2" /> Share
                             </button>
                         </div>
-                    </div>
+                    </header>
 
-                    <div className="relative h-64 md:h-[450px] w-full mb-12 rounded-3xl overflow-hidden shadow-xl">
+                    <div className="relative aspect-video w-full mb-16 rounded-[2.5rem] overflow-hidden shadow-2xl">
                         <img
                             src={article.image}
                             alt={article.title}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
                         />
                     </div>
 
-                    <div className="prose prose-blue prose-lg max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-li:text-gray-700">
+                    <article className="prose prose-blue prose-xl max-w-none 
+                        prose-headings:font-heading prose-headings:font-extrabold prose-headings:text-gray-900 prose-headings:tracking-tight
+                        prose-p:text-gray-600 prose-p:leading-relaxed prose-p:text-lg
+                        prose-strong:text-gray-900 prose-strong:font-bold
+                        prose-li:text-gray-600 prose-li:text-lg
+                        prose-img:rounded-3xl prose-img:shadow-lg
+                        prose-blockquote:border-l-4 prose-blockquote:border-blue-600 prose-blockquote:bg-blue-50/50 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-blue-900 prose-blockquote:not-italic
+                        ">
                         <ReactMarkdown>{article.content}</ReactMarkdown>
-                    </div>
+                    </article>
 
-                    <div className="mt-16 pt-8 border-t border-gray-100">
-                        <h3 className="text-xl font-bold text-gray-900 mb-6 font-primary">Tags</h3>
-                        <div className="flex flex-wrap gap-2">
+                    <div className="mt-20 pt-10 border-t border-gray-100">
+                        <h3 className="text-xl font-bold text-gray-900 mb-6 font-heading">Topics Covered</h3>
+                        <div className="flex flex-wrap gap-3">
                             {article.tags.map(tag => (
-                                <span key={tag} className="bg-gray-100 text-gray-600 px-3 py-1 rounded-lg text-sm font-medium">
+                                <span key={tag} className="bg-gray-50 text-gray-500 hover:bg-blue-50 hover:text-blue-600 px-5 py-2 rounded-xl text-sm font-bold transition-all border border-gray-100 cursor-default">
                                     #{tag}
                                 </span>
                             ))}

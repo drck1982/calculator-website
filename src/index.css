@@ -1,24 +1,42 @@
 @import "tailwindcss";
 
 @layer base {
+  :root {
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-heading: 'Outfit', sans-serif;
+  }
+
   body {
     @apply text-gray-900 bg-gray-50 antialiased;
+    font-family: var(--font-sans);
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold tracking-tight text-gray-900;
+    font-family: var(--font-heading);
   }
 
   h1 {
-    @apply text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl;
+    @apply text-3xl sm:text-4xl lg:text-5xl;
   }
 
   h2 {
-    @apply text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl;
+    @apply text-2xl sm:text-3xl;
   }
 
   h3 {
-    @apply text-xl font-semibold tracking-tight text-gray-900;
+    @apply text-xl;
   }
 }
 
 @layer utilities {
+
   /* Animation classes */
   .animate-fade-in-up {
     animation: fadeInUp 0.5s ease-out forwards;
@@ -29,6 +47,7 @@
       opacity: 0;
       transform: translateY(10px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
