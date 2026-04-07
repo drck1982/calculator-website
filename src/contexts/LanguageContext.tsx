@@ -37,11 +37,17 @@ const initialTranslations: Record<string, Record<string, string>> = { en };
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
     const [language, setLanguageState] = useState<Language>(() => {
         if (typeof window === 'undefined') return 'en';
+        const supportedLanguages: Language[] = ['en', 'zh', 'es', 'ja', 'fr'];
+
+        const urlLang = new URLSearchParams(window.location.search).get('lang') as Language | null;
+        if (urlLang && supportedLanguages.includes(urlLang)) {
+            return urlLang;
+        }
+
         const saved = localStorage.getItem('language') as Language;
         if (saved) return saved;
 
         const browserLang = navigator.language.split('-')[0];
-        const supportedLanguages: Language[] = ['en', 'zh', 'es', 'ja', 'fr'];
         if (supportedLanguages.includes(browserLang as Language)) {
             return browserLang as Language;
         }
@@ -55,6 +61,16 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         setLanguageState(lang);
         localStorage.setItem('language', lang);
         document.documentElement.lang = lang;
+
+        if (typeof window !== 'undefined') {
+            const url = new URL(window.location.href);
+            if (lang === 'en') {
+                url.searchParams.delete('lang');
+            } else {
+                url.searchParams.set('lang', lang);
+            }
+            window.history.replaceState({}, '', url.toString());
+        }
     };
 
     // Load translations dynamically

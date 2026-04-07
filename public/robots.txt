@@ -9,6 +9,7 @@ Disallow: /assets/
 Disallow: /icon-demo
 
 # Sitemap location
+Sitemap: https://calculator-website-puce.vercel.app/sitemap-index.xml
 Sitemap: https://calculator-website-puce.vercel.app/sitemap.xml
 
 # Crawl-delay for politeness (optional)

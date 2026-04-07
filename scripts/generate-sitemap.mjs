@@ -5,7 +5,7 @@ const SITE_URL = 'https://calculator-website-puce.vercel.app';
 const root = process.cwd();
 const toolsPath = path.join(root, 'src', 'data', 'tools.ts');
 const articlesPath = path.join(root, 'src', 'data', 'articles.ts');
-const outputPath = path.join(root, 'public', 'sitemap.xml');
+const publicDir = path.join(root, 'public');
 
 const toUrl = (route) => `${SITE_URL}${route}`;
 const today = new Date().toISOString().slice(0, 10);
@@ -36,8 +36,6 @@ const categoryLinks = [
 
 const staticRoutes = ['/', '/all-tools', '/blog', '/about', '/contact', '/privacy', '/terms'];
 
-const allRoutes = [...new Set([...staticRoutes, ...categoryLinks, ...toolLinks, ...articleLinks])];
-
 const escapeXml = (value) =>
   value
     .replaceAll('&', '&amp;')
@@ -53,13 +51,51 @@ const toEntry = (route) => {
   return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
 };
 
-const xml = [
-  '<?xml version="1.0" encoding="UTF-8"?>',
-  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-  ...allRoutes.map(toEntry),
-  '</urlset>',
-  '',
-].join('\n');
+const writeUrlset = (fileName, routes) => {
+  const outputPath = path.join(publicDir, fileName);
+  const xml = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...routes.map(toEntry),
+    '</urlset>',
+    '',
+  ].join('\n');
+  fs.writeFileSync(outputPath, xml, 'utf8');
+  return outputPath;
+};
 
-fs.writeFileSync(outputPath, xml, 'utf8');
-console.log(`Generated sitemap with ${allRoutes.length} URLs -> ${outputPath}`);
+const writeSitemapIndex = (fileName, sitemapFiles) => {
+  const outputPath = path.join(publicDir, fileName);
+  const xml = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...sitemapFiles.map(
+      (sitemapFile) =>
+        `  <sitemap>\n    <loc>${SITE_URL}/${sitemapFile}</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>`
+    ),
+    '</sitemapindex>',
+    '',
+  ].join('\n');
+  fs.writeFileSync(outputPath, xml, 'utf8');
+  return outputPath;
+};
+
+const groupedSitemaps = [
+  { file: 'sitemap-pages.xml', routes: staticRoutes },
+  { file: 'sitemap-categories.xml', routes: categoryLinks },
+  { file: 'sitemap-tools.xml', routes: [...new Set(toolLinks)] },
+  { file: 'sitemap-blog.xml', routes: articleLinks },
+];
+
+for (const sitemap of groupedSitemaps) {
+  writeUrlset(sitemap.file, sitemap.routes);
+}
+
+const sitemapFiles = groupedSitemaps.map((item) => item.file);
+const indexPath = writeSitemapIndex('sitemap-index.xml', sitemapFiles);
+const legacyIndexPath = writeSitemapIndex('sitemap.xml', sitemapFiles);
+
+const totalUrls = groupedSitemaps.reduce((sum, sitemap) => sum + sitemap.routes.length, 0);
+console.log(
+  `Generated ${sitemapFiles.length} grouped sitemaps (${totalUrls} URLs) -> ${indexPath}; mirrored index -> ${legacyIndexPath}`
+);

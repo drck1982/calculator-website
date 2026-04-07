@@ -19,6 +19,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 const SITE_NAME = 'WorkMoney Tools';
 const SITE_URL = 'https://calculator-website-puce.vercel.app';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.svg`;
+const SUPPORTED_LANGUAGES = ['en', 'zh', 'es', 'ja', 'fr'] as const;
 
 export const SEO: React.FC<SEOProps> = ({
     title,
@@ -37,6 +38,12 @@ export const SEO: React.FC<SEOProps> = ({
     const fullTitle = `${title} | ${SITE_NAME}`;
     const fullCanonicalUrl = canonicalUrl ? `${SITE_URL}${canonicalUrl}` : undefined;
     const fullImage = image.startsWith('http') ? image : `${SITE_URL}${image}`;
+    const alternateUrls = fullCanonicalUrl
+        ? SUPPORTED_LANGUAGES.map((lang) => ({
+            lang,
+            href: lang === 'en' ? fullCanonicalUrl : `${fullCanonicalUrl}?lang=${lang}`
+        }))
+        : [];
 
     // Map language code to locale
     const getLocale = (lang: string) => {
@@ -64,6 +71,10 @@ export const SEO: React.FC<SEOProps> = ({
 
             {/* Canonical URL */}
             {fullCanonicalUrl && <link rel="canonical" href={fullCanonicalUrl} />}
+            {fullCanonicalUrl && <link rel="alternate" hrefLang="x-default" href={fullCanonicalUrl} />}
+            {alternateUrls.map((alt) => (
+                <link key={alt.lang} rel="alternate" hrefLang={alt.lang} href={alt.href} />
+            ))}
 
             {/* Open Graph / Facebook */}
             <meta property="og:type" content={type} />
@@ -76,6 +87,11 @@ export const SEO: React.FC<SEOProps> = ({
             <meta property="og:image:alt" content={title} />
             {fullCanonicalUrl && <meta property="og:url" content={fullCanonicalUrl} />}
             <meta property="og:locale" content={getLocale(language)} />
+            {SUPPORTED_LANGUAGES
+                .filter((lang) => lang !== language)
+                .map((lang) => (
+                    <meta key={lang} property="og:locale:alternate" content={getLocale(lang)} />
+                ))}
 
             {/* Article specific */}
             {type === 'article' && publishedTime && (
