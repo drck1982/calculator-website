@@ -17,6 +17,7 @@ import {
     Baby,
     Calendar,
     Printer,
+    Share2,
     Check,
     Info,
     Lightbulb,
@@ -142,6 +143,7 @@ export const CalculatorDetail: React.FC = () => {
     const [results, setResults] = useState<{ label: string; value: string | number; isTotal?: boolean }[]>([]);
     const [isCalculating, setIsCalculating] = useState(false);
     const [genderInput, setGenderInput] = useState<string>('male');
+    const [shareStatus, setShareStatus] = useState<string>('');
 
     // Reset inputs when tool changes
     useEffect(() => {
@@ -175,6 +177,31 @@ export const CalculatorDetail: React.FC = () => {
             setInput2('');
             setInput3('');
         }
+    }, [id]);
+
+    // Restore shared values from URL query parameters
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const params = new URLSearchParams(window.location.search);
+        const qInput1 = params.get('i1');
+        const qInput2 = params.get('i2');
+        const qInput3 = params.get('i3');
+        const qAmount = params.get('amt');
+        const qFrom = params.get('from');
+        const qTo = params.get('to');
+        const qState = params.get('state');
+        const qSalary = params.get('salary');
+        const qGender = params.get('gender');
+
+        if (qInput1 !== null) setInput1(qInput1);
+        if (qInput2 !== null) setInput2(qInput2);
+        if (qInput3 !== null) setInput3(qInput3);
+        if (qAmount !== null && !Number.isNaN(Number(qAmount))) setAmount(Number(qAmount));
+        if (qFrom) setFromUnit(qFrom);
+        if (qTo) setToUnit(qTo);
+        if (qState) setSelectedState(qState);
+        if (qSalary !== null && !Number.isNaN(Number(qSalary))) setSalaryInput(Number(qSalary));
+        if (qGender) setGenderInput(qGender);
     }, [id]);
 
     // Update results when tool or language changes
@@ -357,6 +384,37 @@ export const CalculatorDetail: React.FC = () => {
                 }, 100);
             }
         }, 600);
+    };
+
+    const buildShareUrl = () => {
+        if (typeof window === 'undefined') return '';
+        const url = new URL(window.location.href);
+        const params = new URLSearchParams();
+
+        if (input1 !== '' && input1 !== null && input1 !== undefined) params.set('i1', String(input1));
+        if (input2 !== '' && input2 !== null && input2 !== undefined) params.set('i2', String(input2));
+        if (input3 !== '' && input3 !== null && input3 !== undefined) params.set('i3', String(input3));
+        if (!Number.isNaN(amount)) params.set('amt', String(amount));
+        if (fromUnit) params.set('from', fromUnit);
+        if (toUnit) params.set('to', toUnit);
+        if (selectedState) params.set('state', selectedState);
+        if (!Number.isNaN(salaryInput)) params.set('salary', String(salaryInput));
+        if (genderInput) params.set('gender', genderInput);
+
+        url.search = params.toString();
+        return url.toString();
+    };
+
+    const handleCopyShareLink = async () => {
+        try {
+            const shareUrl = buildShareUrl();
+            await navigator.clipboard.writeText(shareUrl);
+            setShareStatus('Link copied');
+            setTimeout(() => setShareStatus(''), 1600);
+        } catch {
+            setShareStatus('Copy failed');
+            setTimeout(() => setShareStatus(''), 1600);
+        }
     };
 
 
@@ -1331,7 +1389,13 @@ export const CalculatorDetail: React.FC = () => {
                     <div id="results-panel" className="order-2 lg:order-3 lg:col-span-1 lg:sticky lg:top-4 lg:self-start">
                         <div className={`transition-opacity duration-200 ${isCalculating ? 'opacity-50' : 'opacity-100'}`}>
                             <ResultPanel title={config.resultTitle} results={results} />
-                            <div className="mt-4 flex justify-end">
+                            <div className="mt-4 flex items-center justify-end gap-4">
+                                <button
+                                    onClick={handleCopyShareLink}
+                                    className="flex items-center text-sm text-gray-500 hover:text-blue-600 transition-colors"
+                                >
+                                    <Share2 className="w-4 h-4 mr-1" /> Share Link
+                                </button>
                                 <button
                                     onClick={() => window.print()}
                                     className="flex items-center text-sm text-gray-500 hover:text-blue-600 transition-colors"
@@ -1339,6 +1403,9 @@ export const CalculatorDetail: React.FC = () => {
                                     <Printer className="w-4 h-4 mr-1" /> {t('calc.printResults')}
                                 </button>
                             </div>
+                            {shareStatus && (
+                                <p className="mt-2 text-right text-xs text-green-600">{shareStatus}</p>
+                            )}
                         </div>
 
                         <div className="mt-8 bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
@@ -1435,6 +1502,16 @@ export const CalculatorDetail: React.FC = () => {
                         <ContentSection id="formula" title={t('calc.formulaMethodology')}>
                             {config.content.formula}
                         </ContentSection>
+
+                        <div className="mb-12 rounded-2xl border border-gray-200 bg-gray-50 p-6">
+                            <h3 className="text-lg font-bold text-gray-900 mb-3">Methodology & Data Sources</h3>
+                            <ul className="text-sm text-gray-700 space-y-2">
+                                <li>Calculation logic follows established public formulas for {config.category.toLowerCase()} scenarios.</li>
+                                <li>Outputs are estimates and may vary by provider, jurisdiction, and rounding standards.</li>
+                                <li>Data source baseline: internal calculator configuration plus public reference formulas.</li>
+                                <li>Last updated: {new Date().toISOString().slice(0, 10)}</li>
+                            </ul>
+                        </div>
 
                         <AdSlot id="in-content-2" />
 
