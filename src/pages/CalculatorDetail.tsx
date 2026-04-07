@@ -7,17 +7,16 @@ import { ContentSection } from '../components/calculator/ContentSection';
 import { FAQSection } from '../components/calculator/FAQSection';
 import { AdSlot } from '../components/common/AdSlot';
 import { RelatedCategories } from '../components/category/RelatedCategories';
-import { toolConfigs } from '../data/tools';
+import { toolConfigs, toolsByCategory } from '../data/tools';
 import { toolTranslationKeys } from '../data/translationKeys';
 import { US_STATES } from '../data/us_states';
 import { SEO } from '../components/common/SEO';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
     Calculator as CalcIcon,
-    Baby,
-    Calendar,
     Printer,
     Share2,
+    Copy,
     Check,
     Info,
     Lightbulb,
@@ -56,6 +55,10 @@ export const CalculatorDetail: React.FC = () => {
         title: (translatedName && translatedName !== translationKey?.nameKey) ? translatedName : rawConfig.title,
         description: (translatedDesc && translatedDesc !== translationKey?.descKey) ? translatedDesc : rawConfig.description
     };
+    const currentCategoryId = config.categoryLink.replace('/category/', '');
+    const recommendedTools = (toolsByCategory[currentCategoryId]?.tools || [])
+        .filter((tool) => tool.id !== id)
+        .slice(0, 3);
 
     // Pilot: Paycheck Calculator Specific Translations
     if (id === 'paycheck-calculator') {
@@ -425,6 +428,22 @@ export const CalculatorDetail: React.FC = () => {
             const shareUrl = buildShareUrl();
             await navigator.clipboard.writeText(shareUrl);
             setShareStatus('Link copied');
+            setTimeout(() => setShareStatus(''), 1600);
+        } catch {
+            setShareStatus('Copy failed');
+            setTimeout(() => setShareStatus(''), 1600);
+        }
+    };
+
+    const handleCopyResults = async () => {
+        try {
+            const rows = results
+                .filter((row) => String(row.value).trim() !== '-')
+                .map((row) => `${row.label}: ${row.value}`)
+                .join('\n');
+            const payload = rows || `${config.resultTitle}: No calculated values yet.`;
+            await navigator.clipboard.writeText(payload);
+            setShareStatus('Results copied');
             setTimeout(() => setShareStatus(''), 1600);
         } catch {
             setShareStatus('Copy failed');
@@ -1415,6 +1434,12 @@ export const CalculatorDetail: React.FC = () => {
                             <ResultPanel title={config.resultTitle} results={results} />
                             <div className="mt-4 flex items-center justify-end gap-4">
                                 <button
+                                    onClick={handleCopyResults}
+                                    className="flex items-center text-sm text-gray-500 hover:text-blue-600 transition-colors"
+                                >
+                                    <Copy className="w-4 h-4 mr-1" /> Copy Results
+                                </button>
+                                <button
                                     onClick={handleCopyShareLink}
                                     className="flex items-center text-sm text-gray-500 hover:text-blue-600 transition-colors"
                                 >
@@ -1435,19 +1460,24 @@ export const CalculatorDetail: React.FC = () => {
                         <div className="mt-8 bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
                             <h3 className="font-bold text-gray-900 mb-4 flex items-center">
                                 <CalcIcon className="w-5 h-5 mr-2 text-blue-600" />
-                                {t('calc.popularCalculators')}
+                                Related Calculators
                             </h3>
                             <ul className="space-y-3">
-                                <li>
-                                    <Link to="/tools/pregnancy-calculator" className="flex items-center text-gray-600 hover:text-blue-600">
-                                        <Baby className="w-4 h-4 mr-2 text-pink-400" /> {t('calc.pregnancyCalculator')}
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/tools/date-calculator" className="flex items-center text-gray-600 hover:text-blue-600">
-                                        <Calendar className="w-4 h-4 mr-2 text-blue-400" /> {t('calc.dateCalculator')}
-                                    </Link>
-                                </li>
+                                {recommendedTools.length > 0 ? (
+                                    recommendedTools.map((tool) => {
+                                        const keyPair = toolTranslationKeys[tool.id];
+                                        const translatedToolName = keyPair ? t(keyPair.nameKey) : tool.name;
+                                        return (
+                                            <li key={tool.id}>
+                                                <Link to={tool.link} className="flex items-center text-gray-600 hover:text-blue-600">
+                                                    <CalcIcon className="w-4 h-4 mr-2 text-blue-400" /> {translatedToolName}
+                                                </Link>
+                                            </li>
+                                        );
+                                    })
+                                ) : (
+                                    <li className="text-sm text-gray-500">Explore more tools in this category.</li>
+                                )}
                             </ul>
                         </div>
 
