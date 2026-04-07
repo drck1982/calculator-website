@@ -144,6 +144,8 @@ export const CalculatorDetail: React.FC = () => {
     const [isCalculating, setIsCalculating] = useState(false);
     const [genderInput, setGenderInput] = useState<string>('male');
     const [shareStatus, setShareStatus] = useState<string>('');
+    const [isMobile, setIsMobile] = useState(false);
+    const [mobileStep, setMobileStep] = useState<1 | 2 | 3>(1);
 
     // Reset inputs when tool changes
     useEffect(() => {
@@ -211,6 +213,18 @@ export const CalculatorDetail: React.FC = () => {
             { label: t('calc.total'), value: '-', isTotal: true },
         ]);
     }, [id, t]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const handleResize = () => setIsMobile(window.innerWidth < 1024);
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+        setMobileStep(1);
+    }, [id]);
 
     const handleCalculate = () => {
         setIsCalculating(true);
@@ -376,6 +390,7 @@ export const CalculatorDetail: React.FC = () => {
             setIsCalculating(false);
 
             if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+                setMobileStep(2);
                 setTimeout(() => {
                     const resultsPanel = document.getElementById('results-panel');
                     if (resultsPanel) {
@@ -1363,6 +1378,15 @@ export const CalculatorDetail: React.FC = () => {
             />
 
             <div className="container mx-auto px-4 py-8">
+                {isMobile && (
+                    <div className="mb-6 rounded-xl border border-blue-100 bg-blue-50 p-3">
+                        <div className="flex items-center justify-between text-xs font-semibold text-blue-700">
+                            <span className={mobileStep === 1 ? 'text-blue-900' : ''}>Step 1: Inputs</span>
+                            <span className={mobileStep === 2 ? 'text-blue-900' : ''}>Step 2: Results</span>
+                            <span className={mobileStep === 3 ? 'text-blue-900' : ''}>Step 3: Details</span>
+                        </div>
+                    </div>
+                )}
                 <Breadcrumbs items={[
                     { label: t('nav.categories'), href: '/all-tools' },
                     { label: config.category },
@@ -1379,14 +1403,14 @@ export const CalculatorDetail: React.FC = () => {
 
                 <div className="flex flex-col lg:grid lg:grid-cols-3 gap-8 mb-16">
                     {/* Form - Always first (order-1) */}
-                    <div className="order-1 lg:col-span-2">
-                        <CalculatorForm title={config.formTitle} onCalculate={handleCalculate}>
+                    <div className={`order-1 lg:col-span-2 ${isMobile && mobileStep !== 1 ? 'hidden' : ''}`}>
+                        <CalculatorForm title={config.formTitle} onCalculate={handleCalculate} showAction={!isMobile}>
                             {renderForm()}
                         </CalculatorForm>
                     </div>
 
                     {/* Results - Second on mobile, third on desktop (order-2 lg:order-3) */}
-                    <div id="results-panel" className="order-2 lg:order-3 lg:col-span-1 lg:sticky lg:top-4 lg:self-start">
+                    <div id="results-panel" className={`order-2 lg:order-3 lg:col-span-1 lg:sticky lg:top-4 lg:self-start ${isMobile && mobileStep !== 2 ? 'hidden' : ''}`}>
                         <div className={`transition-opacity duration-200 ${isCalculating ? 'opacity-50' : 'opacity-100'}`}>
                             <ResultPanel title={config.resultTitle} results={results} />
                             <div className="mt-4 flex items-center justify-end gap-4">
@@ -1431,7 +1455,7 @@ export const CalculatorDetail: React.FC = () => {
                     </div>
 
                     {/* Content sections - Third on mobile, second on desktop (order-3 lg:order-2) */}
-                    <div className="order-3 lg:order-2 lg:col-span-2 mt-8 lg:mt-0">
+                    <div className={`order-3 lg:order-2 lg:col-span-2 mt-8 lg:mt-0 ${isMobile && mobileStep !== 3 ? 'hidden' : ''}`}>
                         <ContentSection id="what-it-does" title={t('calc.whatItDoes')}>
                             {config.content.what}
                             {config.expandedContent && (
@@ -1547,6 +1571,42 @@ export const CalculatorDetail: React.FC = () => {
 
                 <RelatedCategories currentCategory={config.category} />
             </div>
+            {isMobile && (
+                <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-gray-200 bg-white/95 backdrop-blur p-3">
+                    {mobileStep === 1 && (
+                        <button
+                            onClick={handleCalculate}
+                            className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors shadow-md"
+                        >
+                            {t('calc.calculate')}
+                        </button>
+                    )}
+                    {mobileStep === 2 && (
+                        <div className="grid grid-cols-2 gap-3">
+                            <button
+                                onClick={() => setMobileStep(1)}
+                                className="py-2.5 px-3 rounded-lg border border-gray-300 text-gray-700 font-semibold"
+                            >
+                                Edit Inputs
+                            </button>
+                            <button
+                                onClick={() => setMobileStep(3)}
+                                className="py-2.5 px-3 rounded-lg bg-blue-600 text-white font-semibold"
+                            >
+                                View Details
+                            </button>
+                        </div>
+                    )}
+                    {mobileStep === 3 && (
+                        <button
+                            onClick={() => setMobileStep(2)}
+                            className="w-full py-2.5 px-3 rounded-lg border border-gray-300 text-gray-700 font-semibold"
+                        >
+                            Back to Results
+                        </button>
+                    )}
+                </div>
+            )}
         </div>
     );
 };

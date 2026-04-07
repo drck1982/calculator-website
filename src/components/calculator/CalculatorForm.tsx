@@ -5,9 +5,10 @@ interface CalculatorFormProps {
     title: string;
     children: React.ReactNode;
     onCalculate: () => void;
+    showAction?: boolean;
 }
 
-export const CalculatorForm: React.FC<CalculatorFormProps> = ({ title, children, onCalculate }) => {
+export const CalculatorForm: React.FC<CalculatorFormProps> = ({ title, children, onCalculate, showAction = true }) => {
     const { t } = useLanguage();
     
     return (
@@ -15,12 +16,14 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({ title, children,
             <h2 className="text-xl font-bold text-gray-900 mb-6">{title}</h2>
             <div className="space-y-6">
                 {children}
-                <button
-                    onClick={onCalculate}
-                    className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors shadow-md hover:shadow-lg transform active:scale-[0.98]"
-                >
-                    {t('calc.calculate')}
-                </button>
+                {showAction && (
+                    <button
+                        onClick={onCalculate}
+                        className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors shadow-md hover:shadow-lg transform active:scale-[0.98]"
+                    >
+                        {t('calc.calculate')}
+                    </button>
+                )}
             </div>
         </div>
     );
