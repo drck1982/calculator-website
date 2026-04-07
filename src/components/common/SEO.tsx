@@ -11,6 +11,7 @@ interface SEOProps {
     noindex?: boolean;
     publishedTime?: string;
     modifiedTime?: string;
+    structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -28,7 +29,8 @@ export const SEO: React.FC<SEOProps> = ({
     image = DEFAULT_IMAGE,
     noindex = false,
     publishedTime,
-    modifiedTime
+    modifiedTime,
+    structuredData
 }) => {
     const { language } = useLanguage();
 
@@ -97,6 +99,13 @@ export const SEO: React.FC<SEOProps> = ({
             <meta name="language" content={language} />
             <meta name="revisit-after" content="7 days" />
             <meta name="rating" content="general" />
+
+            {/* Structured data for richer search snippets */}
+            {structuredData && (
+                <script type="application/ld+json">
+                    {JSON.stringify(structuredData)}
+                </script>
+            )}
         </Helmet>
     );
 };

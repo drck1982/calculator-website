@@ -6,96 +6,96 @@ import { useLanguage } from '../../contexts/LanguageContext';
 // Ordered by search volume (highest first)
 const popularTools = [
     {
-        nameKey: 'popular.paycheck',
-        descKey: 'popular.paycheck.desc',
+        nameKey: 'tool.paycheckCalculator',
+        descKey: 'tool.paycheckCalculator.desc',
         categoryKey: 'popular.cat.salary',
         icon: DollarSign,
         color: 'text-green-600 bg-green-50',
         link: '/tools/paycheck-calculator'
     },
     {
-        nameKey: 'popular.mortgage',
-        descKey: 'popular.mortgage.desc',
+        nameKey: 'tool.mortgageCalculator',
+        descKey: 'tool.mortgageCalculator.desc',
         categoryKey: 'popular.cat.loans',
         icon: Home,
         color: 'text-indigo-600 bg-indigo-50',
         link: '/tools/mortgage-calculator'
     },
     {
-        nameKey: 'popular.bmi',
-        descKey: 'popular.bmi.desc',
+        nameKey: 'tool.bmiCalculator',
+        descKey: 'tool.bmiCalculator.desc',
         categoryKey: 'popular.cat.health',
         icon: Scale,
         color: 'text-rose-600 bg-rose-50',
         link: '/tools/bmi-calculator'
     },
     {
-        nameKey: 'popular.tip',
-        descKey: 'popular.tip.desc',
+        nameKey: 'tool.tipCalculator',
+        descKey: 'tool.tipCalculator.desc',
         categoryKey: 'popular.cat.everyday',
         icon: Utensils,
         color: 'text-orange-600 bg-orange-50',
         link: '/tools/tip-calculator'
     },
     {
-        nameKey: 'popular.gpa',
-        descKey: 'popular.gpa.desc',
+        nameKey: 'tool.gpaCalculator',
+        descKey: 'tool.gpaCalculator.desc',
         categoryKey: 'popular.cat.education',
         icon: GraduationCap,
         color: 'text-purple-600 bg-purple-50',
         link: '/tools/gpa-calculator'
     },
     {
-        nameKey: 'popular.age',
-        descKey: 'popular.age.desc',
+        nameKey: 'tool.ageCalculator',
+        descKey: 'tool.ageCalculator.desc',
         categoryKey: 'popular.cat.tools',
         icon: Calendar,
         color: 'text-cyan-600 bg-cyan-50',
         link: '/tools/age-calculator'
     },
     {
-        nameKey: 'popular.sleep',
-        descKey: 'popular.sleep.desc',
+        nameKey: 'tool.sleepCalculator',
+        descKey: 'tool.sleepCalculator.desc',
         categoryKey: 'popular.cat.health',
         icon: Moon,
         color: 'text-violet-600 bg-violet-50',
         link: '/tools/sleep-calculator'
     },
     {
-        nameKey: 'popular.password',
-        descKey: 'popular.password.desc',
+        nameKey: 'tool.passwordGenerator',
+        descKey: 'tool.passwordGenerator.desc',
         categoryKey: 'popular.cat.security',
         icon: Lock,
         color: 'text-red-600 bg-red-50',
         link: '/tools/password-generator'
     },
     {
-        nameKey: 'popular.compound',
-        descKey: 'popular.compound.desc',
+        nameKey: 'tool.compoundInterestCalculator',
+        descKey: 'tool.compoundInterestCalculator.desc',
         categoryKey: 'popular.cat.investment',
         icon: TrendingUp,
         color: 'text-emerald-600 bg-emerald-50',
         link: '/tools/compound-interest-calculator'
     },
     {
-        nameKey: 'popular.bodyFat',
-        descKey: 'popular.bodyFat.desc',
+        nameKey: 'tool.bodyFatCalculator',
+        descKey: 'tool.bodyFatCalculator.desc',
         categoryKey: 'popular.cat.fitness',
         icon: Activity,
         color: 'text-amber-600 bg-amber-50',
         link: '/tools/body-fat-calculator'
     },
     {
-        nameKey: 'popular.homeAfford',
-        descKey: 'popular.homeAfford.desc',
+        nameKey: 'tool.homeAffordability',
+        descKey: 'tool.homeAffordability.desc',
         categoryKey: 'popular.cat.finance',
         icon: Home,
         color: 'text-blue-600 bg-blue-50',
         link: '/tools/home-affordability'
     },
     {
-        nameKey: 'popular.studentLoan',
-        descKey: 'popular.studentLoan.desc',
+        nameKey: 'tool.studentLoanCalculator',
+        descKey: 'tool.studentLoanCalculator.desc',
         categoryKey: 'popular.cat.loans',
         icon: Calculator,
         color: 'text-teal-600 bg-teal-50',

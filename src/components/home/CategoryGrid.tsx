@@ -15,7 +15,7 @@ const categories = [
         icon: FinanceAIIcon,
         descKey: 'cat.finance.desc',
         color: 'bg-blue-100 text-blue-600',
-        toolKeys: ['tool.salaryCalculator', 'tool.mortgageCalc', 'tool.investmentReturn'],
+        toolKeys: ['tool.paycheckCalculator', 'tool.federalTaxCalculator', 'tool.nySalaryTaxCalculator'],
         link: '/category/salary-tax'
     },
     {
@@ -24,7 +24,7 @@ const categories = [
         icon: FinanceAIIcon,
         descKey: 'cat.business.desc',
         color: 'bg-indigo-100 text-indigo-600',
-        toolKeys: ['tool.roiCalculator', 'tool.marginCalc', 'tool.breakEven'],
+        toolKeys: ['tool.roiCalculator', 'tool.marginCalculator', 'tool.breakEvenCalculator'],
         link: '/category/finance'
     },
     {
@@ -33,7 +33,7 @@ const categories = [
         icon: FinanceAIIcon,
         descKey: 'cat.loansDebt.desc',
         color: 'bg-orange-100 text-orange-600',
-        toolKeys: ['tool.mortgageCalc', 'tool.autoLoan', 'tool.amortization'],
+        toolKeys: ['tool.mortgageCalculator', 'tool.autoLoanCalculator', 'tool.amortizationCalculator'],
         link: '/category/loans-debt'
     },
     {
@@ -42,7 +42,7 @@ const categories = [
         icon: FinanceAIIcon,
         descKey: 'cat.investment.desc',
         color: 'bg-emerald-100 text-emerald-600',
-        toolKeys: ['tool.compoundInterest', 'tool.401kCalc', 'tool.inflation'],
+        toolKeys: ['tool.compoundInterestCalculator', 'tool.401kCalculator', 'tool.inflationCalculator'],
         link: '/category/investment'
     },
     {
@@ -51,7 +51,7 @@ const categories = [
         icon: HealthAIIcon,
         descKey: 'cat.health.desc',
         color: 'bg-rose-100 text-rose-600',
-        toolKeys: ['tool.bmiCalculator', 'tool.calorieCalc', 'tool.dueDate'],
+        toolKeys: ['tool.bmiCalculator', 'tool.calorieCalculator', 'tool.pregnancyCalculator'],
         link: '/category/health'
     },
     {
@@ -60,7 +60,7 @@ const categories = [
         icon: MathAIIcon,
         descKey: 'cat.math.desc',
         color: 'bg-cyan-100 text-cyan-600',
-        toolKeys: ['tool.percentageCalc', 'tool.binaryCalc', 'tool.primeNumbers'],
+        toolKeys: ['tool.percentageCalculator', 'tool.binaryCalculator', 'tool.primeCalculator'],
         link: '/category/math'
     },
     {
@@ -69,7 +69,7 @@ const categories = [
         icon: MathAIIcon,
         descKey: 'cat.geometry.desc',
         color: 'bg-teal-100 text-teal-600',
-        toolKeys: ['tool.circleCalc', 'tool.triangleCalc', 'tool.paintCalculator'],
+        toolKeys: ['tool.circleCalculator', 'tool.triangleCalculator', 'tool.paintCalculator'],
         link: '/category/geometry'
     },
     {
@@ -78,7 +78,7 @@ const categories = [
         icon: ConversionAIIcon,
         descKey: 'cat.conversion.desc',
         color: 'bg-gray-100 text-gray-600',
-        toolKeys: ['tool.lengthConverter', 'tool.weightConverter', 'tool.currency'],
+        toolKeys: ['tool.lengthConverter', 'tool.weightConverter', 'tool.currencyConverter'],
         link: '/category/conversion'
     },
     {
@@ -87,7 +87,7 @@ const categories = [
         icon: EverydayLifeAIIcon,
         descKey: 'cat.everydayLife.desc',
         color: 'bg-yellow-100 text-yellow-600',
-        toolKeys: ['tool.ageCalculator', 'tool.dateDifference', 'tool.tipCalculator'],
+        toolKeys: ['tool.ageCalculator', 'tool.dateCalculator', 'tool.tipCalculator'],
         link: '/category/everyday-life'
     },
     {
@@ -105,7 +105,7 @@ const categories = [
         icon: ChemistryAIIcon,
         descKey: 'cat.chemistry.desc',
         color: 'bg-purple-100 text-purple-600',
-        toolKeys: ['tool.molarityCalc', 'tool.phCalculator'],
+        toolKeys: ['tool.molarityCalculator', 'tool.phCalculator'],
         link: '/category/chemistry'
     },
     {
@@ -141,7 +141,7 @@ const categories = [
         icon: OtherAIIcon,
         descKey: 'cat.other.desc',
         color: 'bg-pink-100 text-pink-600',
-        toolKeys: ['tool.randomNumberGenerator'],
+        toolKeys: ['tool.randomNumber'],
         link: '/category/other'
     }
 ];

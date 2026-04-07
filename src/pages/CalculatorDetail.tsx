@@ -11,7 +11,6 @@ import { toolConfigs } from '../data/tools';
 import { toolTranslationKeys } from '../data/translationKeys';
 import { US_STATES } from '../data/us_states';
 import { SEO } from '../components/common/SEO';
-import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
     Calculator as CalcIcon,
@@ -68,20 +67,63 @@ export const CalculatorDetail: React.FC = () => {
         };
     }
 
-    // JSON-LD Structured Data
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": config.title,
-        "applicationCategory": config.category,
-        "operatingSystem": "Web",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
+    const calculatorUrl = `https://calculator-website-puce.vercel.app/tools/${id}`;
+    const structuredData = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: config.title,
+            applicationCategory: config.category,
+            operatingSystem: 'Web',
+            url: calculatorUrl,
+            offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'USD'
+            },
+            description: config.description
         },
-        "description": config.description
-    };
+        {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+                {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Home',
+                    item: 'https://calculator-website-puce.vercel.app/'
+                },
+                {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: 'Calculators',
+                    item: 'https://calculator-website-puce.vercel.app/all-tools'
+                },
+                {
+                    '@type': 'ListItem',
+                    position: 3,
+                    name: config.title,
+                    item: calculatorUrl
+                }
+            ]
+        },
+        ...(config.faq.length > 0
+            ? [
+                {
+                    '@context': 'https://schema.org',
+                    '@type': 'FAQPage',
+                    mainEntity: config.faq.map((faq) => ({
+                        '@type': 'Question',
+                        name: faq.question,
+                        acceptedAnswer: {
+                            '@type': 'Answer',
+                            text: faq.answer
+                        }
+                    }))
+                }
+            ]
+            : [])
+    ];
 
     // Generic State
     const [salaryInput, setSalaryInput] = useState<number>(100000);
@@ -1259,12 +1301,8 @@ export const CalculatorDetail: React.FC = () => {
                 description={`${config.description} Use our free ${config.title.toLowerCase()} to get instant, accurate results. No signup required.`}
                 keywords={`${config.title.toLowerCase()}, free calculator, online tool, ${config.category.toLowerCase()}, calculate ${config.title.toLowerCase().replace(' calculator', '')}`}
                 canonicalUrl={`/tools/${id}`}
+                structuredData={structuredData}
             />
-            <Helmet>
-                <script type="application/ld+json">
-                    {JSON.stringify(jsonLd)}
-                </script>
-            </Helmet>
 
             <div className="container mx-auto px-4 py-8">
                 <Breadcrumbs items={[

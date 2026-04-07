@@ -10,6 +10,25 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 export const Home: React.FC = () => {
     const { t } = useLanguage();
+    const homeStructuredData = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'WorkMoney Tools',
+            url: 'https://calculator-website-puce.vercel.app/',
+            potentialAction: {
+                '@type': 'SearchAction',
+                target: 'https://calculator-website-puce.vercel.app/all-tools?search={search_term_string}',
+                'query-input': 'required name=search_term_string'
+            }
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'WorkMoney Tools',
+            url: 'https://calculator-website-puce.vercel.app/'
+        }
+    ];
 
     return (
         <div className="flex flex-col">
@@ -18,6 +37,7 @@ export const Home: React.FC = () => {
                 description={t('seo.home.description')}
                 keywords={t('seo.home.keywords')}
                 canonicalUrl="/"
+                structuredData={homeStructuredData}
             />
             <Hero />
 
