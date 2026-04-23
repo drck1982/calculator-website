@@ -3,6 +3,7 @@ import { Search, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getAllTools, type ToolSummary } from '../../data/tools';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { rankToolsForSearch } from '../../data/searchRanking';
 
 export const Hero: React.FC = () => {
     const { t } = useLanguage();
@@ -24,9 +25,10 @@ export const Hero: React.FC = () => {
             tool.name.toLowerCase().includes(lowerQuery) ||
             tool.description.toLowerCase().includes(lowerQuery) ||
             tool.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
-        ).slice(0, 5); // Limit to 5 results
+        );
+        const ranked = rankToolsForSearch(filtered, query).slice(0, 5);
 
-        setResults(filtered);
+        setResults(ranked);
     }, [query]);
 
     // Close dropdown when clicking outside
@@ -93,28 +95,46 @@ export const Hero: React.FC = () => {
                     {showResults && query.trim() !== '' && (
                         <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 text-left">
                             {results.length > 0 ? (
-                                <ul>
-                                    {results.map((tool) => (
-                                        <li key={tool.id} className="border-b border-gray-50 last:border-0">
-                                            <Link
-                                                to={tool.link}
-                                                className="block px-6 py-4 hover:bg-blue-50 transition-colors group"
-                                                onClick={() => setShowResults(false)}
-                                            >
-                                                <div className="flex justify-between items-center">
-                                                    <div>
-                                                        <h4 className="font-semibold text-gray-900 group-hover:text-blue-700">{tool.name}</h4>
-                                                        <p className="text-sm text-gray-500 mt-1">{tool.description}</p>
+                                <>
+                                    <ul>
+                                        {results.map((tool) => (
+                                            <li key={tool.id} className="border-b border-gray-50 last:border-0">
+                                                <Link
+                                                    to={tool.link}
+                                                    className="block px-6 py-4 hover:bg-blue-50 transition-colors group"
+                                                    onClick={() => setShowResults(false)}
+                                                >
+                                                    <div className="flex justify-between items-center">
+                                                        <div>
+                                                            <h4 className="font-semibold text-gray-900 group-hover:text-blue-700">{tool.name}</h4>
+                                                            <p className="text-sm text-gray-500 mt-1">{tool.description}</p>
+                                                        </div>
+                                                        <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-blue-500" />
                                                     </div>
-                                                    <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-blue-500" />
-                                                </div>
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <div className="border-t border-gray-100 bg-gray-50/80 px-4 py-3 text-center">
+                                        <Link
+                                            to={`/all-tools?search=${encodeURIComponent(query.trim())}`}
+                                            className="text-sm font-semibold text-blue-600 hover:text-blue-800"
+                                            onClick={() => setShowResults(false)}
+                                        >
+                                            View all matching tools
+                                        </Link>
+                                    </div>
+                                </>
                             ) : (
-                                <div className="px-6 py-8 text-center text-gray-500">
+                                <div className="px-6 py-8 text-center text-gray-500 space-y-3">
                                     <p>No calculators found for "{query}"</p>
+                                    <Link
+                                        to={`/all-tools?search=${encodeURIComponent(query.trim())}`}
+                                        className="inline-block text-sm font-semibold text-blue-600 hover:text-blue-800"
+                                        onClick={() => setShowResults(false)}
+                                    >
+                                        Browse all tools with this search
+                                    </Link>
                                 </div>
                             )}
                         </div>

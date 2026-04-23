@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Search, Calculator, ArrowRight, Filter } from 'lucide-react';
 import { SEO } from '../components/common/SEO';
 import { Breadcrumbs } from '../components/common/Breadcrumbs';
@@ -7,6 +7,7 @@ import { AdSlot } from '../components/common/AdSlot';
 import { toolsByCategory, getAllTools } from '../data/tools';
 import { useLanguage } from '../contexts/LanguageContext';
 import { toolTranslationKeys, tagTranslationKeys } from '../data/translationKeys';
+import { rankToolsForSearch } from '../data/searchRanking';
 
 // Category translation key mapping
 const categoryKeyMap: Record<string, string> = {
@@ -37,14 +38,15 @@ const toCamelKey = (id: string) =>
 
 
 export const AllTools: React.FC = () => {
-    const { t, language } = useLanguage();
-
-    // Debug logging
-    React.useEffect(() => {
-        console.log('[AllTools Debug] Language changed to:', language);
-    }, [language]);
+    const { t } = useLanguage();
+    const [searchParams] = useSearchParams();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+    useEffect(() => {
+        const fromUrl = searchParams.get('search') || searchParams.get('q') || '';
+        if (fromUrl) setSearchQuery(fromUrl);
+    }, [searchParams]);
 
     const allTools = useMemo(() => getAllTools(), []);
     const getCategoryTitle = (categoryId: string) => {
@@ -61,23 +63,14 @@ export const AllTools: React.FC = () => {
         const keys = toolTranslationKeys[toolId];
         const derivedKey = `tool.${toCamelKey(toolId)}`;
 
-        // Debug log for specific tool to avoid spamming
-        if (toolId === 'paycheck-calculator') {
-            console.log(`[AllTools Debug] Translating ${toolId} to ${language}`);
-            console.log(`[AllTools Debug] Keys:`, keys);
-            console.log(`[AllTools Debug] Derived Key:`, derivedKey);
-        }
-
         // 1) Prefer explicit mapping
         if (keys) {
             const translated = t(keys.nameKey);
-            if (toolId === 'paycheck-calculator') console.log(`[AllTools Debug] Explicit translation: ${translated}`);
             if (translated && translated !== keys.nameKey) return translated;
         }
 
         // 2) Try derived key from tool id
         const derived = t(derivedKey);
-        if (toolId === 'paycheck-calculator') console.log(`[AllTools Debug] Derived translation: ${derived}`);
         if (derived && derived !== derivedKey) return derived;
 
         // 3) Fallback original
@@ -140,6 +133,7 @@ export const AllTools: React.FC = () => {
                 tool.description.toLowerCase().includes(query) ||
                 tool.tags.some(tag => tag.toLowerCase().includes(query))
             );
+            tools = rankToolsForSearch(tools, searchQuery);
         }
 
         return tools;
