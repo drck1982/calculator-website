@@ -92,8 +92,8 @@ const writeRobots = () => {
     'Disallow: /api/',
     'Disallow: /icon-demo',
     '',
-    `Sitemap: ${SITE_URL}/sitemap-index.xml`,
     `Sitemap: ${SITE_URL}/sitemap.xml`,
+    `Sitemap: ${SITE_URL}/sitemap-index.xml`,
     '',
     'User-agent: Googlebot',
     'Allow: /',
@@ -122,10 +122,11 @@ for (const sitemap of groupedSitemaps) {
 
 const sitemapFiles = groupedSitemaps.map((item) => item.file);
 const indexPath = writeSitemapIndex('sitemap-index.xml', sitemapFiles);
-const legacyIndexPath = writeSitemapIndex('sitemap.xml', sitemapFiles);
+const allRoutes = [...new Set(groupedSitemaps.flatMap((item) => item.routes))];
+const primarySitemapPath = writeUrlset('sitemap.xml', allRoutes);
 const robotsPath = writeRobots();
 
 const totalUrls = groupedSitemaps.reduce((sum, sitemap) => sum + sitemap.routes.length, 0);
 console.log(
-  `Generated ${sitemapFiles.length} grouped sitemaps (${totalUrls} URLs) -> ${indexPath}; mirrored index -> ${legacyIndexPath}; robots -> ${robotsPath}`
+  `Generated ${sitemapFiles.length} grouped sitemaps (${totalUrls} URLs) -> ${indexPath}; primary sitemap -> ${primarySitemapPath}; robots -> ${robotsPath}`
 );

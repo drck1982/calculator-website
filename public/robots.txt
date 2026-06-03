@@ -4,8 +4,8 @@ Allow: /
 Disallow: /api/
 Disallow: /icon-demo
 
-Sitemap: https://calculator-website-puce.vercel.app/sitemap-index.xml
 Sitemap: https://calculator-website-puce.vercel.app/sitemap.xml
+Sitemap: https://calculator-website-puce.vercel.app/sitemap-index.xml
 
 User-agent: Googlebot
 Allow: /
