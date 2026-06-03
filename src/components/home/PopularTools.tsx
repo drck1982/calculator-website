@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Star, Calculator, Home, TrendingUp, Activity, Moon, Lock, Utensils, GraduationCap, ArrowRight, DollarSign, Scale, Calendar } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { trackEvent } from '../../utils/analytics';
 
 // Ordered by search volume (highest first)
 const popularTools = [
@@ -125,6 +126,7 @@ export const PopularTools: React.FC = () => {
                         <Link
                             key={index}
                             to={tool.link}
+                            onClick={() => trackEvent('popular_tool_click', { tool_link: tool.link })}
                             className="group relative bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
                         >
                             <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

@@ -1,7 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const SITE_URL = 'https://calculator-website-puce.vercel.app';
+const DEFAULT_SITE_URL = 'https://calculator-website-puce.vercel.app';
+const SITE_URL = (process.env.VITE_SITE_URL || process.env.SITE_URL || DEFAULT_SITE_URL)
+  .trim()
+  .replace(/\/+$/, '');
 const root = process.cwd();
 const toolsPath = path.join(root, 'src', 'data', 'tools.ts');
 const articlesPath = path.join(root, 'src', 'data', 'articles.ts');
@@ -80,6 +83,32 @@ const writeSitemapIndex = (fileName, sitemapFiles) => {
   return outputPath;
 };
 
+const writeRobots = () => {
+  const outputPath = path.join(publicDir, 'robots.txt');
+  const lines = [
+    '# robots.txt for WorkMoney Tools',
+    'User-agent: *',
+    'Allow: /',
+    'Disallow: /api/',
+    'Disallow: /icon-demo',
+    '',
+    `Sitemap: ${SITE_URL}/sitemap-index.xml`,
+    `Sitemap: ${SITE_URL}/sitemap.xml`,
+    '',
+    'User-agent: Googlebot',
+    'Allow: /',
+    '',
+    'User-agent: Bingbot',
+    'Allow: /',
+    '',
+    'User-agent: Slurp',
+    'Allow: /',
+    '',
+  ];
+  fs.writeFileSync(outputPath, lines.join('\n'), 'utf8');
+  return outputPath;
+};
+
 const groupedSitemaps = [
   { file: 'sitemap-pages.xml', routes: staticRoutes },
   { file: 'sitemap-categories.xml', routes: categoryLinks },
@@ -94,8 +123,9 @@ for (const sitemap of groupedSitemaps) {
 const sitemapFiles = groupedSitemaps.map((item) => item.file);
 const indexPath = writeSitemapIndex('sitemap-index.xml', sitemapFiles);
 const legacyIndexPath = writeSitemapIndex('sitemap.xml', sitemapFiles);
+const robotsPath = writeRobots();
 
 const totalUrls = groupedSitemaps.reduce((sum, sitemap) => sum + sitemap.routes.length, 0);
 console.log(
-  `Generated ${sitemapFiles.length} grouped sitemaps (${totalUrls} URLs) -> ${indexPath}; mirrored index -> ${legacyIndexPath}`
+  `Generated ${sitemapFiles.length} grouped sitemaps (${totalUrls} URLs) -> ${indexPath}; mirrored index -> ${legacyIndexPath}; robots -> ${robotsPath}`
 );

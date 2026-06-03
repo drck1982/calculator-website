@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { articles } from '../../data/articles';
 import { ArrowRight, Clock, User } from 'lucide-react';
+import { trackEvent } from '../../utils/analytics';
 
 export const LatestArticles: React.FC = () => {
     const latestArticles = articles.slice(0, 3); // Get top 3 articles
@@ -21,6 +22,7 @@ export const LatestArticles: React.FC = () => {
                     </div>
                     <Link
                         to="/blog"
+                        onClick={() => trackEvent('home_blog_view_all_click')}
                         className="inline-flex items-center px-6 py-3 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm group"
                     >
                         View All Articles
@@ -33,6 +35,7 @@ export const LatestArticles: React.FC = () => {
                         <Link
                             key={article.id}
                             to={`/blog/${article.slug}`}
+                            onClick={() => trackEvent('home_article_click', { article_slug: article.slug })}
                             className="group flex flex-col bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
                         >
                             <div className="relative h-56 overflow-hidden">

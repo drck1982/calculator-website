@@ -7,6 +7,7 @@ import {
     SportsAIIcon, StatisticsAIIcon, OtherAIIcon
 } from '../icons/CategoryIcons';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { trackEvent } from '../../utils/analytics';
 
 const categories = [
     {
@@ -153,7 +154,11 @@ export const CategoryGrid: React.FC = () => {
             <div className="container mx-auto px-4">
                 <div className="flex items-center justify-between mb-10">
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{t('categories.title')}</h2>
-                    <Link to="/all-tools" className="text-blue-600 font-medium hover:text-blue-700 flex items-center">
+                    <Link
+                        to="/all-tools"
+                        onClick={() => trackEvent('category_grid_view_all_click')}
+                        className="text-blue-600 font-medium hover:text-blue-700 flex items-center"
+                    >
                         {t('categories.viewAll')} <ArrowRight className="ml-1 h-4 w-4" />
                     </Link>
                 </div>
@@ -163,6 +168,7 @@ export const CategoryGrid: React.FC = () => {
                         <Link
                             key={category.id}
                             to={category.link}
+                            onClick={() => trackEvent('category_grid_click', { category_id: category.id })}
                             className="group block p-6 bg-white border border-gray-200 rounded-2xl hover:shadow-lg hover:border-blue-200 transition-all duration-300"
                         >
                             <div className="flex justify-center mb-4 group-hover:scale-110 transition-transform">

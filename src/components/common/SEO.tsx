@@ -1,5 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { SITE_NAME, SITE_URL } from '../../config/site';
 
 interface SEOProps {
     title: string;
@@ -13,11 +15,6 @@ interface SEOProps {
     modifiedTime?: string;
     structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
-
-import { useLanguage } from '../../contexts/LanguageContext';
-
-const SITE_NAME = 'WorkMoney Tools';
-const SITE_URL = 'https://calculator-website-puce.vercel.app';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.svg`;
 const SUPPORTED_LANGUAGES = ['en', 'zh', 'es', 'ja', 'fr'] as const;
 
@@ -111,7 +108,7 @@ export const SEO: React.FC<SEOProps> = ({
             {/* Additional SEO */}
             <meta name="author" content={SITE_NAME} />
             <meta name="publisher" content={SITE_NAME} />
-            <meta name="copyright" content={`© ${new Date().getFullYear()} ${SITE_NAME}`} />
+            <meta name="copyright" content={`(c) ${new Date().getFullYear()} ${SITE_NAME}`} />
             <meta name="language" content={language} />
             <meta name="revisit-after" content="7 days" />
             <meta name="rating" content="general" />

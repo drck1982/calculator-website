@@ -1,9 +1,11 @@
-import { Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Suspense, lazy, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from '@vercel/analytics/react';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { MainLayout } from './layouts/MainLayout';
+import { MarketingScripts } from './components/common/MarketingScripts';
+import { trackEvent } from './utils/analytics';
 
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home').then(module => ({ default: module.Home })));
@@ -19,11 +21,25 @@ const Blog = lazy(() => import('./pages/Blog').then(module => ({ default: module
 const ArticleDetail = lazy(() => import('./pages/ArticleDetail').then(module => ({ default: module.ArticleDetail })));
 const NotFound = lazy(() => import('./pages/NotFound').then(module => ({ default: module.NotFound })));
 
+const RouteAnalytics = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    trackEvent('page_view', {
+      page_path: location.pathname,
+    });
+  }, [location.pathname]);
+
+  return null;
+};
+
 function App() {
   return (
     <HelmetProvider>
+      <MarketingScripts />
       <LanguageProvider>
         <BrowserRouter>
+          <RouteAnalytics />
           <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>}>
             <Routes>
               <Route path="/" element={<MainLayout />}>

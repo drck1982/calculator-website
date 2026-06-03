@@ -370,7 +370,28 @@ export const toolConfigs: Record<string, ToolConfig> = {
         },
         faq: [
             { question: 'Why does credit card debt take so long to pay off?', answer: 'Credit cards compound interest daily at high APRs (often 20%+). Minimum payments mostly cover interest, not principal.' }
-        ]
+        ],
+        expandedContent: {
+            introduction: 'Credit card payoff math is usually uncomfortable, but it is also useful. A small increase in monthly payment can remove months or years from the payoff timeline because less interest has time to compound.',
+            keyFeatures: [
+                'Payoff month estimate',
+                'Total interest projection',
+                'Monthly payment sensitivity',
+                'APR impact check'
+            ],
+            useCases: [
+                'Planning a debt-free date',
+                'Comparing higher monthly payments',
+                'Checking whether a balance transfer could help',
+                'Prioritizing cards by interest rate'
+            ],
+            detailedGuide: 'Run the calculator once with your current payment, then run it again with an extra fixed amount you can realistically sustain. If your APR is high, compare the interest saved with any transfer fee or consolidation cost before changing products.',
+            expertTips: [
+                'Pay more than the minimum whenever possible; minimum payments are designed to stretch repayment.',
+                'Target the highest APR balance first if your goal is to reduce total interest.',
+                'Avoid adding new purchases to the same card while following a payoff plan.'
+            ]
+        }
     },
     'body-fat-calculator': {
         id: 'body-fat-calculator',
@@ -421,7 +442,28 @@ export const toolConfigs: Record<string, ToolConfig> = {
         faq: [
             { question: 'What is the 28/36 rule?', answer: 'Lenders typically require housing costs to be ≤28% of gross income, and total debt ≤36%.' },
             { question: 'How much should I put down?', answer: '20% avoids PMI, but many programs allow 3-5% down.' }
-        ]
+        ],
+        expandedContent: {
+            introduction: 'Home affordability is more than the maximum amount a lender might approve. The better target is a payment that still leaves room for savings, repairs, insurance changes, property taxes, and normal life.',
+            keyFeatures: [
+                'Income-based home budget',
+                'Debt-to-income guardrails',
+                'Down payment sensitivity',
+                'Rate impact awareness'
+            ],
+            useCases: [
+                'Setting a shopping budget before touring homes',
+                'Testing a larger or smaller down payment',
+                'Comparing affordability at different mortgage rates',
+                'Checking whether debts limit buying power'
+            ],
+            detailedGuide: 'Start with your gross annual income and monthly debt payments, then test conservative and optimistic interest rates. If a small rate change breaks the budget, use the lower home price as your working search range.',
+            expertTips: [
+                'Keep a cash reserve after closing; the down payment should not drain every emergency dollar.',
+                'Estimate taxes and insurance locally because they vary sharply by county and property type.',
+                'Use lender pre-approval as a ceiling, not a target.'
+            ]
+        }
     },
     'net-worth-calculator': {
         id: 'net-worth-calculator',
@@ -547,7 +589,31 @@ export const toolConfigs: Record<string, ToolConfig> = {
             how: 'Enter current loan details and new loan terms.',
             formula: 'Savings = Old Payment × Remaining Term - New Payment × New Term - Closing Costs'
         },
-        faq: []
+        faq: [
+            { question: 'What is a refinance break-even point?', answer: 'It is the number of months it takes for monthly savings to recover closing costs.' },
+            { question: 'Can refinancing cost more over time?', answer: 'Yes. A lower payment can still increase lifetime interest if the new term is much longer or fees are high.' }
+        ],
+        expandedContent: {
+            introduction: 'A refinance only makes sense when the lifetime savings outweigh closing costs, time, and risk. The lowest advertised rate is not always the best deal if points, fees, or a longer term erase the benefit.',
+            keyFeatures: [
+                'Payment savings estimate',
+                'Closing cost break-even check',
+                'Old rate vs new rate comparison',
+                'Refinance decision support'
+            ],
+            useCases: [
+                'Checking a lower-rate offer',
+                'Estimating break-even time',
+                'Comparing no-cost and low-rate refinance quotes',
+                'Deciding whether to shorten or extend loan term'
+            ],
+            detailedGuide: 'Compare the monthly savings against closing costs first. Then check the total interest over the new loan term, because restarting a 30-year clock can lower the payment while increasing lifetime cost.',
+            expertTips: [
+                'A refinance is stronger when you expect to stay in the home beyond the break-even month.',
+                'Ask for loan estimates from multiple lenders on the same day so rates are comparable.',
+                'Watch points and lender credits; they move cost between upfront fees and monthly payment.'
+            ]
+        }
     },
     'gpa-calculator': {
         id: 'gpa-calculator',
@@ -709,7 +775,31 @@ export const toolConfigs: Record<string, ToolConfig> = {
         formTitle: 'Interest Rate Details',
         resultTitle: 'APY',
         content: { what: 'Calculates the effective annual interest rate.', how: 'Enter interest rate and compounding frequency.', formula: 'APY = (1 + r/n)^n - 1' },
-        faq: []
+        faq: [
+            { question: 'Why is APY higher than the interest rate?', answer: 'APY includes compounding, so it reflects the effective annual return rather than only the stated nominal rate.' },
+            { question: 'Should I compare savings accounts by APY?', answer: 'Yes. APY is usually the cleanest rate for comparing savings accounts, CDs, and other interest-bearing accounts before fees or restrictions.' }
+        ],
+        expandedContent: {
+            introduction: 'APY turns a stated interest rate into a practical annual return. This matters when comparing savings accounts, CDs, cash management accounts, and other products that compound at different frequencies.',
+            keyFeatures: [
+                'Nominal rate to APY conversion',
+                'Compounding frequency comparison',
+                'Savings product comparison',
+                'Effective yield estimate'
+            ],
+            useCases: [
+                'Comparing high-yield savings accounts',
+                'Checking CD or money market yields',
+                'Understanding daily vs monthly compounding',
+                'Estimating cash return before moving funds'
+            ],
+            detailedGuide: 'Use the same deposit amount and compare APYs rather than only advertised rates. Also check withdrawal rules, minimum balances, account fees, and whether the rate is promotional.',
+            expertTips: [
+                'A higher APY can be offset by monthly fees or minimum balance rules.',
+                'Daily compounding helps, but the stated APY already includes the compounding effect.',
+                'For emergency funds, liquidity and FDIC or NCUA coverage matter as much as rate.'
+            ]
+        }
     },
     'roi-calculator': {
         id: 'roi-calculator',

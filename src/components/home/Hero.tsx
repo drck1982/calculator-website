@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAllTools, type ToolSummary } from '../../data/tools';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { rankToolsForSearch } from '../../data/searchRanking';
+import { trackEvent } from '../../utils/analytics';
 
 export const Hero: React.FC = () => {
     const { t } = useLanguage();
+    const navigate = useNavigate();
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<ToolSummary[]>([]);
     const [showResults, setShowResults] = useState(false);
-    const searchRef = useRef<HTMLDivElement>(null);
+    const searchRef = useRef<HTMLFormElement>(null);
 
     const allTools = getAllTools();
 
@@ -45,6 +47,16 @@ export const Hero: React.FC = () => {
         };
     }, []);
 
+    const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const trimmed = query.trim();
+        if (!trimmed) return;
+
+        trackEvent('hero_search_submit', { query_length: trimmed.length });
+        setShowResults(false);
+        navigate(`/all-tools?search=${encodeURIComponent(trimmed)}`);
+    };
+
     return (
         <section className="relative overflow-hidden bg-white py-20 md:py-28">
             {/* Background Decoration */}
@@ -69,8 +81,25 @@ export const Hero: React.FC = () => {
                     {t('hero.subtitle')}
                 </p>
 
+                <div className="flex flex-col sm:flex-row justify-center gap-4 mb-10">
+                    <Link
+                        to="/all-tools"
+                        onClick={() => trackEvent('hero_primary_cta_click', { target: 'all_tools' })}
+                        className="inline-flex items-center justify-center px-7 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-sm"
+                    >
+                        {t('nav.allTools')}
+                    </Link>
+                    <Link
+                        to="/tools/paycheck-calculator"
+                        onClick={() => trackEvent('hero_primary_cta_click', { target: 'paycheck_calculator' })}
+                        className="inline-flex items-center justify-center px-7 py-3 bg-white text-blue-700 font-semibold rounded-xl border border-blue-200 hover:bg-blue-50 transition-colors"
+                    >
+                        Start with Paycheck Calculator
+                    </Link>
+                </div>
+
                 {/* Search Bar */}
-                <div className="max-w-2xl mx-auto relative mb-10" ref={searchRef}>
+                <form className="max-w-2xl mx-auto relative mb-10" ref={searchRef} onSubmit={handleSearchSubmit}>
                     <div className="relative group">
                         <div className="absolute -inset-1 bg-gradient-to-r from-blue-200 to-indigo-200 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-200"></div>
                         <div className="relative bg-white rounded-xl shadow-xl ring-1 ring-gray-900/5">
@@ -88,6 +117,12 @@ export const Hero: React.FC = () => {
                                 }}
                                 onFocus={() => setShowResults(true)}
                             />
+                            <button
+                                type="submit"
+                                className="absolute inset-y-0 right-2 my-2 px-4 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
+                            >
+                                Search
+                            </button>
                         </div>
                     </div>
 
@@ -102,7 +137,10 @@ export const Hero: React.FC = () => {
                                                 <Link
                                                     to={tool.link}
                                                     className="block px-6 py-4 hover:bg-blue-50 transition-colors group"
-                                                    onClick={() => setShowResults(false)}
+                                                    onClick={() => {
+                                                        trackEvent('hero_search_result_click', { tool_id: tool.id });
+                                                        setShowResults(false);
+                                                    }}
                                                 >
                                                     <div className="flex justify-between items-center">
                                                         <div>
@@ -119,7 +157,10 @@ export const Hero: React.FC = () => {
                                         <Link
                                             to={`/all-tools?search=${encodeURIComponent(query.trim())}`}
                                             className="text-sm font-semibold text-blue-600 hover:text-blue-800"
-                                            onClick={() => setShowResults(false)}
+                                            onClick={() => {
+                                                trackEvent('hero_search_view_all_click', { query_length: query.trim().length });
+                                                setShowResults(false);
+                                            }}
                                         >
                                             View all matching tools
                                         </Link>
@@ -131,7 +172,10 @@ export const Hero: React.FC = () => {
                                     <Link
                                         to={`/all-tools?search=${encodeURIComponent(query.trim())}`}
                                         className="inline-block text-sm font-semibold text-blue-600 hover:text-blue-800"
-                                        onClick={() => setShowResults(false)}
+                                        onClick={() => {
+                                            trackEvent('hero_search_empty_browse_click', { query_length: query.trim().length });
+                                            setShowResults(false);
+                                        }}
                                     >
                                         Browse all tools with this search
                                     </Link>
@@ -139,24 +183,24 @@ export const Hero: React.FC = () => {
                             )}
                         </div>
                     )}
-                </div>
+                </form>
 
                 {/* Quick Links - Ordered by search volume */}
                 <div className="flex flex-wrap justify-center gap-3 animate-fade-in-up">
                     <span className="text-sm font-medium text-gray-500 py-2">{t('hero.trending')}</span>
-                    <Link to="/tools/paycheck-calculator" className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
+                    <Link to="/tools/paycheck-calculator" onClick={() => trackEvent('hero_trending_tool_click', { tool_id: 'paycheck-calculator' })} className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
                         Paycheck
                     </Link>
-                    <Link to="/tools/mortgage-calculator" className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
+                    <Link to="/tools/mortgage-calculator" onClick={() => trackEvent('hero_trending_tool_click', { tool_id: 'mortgage-calculator' })} className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
                         Mortgage
                     </Link>
-                    <Link to="/tools/tip-calculator" className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
+                    <Link to="/tools/tip-calculator" onClick={() => trackEvent('hero_trending_tool_click', { tool_id: 'tip-calculator' })} className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
                         Tip
                     </Link>
-                    <Link to="/tools/bmi-calculator" className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
+                    <Link to="/tools/bmi-calculator" onClick={() => trackEvent('hero_trending_tool_click', { tool_id: 'bmi-calculator' })} className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
                         BMI
                     </Link>
-                    <Link to="/tools/gpa-calculator" className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
+                    <Link to="/tools/gpa-calculator" onClick={() => trackEvent('hero_trending_tool_click', { tool_id: 'gpa-calculator' })} className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm hover:shadow">
                         GPA
                     </Link>
                 </div>

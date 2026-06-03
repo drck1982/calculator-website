@@ -131,8 +131,18 @@ export const Terms: React.FC = () => {
                             </p>
                         </section>
 
+                        <section className="mb-8">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-4">11. Advertising and Affiliate Disclosure</h2>
+                            <p className="text-gray-700 mb-4">
+                                WorkMoney Tools may display advertising, sponsored resources, or affiliate links. If you click a sponsored or affiliate link, we may earn compensation at no additional cost to you.
+                            </p>
+                            <p className="text-gray-700">
+                                Sponsored links do not change calculator results. Calculator outputs are estimates only, and you should compare provider terms, fees, eligibility requirements, and official disclosures before choosing any financial product or service.
+                            </p>
+                        </section>
+
                         <section>
-                            <h2 className="text-2xl font-bold text-gray-900 mb-4">11. {t('terms.contactInfo')}</h2>
+                            <h2 className="text-2xl font-bold text-gray-900 mb-4">12. {t('terms.contactInfo')}</h2>
                             <p className="text-gray-700">
                                 {t('terms.contactInfoText')}{' '}
                                 <a href="mailto:support@workmoneytools.com" className="text-blue-600 hover:underline">

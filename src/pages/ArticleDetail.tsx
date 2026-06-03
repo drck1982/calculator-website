@@ -3,8 +3,43 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import { SEO } from '../components/common/SEO';
 import { Breadcrumbs } from '../components/common/Breadcrumbs';
 import { articles } from '../data/articles';
+import { SITE_URL } from '../config/site';
+import { trackEvent } from '../utils/analytics';
 import { Share2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+
+const relatedToolBySlug: Record<string, { title: string; description: string; href: string }> = {
+    'mortgage-calculation-basics': {
+        title: 'Estimate your mortgage payment',
+        description: 'Apply the mortgage concepts from this guide to your own home price, down payment, rate, and term.',
+        href: '/tools/mortgage-calculator'
+    },
+    'mortgage-refinance-break-even': {
+        title: 'Calculate your refinance break-even',
+        description: 'Compare current loan details, new rate, closing costs, and monthly savings before talking to lenders.',
+        href: '/tools/refinance-calculator'
+    },
+    'apy-vs-interest-rate': {
+        title: 'Convert interest rate to APY',
+        description: 'Compare savings products with the effective annual yield, not just the stated nominal rate.',
+        href: '/tools/apy-calculator'
+    },
+    'credit-card-payoff-strategy': {
+        title: 'Build your payoff timeline',
+        description: 'See how monthly payment changes affect debt-free date and total interest.',
+        href: '/tools/credit-card-payoff'
+    },
+    'power-of-compound-interest': {
+        title: 'Project compound growth',
+        description: 'Estimate long-term growth from starting balance, return assumptions, time, and contributions.',
+        href: '/tools/compound-interest-calculator'
+    },
+    'understand-paycheck-2025': {
+        title: 'Estimate your take-home pay',
+        description: 'Use your salary, state, and payroll assumptions to estimate net pay.',
+        href: '/tools/paycheck-calculator'
+    }
+};
 
 export const ArticleDetail: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
@@ -13,6 +48,70 @@ export const ArticleDetail: React.FC = () => {
 
     if (!article) return <Navigate to="/404" />;
 
+    const relatedTool = relatedToolBySlug[article.slug] || {
+        title: 'Ready to calculate?',
+        description: "Use our free tools to apply what you've learned and gain direct insights into your situation.",
+        href: '/all-tools'
+    };
+
+    const handleShare = async () => {
+        const articleUrl = `${SITE_URL}/blog/${article.slug}`;
+        trackEvent('article_share_click', {
+            article_slug: article.slug,
+            article_category: article.category
+        });
+
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: article.title,
+                    text: article.excerpt,
+                    url: articleUrl
+                });
+                return;
+            } catch {
+                // Fall back to clipboard when native share is cancelled or unavailable.
+            }
+        }
+
+        try {
+            await navigator.clipboard.writeText(articleUrl);
+            trackEvent('article_share_link_copy', {
+                article_slug: article.slug,
+                article_category: article.category
+            });
+        } catch {
+            // no-op
+        }
+    };
+
+    const handleRelatedToolClick = () => {
+        trackEvent('article_tool_cta_click', {
+            article_slug: article.slug,
+            article_category: article.category,
+            destination: relatedTool.href
+        });
+    };
+
+    const articleStructuredData = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: article.title,
+        description: article.excerpt,
+        image: article.image,
+        author: {
+            '@type': 'Organization',
+            name: 'WorkMoney Tools'
+        },
+        publisher: {
+            '@type': 'Organization',
+            name: 'WorkMoney Tools'
+        },
+        datePublished: article.date,
+        dateModified: article.updatedAt || article.date,
+        mainEntityOfPage: `${SITE_URL}/blog/${article.slug}`
+    };
+
     return (
         <div className="bg-white min-h-screen pb-20">
             <SEO
@@ -20,6 +119,10 @@ export const ArticleDetail: React.FC = () => {
                 description={article.excerpt}
                 keywords={article.tags.join(', ')}
                 canonicalUrl={`/blog/${article.slug}`}
+                type="article"
+                publishedTime={article.date}
+                modifiedTime={article.updatedAt || article.date}
+                structuredData={articleStructuredData}
             />
 
             <div className="container mx-auto px-4 py-16 lg:py-24">
@@ -44,7 +147,10 @@ export const ArticleDetail: React.FC = () => {
                             <span className="text-gray-900 font-bold">{article.author}</span>
                             <span className="mx-3 text-gray-300">/</span>
                             <span>{article.date}</span>
-                            <button className="flex items-center ml-auto text-blue-600 hover:text-blue-800 transition-colors font-bold px-4 py-2 bg-blue-50/50 rounded-xl">
+                            <button
+                                onClick={handleShare}
+                                className="flex items-center ml-auto text-blue-600 hover:text-blue-800 transition-colors font-bold px-4 py-2 bg-blue-50/50 rounded-xl"
+                            >
                                 <Share2 className="w-4 h-4 mr-2" /> Share
                             </button>
                         </div>
@@ -81,15 +187,16 @@ export const ArticleDetail: React.FC = () => {
                     </div>
 
                     <div className="mt-24 bg-gray-50 rounded-3xl p-8 md:p-12 text-center border border-gray-100">
-                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 font-heading">Ready to calculate?</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 font-heading">{relatedTool.title}</h2>
                         <p className="text-gray-600 text-lg mb-8 max-w-lg mx-auto">
-                            Use our free tools to apply what you've learned and gain direct insights into your situation.
+                            {relatedTool.description}
                         </p>
                         <Link
-                            to="/all-tools"
+                            to={relatedTool.href}
+                            onClick={handleRelatedToolClick}
                             className="inline-flex items-center px-10 py-4 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all duration-300 shadow-lg shadow-blue-200"
                         >
-                            Browse All Tools
+                            Open Calculator
                         </Link>
                     </div>
                 </div>

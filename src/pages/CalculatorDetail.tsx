@@ -6,12 +6,16 @@ import { ResultPanel } from '../components/calculator/ResultPanel';
 import { ContentSection } from '../components/calculator/ContentSection';
 import { FAQSection } from '../components/calculator/FAQSection';
 import { AdSlot } from '../components/common/AdSlot';
+import { MonetizationOffer } from '../components/common/MonetizationOffer';
 import { RelatedCategories } from '../components/category/RelatedCategories';
 import { toolConfigs, toolsByCategory } from '../data/tools';
 import { toolTranslationKeys } from '../data/translationKeys';
 import { US_STATES } from '../data/us_states';
 import { SEO } from '../components/common/SEO';
 import { useLanguage } from '../contexts/LanguageContext';
+import { SITE_URL } from '../config/site';
+import { LAST_REVIEWED, getOfferForTool } from '../config/monetization';
+import { trackEvent } from '../utils/analytics';
 import {
     Calculator as CalcIcon,
     Printer,
@@ -56,6 +60,7 @@ export const CalculatorDetail: React.FC = () => {
         description: (translatedDesc && translatedDesc !== translationKey?.descKey) ? translatedDesc : rawConfig.description
     };
     const currentCategoryId = config.categoryLink.replace('/category/', '');
+    const monetizationOffer = getOfferForTool(id);
     const recommendedTools = (toolsByCategory[currentCategoryId]?.tools || [])
         .filter((tool) => tool.id !== id)
         .slice(0, 3);
@@ -71,7 +76,10 @@ export const CalculatorDetail: React.FC = () => {
         };
     }
 
-    const calculatorUrl = `https://calculator-website-puce.vercel.app/tools/${id}`;
+    const toFaqText = (answer: React.ReactNode) =>
+        typeof answer === 'string' ? answer.replace(/\s+/g, ' ').trim() : '';
+
+    const calculatorUrl = `${SITE_URL}/tools/${id}`;
     const structuredData = [
         {
             '@context': 'https://schema.org',
@@ -95,13 +103,13 @@ export const CalculatorDetail: React.FC = () => {
                     '@type': 'ListItem',
                     position: 1,
                     name: 'Home',
-                    item: 'https://calculator-website-puce.vercel.app/'
+                    item: `${SITE_URL}/`
                 },
                 {
                     '@type': 'ListItem',
                     position: 2,
                     name: 'Calculators',
-                    item: 'https://calculator-website-puce.vercel.app/all-tools'
+                    item: `${SITE_URL}/all-tools`
                 },
                 {
                     '@type': 'ListItem',
@@ -116,14 +124,20 @@ export const CalculatorDetail: React.FC = () => {
                 {
                     '@context': 'https://schema.org',
                     '@type': 'FAQPage',
-                    mainEntity: config.faq.map((faq) => ({
-                        '@type': 'Question',
-                        name: faq.question,
-                        acceptedAnswer: {
-                            '@type': 'Answer',
-                            text: faq.answer
-                        }
-                    }))
+                    mainEntity: config.faq
+                        .map((faq) => ({
+                            question: faq.question,
+                            answer: toFaqText(faq.answer)
+                        }))
+                        .filter((faq) => faq.question && faq.answer)
+                        .map((faq) => ({
+                            '@type': 'Question',
+                            name: faq.question,
+                            acceptedAnswer: {
+                                '@type': 'Answer',
+                                text: faq.answer
+                            }
+                        }))
                 }
             ]
             : [])
@@ -230,6 +244,10 @@ export const CalculatorDetail: React.FC = () => {
     }, [id]);
 
     const handleCalculate = () => {
+        trackEvent('calculator_calculate', {
+            tool_id: id || 'unknown',
+            tool_category: config.category
+        });
         setIsCalculating(true);
 
         setTimeout(() => {
@@ -427,6 +445,10 @@ export const CalculatorDetail: React.FC = () => {
         try {
             const shareUrl = buildShareUrl();
             await navigator.clipboard.writeText(shareUrl);
+            trackEvent('calculator_share_link_copy', {
+                tool_id: id || 'unknown',
+                tool_category: config.category
+            });
             setShareStatus('Link copied');
             setTimeout(() => setShareStatus(''), 1600);
         } catch {
@@ -443,6 +465,10 @@ export const CalculatorDetail: React.FC = () => {
                 .join('\n');
             const payload = rows || `${config.resultTitle}: No calculated values yet.`;
             await navigator.clipboard.writeText(payload);
+            trackEvent('calculator_results_copy', {
+                tool_id: id || 'unknown',
+                tool_category: config.category
+            });
             setShareStatus('Results copied');
             setTimeout(() => setShareStatus(''), 1600);
         } catch {
@@ -1432,6 +1458,7 @@ export const CalculatorDetail: React.FC = () => {
                     <div id="results-panel" className={`order-2 lg:order-3 lg:col-span-1 lg:sticky lg:top-4 lg:self-start ${isMobile && mobileStep !== 2 ? 'hidden' : ''}`}>
                         <div className={`transition-opacity duration-200 ${isCalculating ? 'opacity-50' : 'opacity-100'}`}>
                             <ResultPanel title={config.resultTitle} results={results} />
+                            <MonetizationOffer offer={monetizationOffer} toolId={id} className="mt-4" />
                             <div className="mt-4 flex items-center justify-end gap-4">
                                 <button
                                     onClick={handleCopyResults}
@@ -1446,7 +1473,13 @@ export const CalculatorDetail: React.FC = () => {
                                     <Share2 className="w-4 h-4 mr-1" /> Share Link
                                 </button>
                                 <button
-                                    onClick={() => window.print()}
+                                    onClick={() => {
+                                        trackEvent('calculator_print', {
+                                            tool_id: id || 'unknown',
+                                            tool_category: config.category
+                                        });
+                                        window.print();
+                                    }}
                                     className="flex items-center text-sm text-gray-500 hover:text-blue-600 transition-colors"
                                 >
                                     <Printer className="w-4 h-4 mr-1" /> {t('calc.printResults')}
@@ -1563,7 +1596,7 @@ export const CalculatorDetail: React.FC = () => {
                                 <li>Calculation logic follows established public formulas for {config.category.toLowerCase()} scenarios.</li>
                                 <li>Outputs are estimates and may vary by provider, jurisdiction, and rounding standards.</li>
                                 <li>Data source baseline: internal calculator configuration plus public reference formulas.</li>
-                                <li>Last updated: {new Date().toISOString().slice(0, 10)}</li>
+                                <li>Last reviewed: {LAST_REVIEWED}</li>
                             </ul>
                         </div>
 

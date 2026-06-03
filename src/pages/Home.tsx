@@ -7,6 +7,7 @@ import { SeoTextBlock } from '../components/home/SeoTextBlock';
 import { AdSlot } from '../components/common/AdSlot';
 import { SEO } from '../components/common/SEO';
 import { useLanguage } from '../contexts/LanguageContext';
+import { SITE_NAME, SITE_URL } from '../config/site';
 
 export const Home: React.FC = () => {
     const { t } = useLanguage();
@@ -14,19 +15,19 @@ export const Home: React.FC = () => {
         {
             '@context': 'https://schema.org',
             '@type': 'WebSite',
-            name: 'WorkMoney Tools',
-            url: 'https://calculator-website-puce.vercel.app/',
+            name: SITE_NAME,
+            url: `${SITE_URL}/`,
             potentialAction: {
                 '@type': 'SearchAction',
-                target: 'https://calculator-website-puce.vercel.app/all-tools?search={search_term_string}',
+                target: `${SITE_URL}/all-tools?search={search_term_string}`,
                 'query-input': 'required name=search_term_string'
             }
         },
         {
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'WorkMoney Tools',
-            url: 'https://calculator-website-puce.vercel.app/'
+            name: SITE_NAME,
+            url: `${SITE_URL}/`
         }
     ];
 
